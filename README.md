@@ -10,7 +10,7 @@ BSD 3-Clause License. Please see LICENSE.txt for more details.
 
 ## Demo
 
-![Demo image of niu-x2 theme](https://raw.github.com/mawenbao/niu-x2/master/screenshot.png "niu-x2 demo image")
+![Demo image of niu-x2 theme](https://raw.github.com/mawenbao/niu-x2-sidebar/master/screenshot.png "niu-x2-sidebar demo image")
 
 You can check out my blog [blog.atime.me](http://blog.atime.me) for a live demo.
 
@@ -24,8 +24,7 @@ You can check out my blog [blog.atime.me](http://blog.atime.me) for a live demo.
 *  Collapsible monthly archives.
 *  Auto-generated copyright year range, which is actually from the year of your first article to the lastest.
 *  Fixed position navigation bar.
-*  TOC(table of contents) in navigation bar with the help of [extract_headings](https://github.com/wilbur-ma/extract_headings) plugin, with no addtional dependencies and no `[TOC]` in your markdown file. (Currently only markdown is supported)
-*  TOC(table of contents) in a sidebar.
+*  TOC(table of contents) in sidebar with the help of [extract_headings](https://github.com/wilbur-ma/extract_headings) plugin, with no addtional dependencies and no `[TOC]` in your markdown file. (Currently only markdown is supported)
 *  Article/Page comment on/off controled by file metadata.
 *  Pygments theme support.
 *  Categories shown in a dropdown list.
