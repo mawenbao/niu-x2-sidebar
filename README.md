@@ -1,6 +1,6 @@
-# Niu-X2
+# Niu-X2-Sidebar
 
-Niu-X2 is a responsive theme for pelican, built with bootstrap3 and font-awesome.
+Niu-X2-Sidebar is a responsive theme for pelican, built with bootstrap3 and font-awesome.
 
 As I am pretty new to bootstrap and jinja2, the codes look messy and may be buggy. If you find any bugs, please let me know.
 
@@ -17,7 +17,7 @@ You can check out my blog [blog.atime.me](http://blog.atime.me) for a live demo.
 ## Features
 
 *  Bootstrap3.0.0, font-awesome3.2.1 and jQuery1.10 included.
-*  Responsive. 
+*  <del>Responsive. </del>
 *  Disqus, duoshuo, google analytics and google custom search support.
 *  Pagination bar with customizable length. 
 *  Tagcloud implemented with [tagcloud.js](https://code.google.com/p/tagcloud) which supports incremental search.
@@ -41,25 +41,19 @@ For more theme related configurations, please refer to `Theme settings` section 
 
 First clone the repository:
 
-    git clone https://github.com/wilbur-ma/niu-x2
+    git clone https://github.com/mawenbao/niu-x2-sidebar
 
 Then set `THEME` variable to the path of the repository folder you have just cloned in your pelican configuration.
 
-    THEME = ~/repo/niu-x2
+    THEME = ~/repo/niu-x2-sidebar
 
 The theme depends on the jinja2 `expression statement` extension which should be added to your pelican configuration as below:
 
     JINJA_EXTENSIONS = ['jinja2.ext.ExprStmtExtension',]
 
-## Sidebar TOC
-Please use the `sidebar-toc` branch.
-
-    cd niu-x2
-    git co sidebar-toc
-
 ## TODO
 
-1. Better SEO support.
+1. Better responsive support.
 
 ## Global pelican settings
 
@@ -70,7 +64,7 @@ Currently the following pelican configuration variables are supported:
 
 ## Custom css
 
-You can define custom css codes in `niu-x2/static/css/custom.css`, and they will be available to all the templates.
+You can define custom css codes in `niu-x2-sidebar/static/css/custom.css`, and they will be available to all the templates.
 
 ## Theme settings
 
@@ -105,7 +99,7 @@ in the `static/css/pygments` folder. Currently all the theme css files come from
 
     NIUX2_PYGMENTS_THEME = 'borland'
 
-If `NIUX2_PYGMENTS_THEME` is not set, niu-x2 uses `github` theme by default.
+If `NIUX2_PYGMENTS_THEME` is not set, niu-x2-sidebar uses `github` theme by default.
 
 ### Google custom search engine
 
@@ -185,7 +179,7 @@ Currently, there is not a search result page in this theme, so I suggest that yo
 *  `NIUX2_FOOTER_LINKS` a `NIUX2_HEADER_SECTIONS` format list shown right after your copyright info in the footer section
 *  `NIUX2_DISPLAY_TITLE` boolean(default True), whether to display the title of article and page
 *  `NIUX2_DUOSHUO_SHORTNAME` string(default None), your duoshuo shortname. Note that if `DISQUS_SITENAME` is set, duoshuo will not be loaded.
-*  `NIUX2_LIB_THEME` string(default SITEURL+'/theme'), url of niu-x2 theme root
+*  `NIUX2_LIB_THEME` string(default SITEURL+'/theme'), url of niu-x2-sidebar theme root
 *  `NIUX2_LIB_FONTAWESOME` string(default '//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1'), url of font-awesome
 *  `NIUX2_LIB_BOOTSTRAP_JS` string(default 'http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/js/bootstrap.min.js'), url of bootstrap javascript
 *  `NIUX2_LIB_JQUERY` string(default 'http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js'), url of jquery
