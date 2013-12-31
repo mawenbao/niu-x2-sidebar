@@ -24,7 +24,7 @@ You can check out my blog [blog.atime.me](http://blog.atime.me) for a live demo.
 *  Collapsible monthly archives.
 *  Auto-generated copyright year range, which is actually from the year of your first article to the lastest.
 *  Fixed position navigation bar.
-*  TOC(table of contents) in sidebar with the help of [extract_headings](https://github.com/wilbur-ma/extract_headings) plugin, with no addtional dependencies and no `[TOC]` in your markdown file. (Currently only markdown is supported)
+*  TOC(table of contents) in sidebar with the help of [extract_headings](https://github.com/wilbur-ma/extract_headings) plugin, with no addtional dependencies and no `[TOC]` in your markdown file.
 *  Article/Page comment on/off controled by file metadata.
 *  Pygments theme support.
 *  Categories shown in a dropdown list.
