@@ -1,0 +1,31 @@
+{%- extends "base.html" -%}
+
+{%- block title -%}{{ page.title }} - {{ super() }}{%- endblock -%}
+
+{%- block head_init -%}
+{{ super() }}
+{% set theme_loc = NIUX2_LIB_THEME if NIUX2_LIB_THEME else SITEURL + '/theme' -%}
+<link rel="stylesheet" href="{{ theme_loc }}/css/pygments/{{ NIUX2_PYGMENTS_THEME | default("github") }}.css" type="text/css" />
+{%- endblock head_init -%}
+
+{%- block content -%}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        {%- if (NIUX2_DISPLAY_TITLE is not defined) or NIUX2_DISPLAY_TITLE -%}
+        <h1 id="content-heading">{{ page.title }}</h1>
+        {%- endif -%}
+    </div>
+</div>
+<div class="row">
+    <div id="niu2-left-container" class="col-md-6 col-md-offset-2">
+        <div id="niu2-main-content">
+            {{ page.content }}
+        </div>
+        {%- from "comments_wrapper.html" import niu2_comments -%}
+        {{ niu2_comments(page, DISQUS_SITENAME, NIUX2_DUOSHUO_SHORTNAME) }}
+    </div> 
+    <div id="niu2-right-container" class="col-md-2">
+        {% include "page_sidebar.html" %}
+    </div>
+</div>
+{%- endblock -%}

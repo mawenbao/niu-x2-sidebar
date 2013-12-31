@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% set theme_loc = NIUX2_LIB_THEME if NIUX2_LIB_THEME else SITEURL + '/theme' -%}
+    {% set fontawesome_loc = NIUX2_LIB_FONTAWESOME if NIUX2_LIB_FONTAWESOME else '//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1' -%}
+    {%- block head -%}
+    {%- block head_init -%}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%- block title -%}{{ SITENAME }}{%- endblock -%}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ NIUX2_FAVICON_URL | default('/favicon.png') }}">
+    <link rel="stylesheet" href="{{ theme_loc }}/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="{{ fontawesome_loc }}/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="{{ theme_loc }}/css/niu2.css" type="text/css" />
+    <link rel="stylesheet" href="{{ theme_loc }}/css/custom.css" type="text/css" />
+    <script type="text/javascript" src="{{ NIUX2_LIB_JQUERY | default('//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ theme_loc }}/js/niu2.js"></script>
+    {%- endblock head_init %}
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+            initGoogleCSEAnimation();
+            {% block head_js_onload -%}
+            {%- endblock head_js_onload %}
+        });
+    </script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="{{ theme_loc }}/js/html5shiv.js"></script>
+        <script src="{{ theme_loc }}/js/respond.min.js"></script>
+    <![endif]-->
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="{{ fontawesome_loc }}/css/font-awesome-ie7.min.css" type="text/css" />
+    <![endif]-->
+    {%- endblock head -%}
+  </head>
+  <body>
+    <div id="body-header">
+    {%- block body_header -%}
+        {%- include "header.html" -%}
+    {%- endblock body_header -%}
+    </div>
+    
+    <div id="body-content">
+        {%- block content -%} {%- endblock content -%}
+    </div>
+
+    <div class="row">
+        {%- block footer -%}
+        <div id="body-footer" class="col-md-6 col-md-offset-2">
+            {%- include "footer.html" -%}
+        </div>
+        {%- endblock footer -%}
+    </div>
+    {%- if GOOGLE_ANALYTICS -%}
+	    <script type="text/javascript">
+	      var _gaq = _gaq || [];
+	      _gaq.push(['_setAccount', '{{ GOOGLE_ANALYTICS }}']);
+	      _gaq.push(['_trackPageview']);
+	
+	      (function() {
+	        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	      })();
+	    </script>
+    {%- endif -%}
+    
+    {%- block additional_js -%}
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script type="text/javascript" src="{{ NIUX2_LIB_BOOTSTRAP_JS | default('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/js/bootstrap.min.js') }}"></script>
+    {%- endblock additional_js -%}
+  </body>
+</html>
