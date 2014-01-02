@@ -137,12 +137,12 @@ a.niu2-active-toc:before {
 #niu2-sidebar-toc ol li:before {
     content: counters(item, ".") ".";
     position: absolute;
-    left: -0.2em;
+    left: -0.1em;
     width: 2.2em;
     text-align: right;
     display: block;
 }
-.niu2-sidebar-toc-fixed li:before { left: -1.2em !important; }
+.niu2-sidebar-toc-fixed li:before { left: -1.1em !important; }
 #niu2-sidebar-toc li li:before { left: -2.1em; }
 .niu2-sidebar-toc-fixed li li:before { left: -2.2em !important; }
 #niu2-sidebar-toc li li li:before { left: -2.6em; }
