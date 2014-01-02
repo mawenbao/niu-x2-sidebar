@@ -118,6 +118,7 @@ a.niu2-active-toc:before {
 
 #niu2-sidebar-toc-list {
     padding-left: 17px;
+    margin-left: 13px;
 }
 
 #niu2-sidebar-toc-list a {
@@ -126,10 +127,30 @@ a.niu2-active-toc:before {
 }
 
 #niu2-sidebar-toc ol li { display: block; }
-#niu2-sidebar-toc ol { list-style: none; } /* hide original list counter */
+/* hide original list counter */
+#niu2-sidebar-toc ol {
+    list-style: none;
+}
 #niu2-sidebar-toc ol > li:first-child { counter-reset: item; } /* reset counter */
 #niu2-sidebar-toc ol > li { counter-increment: item; } /* increment counter */
-#niu2-sidebar-toc ol > li:before { content: counters(item, ".") "."; } /* print counter */
+/* print counter */
+#niu2-sidebar-toc ol li:before {
+    content: counters(item, ".") ".";
+    position: absolute;
+    left: -0.1em;
+    width: 2.2em;
+    text-align: right;
+    display: block;
+}
+.niu2-sidebar-toc-fixed li:before { left: -1.1em !important; }
+#niu2-sidebar-toc li li:before { left: -2em; }
+.niu2-sidebar-toc-fixed li li:before { left: -2.1em !important; }
+#niu2-sidebar-toc li li li:before { left: -2.5em; }
+.niu2-sidebar-toc-fixed li li li:before { left: -2.6em !important; }
+#niu2-sidebar-toc li li li li:before { left: -3.3em; }
+.niu2-sidebar-toc-fixed li li li li:before { left: -3.4em !important; }
+#niu2-sidebar-toc li li li li li:before { left: -3.9em; }
+.niu2-sidebar-toc-fixed li li li li li:before { left: -4em !important; }
 
 #niu2-sidebar-toc-list li ol {
     display: none;
@@ -137,6 +158,9 @@ a.niu2-active-toc:before {
 
 #niu2-sidebar-toc-list ol li {
     display: none;
+    position: relative;
+    left: 1em;
+    list-style-position: outside;
 }
 
 #niu2-sidebar-toc-list li {
@@ -153,6 +177,7 @@ a.niu2-active-toc:before {
 }
 
 .niu2-sidebar-toc-fixed {
+    width: inherit;
     position: fixed;
     top: 50px !important;
 }
