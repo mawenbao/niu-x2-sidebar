@@ -10,6 +10,7 @@ $(document).ready(function() {
         locateTocInViewport();
     });
     
+    initGoogleCSEAnimation();
     initTocLinkScrollAnimation();
 });
 
@@ -132,7 +133,9 @@ function initTocLinkScrollAnimation() {
             ev.preventDefault();
             anchor = $(e).attr('href').substring($(e).attr('href').indexOf('#'))
             // update url anchor
-            window.history.pushState('toc change', anchor, anchor);
+            if (window.location.hash != anchor) {
+                window.history.pushState('toc change', anchor, anchor);
+            }
             window.gEnableTocStatusUpdate = false;
             $('body, html').animate(
                 {scrollTop: $(anchor).offset().top},
