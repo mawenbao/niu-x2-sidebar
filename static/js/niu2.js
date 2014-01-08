@@ -5,13 +5,7 @@
 window.gEnableTocStatusUpdate = true;
 
 $(document).ready(function() {
-    $(window).scroll(function() {
-        toggleSidebarTocFixed();
-        locateTocInViewport();
-    });
-    
     initGoogleCSEAnimation();
-    initTocLinkScrollAnimation();
 });
 
 function toggleSidebarTocFixed() {

@@ -8,6 +8,14 @@
 <link rel="stylesheet" href="{{ theme_loc }}/css/pygments/{{ NIUX2_PYGMENTS_THEME | default("github") }}.css" type="text/css" />
 {%- endblock head_init -%}
 
+{%- block head_js_onload -%}
+    $(window).scroll(function() {
+        toggleSidebarTocFixed();
+        locateTocInViewport();
+    });
+    initTocLinkScrollAnimation();
+{%- endblock head_js_onload -%}
+
 {%- block content -%}
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
