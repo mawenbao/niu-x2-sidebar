@@ -396,6 +396,7 @@ a.niu2-toggle-ctrl:hover {
 
 #niu2-tagcloud a {
     display: inline-block;
+    padding: 0 3px;
 }
 
 #niu2-tagcloud a:hover {
