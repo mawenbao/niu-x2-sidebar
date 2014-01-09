@@ -124,6 +124,7 @@ a.niu2-active-toc:before {
 #niu2-sidebar-toc-list a {
     padding: 0 3px;
     margin-left: 3px;
+    display: inline-block;
 }
 
 #niu2-sidebar-toc ol li { display: block; }
