@@ -13,7 +13,15 @@
         toggleSidebarTocFixed();
         locateTocInViewport();
     });
+    if ('onhashchange' in window) {
+        $(window).bind('hashchange', function() {
+            updateFootnoteStatus();
+        });
+    }
+    window.setInterval(updateFootnoteStatus, 5000);
+    updateFootnoteStatus();
     initTocLinkScrollAnimation();
+    initFootnoteScrollAnimation();
 {%- endblock head_js_onload -%}
 
 {%- block content -%}

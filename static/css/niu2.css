@@ -26,6 +26,11 @@ blockquote p {
     line-height: 1.3 !important;
 }
 
+.footnote li p {
+    margin-bottom: 0;
+    display: inline-block;
+}
+
 #content-comments {
     margin-top: 25px;
 }

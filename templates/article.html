@@ -8,12 +8,20 @@
 <link rel="stylesheet" href="{{ theme_loc }}/css/pygments/{{ NIUX2_PYGMENTS_THEME | default("github") }}.css" type="text/css" />
 {%- endblock head_init -%}
 
-{%- block head_js_onload -%}
+{%- block head_js_onload %}
     $(window).scroll(function() {
         toggleSidebarTocFixed();
         locateTocInViewport();
     });
+    if ('onhashchange' in window) {
+        $(window).bind('hashchange', function() {
+            updateFootnoteStatus();
+        });
+    }
+    window.setInterval(updateFootnoteStatus, 5000);
+    updateFootnoteStatus();
     initTocLinkScrollAnimation();
+    initFootnoteScrollAnimation();
 {%- endblock head_js_onload -%}
 
 {%- block content -%}
