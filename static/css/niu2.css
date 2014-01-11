@@ -35,6 +35,39 @@ blockquote p {
     margin-top: 25px;
 }
 
+sup {
+    margin: 0 4px 0 2px;
+}
+
+sup a.footnote-ref:before {
+    content: "[";
+    margin-right: 1.5px;
+}
+
+sup a.footnote-ref:after {
+    content: "]";
+    margin-left: 1.5px;
+}
+
+sup a.footnote-ref:hover {
+    text-decoration: none;
+}
+
+a.footnote-backref:hover {
+    text-decoration: none;
+}
+
+div.popover {
+    line-height: 1.6;
+    max-width: 300px;
+    background-color: none;
+    color: black;
+}
+
+.alert-info a {
+    font-weight: bold;
+}
+
 /* fix navbar blik issue on chrome windows */
 .navbar {
     -webkit-backface-visibility: hidden;

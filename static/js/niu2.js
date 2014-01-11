@@ -4,10 +4,22 @@
 
 window.gEnableTocStatusUpdate = true;
 window.gFixedHeaderHeight = 32;
+window.gFootnotePopoverMaxWidth = 300;
 
 $(document).ready(function() {
     initGoogleCSEAnimation();
 });
+
+function onArticleLoaded() {
+    $(window).scroll(function() {
+        toggleSidebarTocFixed();
+        locateTocInViewport();
+    });
+    window.setInterval(updateFootnoteStatus, 500);
+    updateFootnoteStatus();
+    initTocLinkScrollAnimation();
+    initFootnote();
+}
 
 function toggleSidebarTocFixed() {
     var sidebarToc = $('#niu2-sidebar-toc');
@@ -138,18 +150,12 @@ function initTocLinkScrollAnimation() {
     );
 }
 
-function getFootnoteRefs() {
-    if (!window.gFootnoteRefs) {
-        window.gFootnoteRefs = $('.footnote-ref');
-    }
-    return window.gFootnoteRefs;
-}
+function initFootnote() {
+    initFootnoteBackRefLinks();
 
-function getFootnoteBackRefs() {
-    if (!window.gFootnoteBackRefs) {
-        window.gFootnoteBackRefs = $('.footnote-backref');
-    }
-    return window.gFootnoteBackRefs;
+    initMouseXYRecord();
+    initFootnoteRefPopover();
+    initFootnoteScrollAnimation();
 }
 
 function updateFootnoteStatus() {
@@ -165,6 +171,12 @@ function unhighlightElement(obj) {
     obj.attr('class', '');
 }
 
+function getFootnoteHlIndex() {
+    // the first element in footnote list li
+    // is <p>, the valid footnote
+    return 0;
+}
+
 function highlightFootnote() {
     footnoteRef = $(document.getElementById(window.location.hash.substring(1)));
     if (footnoteRef[0]) {
@@ -175,20 +187,15 @@ function highlightFootnote() {
             return;
         }
     }
+
     getFootnoteLis().each(function(i, e) {
         currLi = $(e);
         if ('#' + currLi.attr('id') == window.location.hash) {
-            highlightElement($(currLi.children()[0]));
+            highlightElement($(currLi.children()[getFootnoteHlIndex()]));
+            window.gHlFootnote = currLi;
             return false;
         }
     });
-}
-
-function getFootnoteLis() {
-    if (!window.gFootnoteList) {
-        window.gFootnoteList = $('.footnote li');
-    }
-    return window.gFootnoteList;
 }
 
 function unhighlightFootnote() {
@@ -198,16 +205,71 @@ function unhighlightFootnote() {
         return;
     }
 
-    getFootnoteLis().each(function(i, e) {
-        currLi = $(e);
-        if ('#' + currLi.attr('id') == window.location.hash) {
+    if (window.gHlFootnote) {
+        if ('#' + window.gHlFootnote.attr('id') == window.location.hash) {
             return false;
         }
-        currP = $(currLi.children()[0])
+        currP = $(window.gHlFootnote.children()[getFootnoteHlIndex()])
         if ('' != currP.attr('class')) {
             unhighlightElement(currP);
+            window.gHlFootnote = null;
+            return;
         }
-    });
+    }
+}
+
+function getFootnoteRefs() {
+    if (!window.gFootnoteRefs) {
+        window.gFootnoteRefs = $('.footnote-ref');
+    }
+    return window.gFootnoteRefs;
+}
+
+function getFootnoteRefId(ftId) {
+    if (!window.gFootnoteIdMap) {
+        window.gFootnoteIdMap = {};
+        getFootnoteRefs().each(function(i, e) {
+            refNode = $(e);
+            window.gFootnoteIdMap[refNode.attr('href').substring(1)] = refNode.parent().attr('id');
+        });
+    } 
+    return window.gFootnoteIdMap[ftId];
+}
+
+function getFootnoteBackRefs() {
+    if (!window.gFootnoteBackRefs) {
+        window.gFootnoteBackRefs = $('.footnote-backref');
+    }
+    return window.gFootnoteBackRefs;
+}
+
+function getFootnoteLis() {
+    if (!window.gFootnoteList) {
+        window.gFootnoteList = $('.footnote li');
+    }
+    return window.gFootnoteList;
+}
+
+// add a backref link to footnote ref
+function initFootnoteBackRefLinks() {
+    // create backref links
+    getFootnoteLis().each(function(i, e) {
+        ftLiNode = $(e);
+        //ftLiNode.prepend('<a class="footnote-backref" href="#' + getFootnoteRefId(ftLiNode.attr('id')) + '">^</a>');
+        ftLiNode.append('<a class="footnote-backref" href="#' + getFootnoteRefId(ftLiNode.attr('id')) + '">^</a>');
+    }); 
+
+    // init backref links animation
+    initScrollAnimation(
+        getFootnoteBackRefs(),
+        -32,
+        400,
+        function() {
+            updateFootnoteStatus();
+            window.gEnableTocStatusUpdate = true;
+            locateTocInViewport();
+        }
+    );
 }
 
 function initFootnoteScrollAnimation() {
@@ -217,23 +279,81 @@ function initFootnoteScrollAnimation() {
         -32,
         400,
         function() {
-            highlightFootnote();
+            updateFootnoteStatus();
             window.gEnableTocStatusUpdate = true;
             locateTocInViewport();
         }
     );
-    
-    // footnote backref link click event
-    initScrollAnimation(
-        getFootnoteBackRefs(),
-        -32,
-        400,
-        function() {
-            unhighlightFootnote();
-            window.gEnableTocStatusUpdate = true;
-            locateTocInViewport();
+}
+
+function initFootnoteRefPopover() {
+    getFootnoteRefs().each(function(i, e) {
+        ftRefLink = $(e);
+        ftLiNode = $(document.getElementById(ftRefLink.attr('href').substring(1)));
+        ftNode = $(ftLiNode.children()[getFootnoteHlIndex()]);
+        ftRefLink.popover({
+            'trigger': 'hover',
+            'placement': 'auto top',
+            'html': true,
+            'container': 'body',
+            'content': ftNode.html()
+        });
+        // do not hide popover
+        ftRefLink.on('hide.bs.popover', function() {
+            if (window.gFootnotePopoverLink) {
+                return false;
+            }
+            return true;
+        });
+
+        ftRefLink.mouseleave(function() {
+        });
+
+        // record mouse position on footnote ref hover
+        ftRefLink.mouseenter(function() {
+            currRefLink = $(this);
+            // close previous popover first
+            if (window.gFootnotePopoverLink && window.gFootnotePopoverLink[0] != currRefLink[0]) {
+                hideFootnotePopover();
+            }
+            ftPopoverNode = $('.popover')[0];
+            if (ftPopoverNode) {
+                window.gEnableMouseXYRecord = true;
+                window.gFootnotePopoverLink = currRefLink;
+
+                popoverXY = ftPopoverNode.getBoundingClientRect();
+                refLinkXY = e.getBoundingClientRect();
+                window.gFootnotePopXY = {};
+                window.gFootnotePopXY.left = popoverXY.left < refLinkXY.left ? popoverXY.left : refLinkXY.left;
+                window.gFootnotePopXY.right = popoverXY.right > refLinkXY.right ? popoverXY.right : refLinkXY.right;
+                window.gFootnotePopXY.top = popoverXY.top < refLinkXY.top ? popoverXY.top : refLinkXY.top;
+                window.gFootnotePopXY.bottom = popoverXY.bottom > refLinkXY.bottom ? popoverXY.bottom : refLinkXY.bottom;
+            }
+        });
+    });    
+}
+
+function hideFootnotePopover() {
+    ftRefLink = window.gFootnotePopoverLink;
+    window.gFootnotePopoverLink = null;
+    window.gEnableFootnotePopover = false;
+    ftRefLink.popover('hide');
+}
+
+// hide footnote popover
+function initMouseXYRecord() {
+    $(document).mousemove(function(e) {
+        if (window.gEnableMouseXYRecord && window.gFootnotePopXY) {
+            if (e.clientX < window.gFootnotePopXY.left ||
+                    e.clientX > window.gFootnotePopXY.right ||
+                    e.clientY < window.gFootnotePopXY.top ||
+                    e.clientY > window.gFootnotePopXY.bottom) {
+                // hide footnote popover now
+                window.gEnableMouseXYRecord = false;
+                hideFootnotePopover();
+            }
         }
-    );
+    });
 }
 
 function initScrollAnimation(targets, heightOffset, speed, callback) {

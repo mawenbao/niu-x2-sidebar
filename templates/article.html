@@ -9,19 +9,7 @@
 {%- endblock head_init -%}
 
 {%- block head_js_onload %}
-    $(window).scroll(function() {
-        toggleSidebarTocFixed();
-        locateTocInViewport();
-    });
-    if ('onhashchange' in window) {
-        $(window).bind('hashchange', function() {
-            updateFootnoteStatus();
-        });
-    }
-    window.setInterval(updateFootnoteStatus, 5000);
-    updateFootnoteStatus();
-    initTocLinkScrollAnimation();
-    initFootnoteScrollAnimation();
+    onArticleLoaded();
 {%- endblock head_js_onload -%}
 
 {%- block content -%}
