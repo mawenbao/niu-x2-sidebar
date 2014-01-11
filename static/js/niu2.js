@@ -320,14 +320,20 @@ function initFootnoteRefPopover() {
             if (ftPopoverNode) {
                 window.gEnableMouseXYRecord = true;
                 window.gFootnotePopoverLink = currRefLink;
-
                 popoverXY = ftPopoverNode.getBoundingClientRect();
                 refLinkXY = e.getBoundingClientRect();
-                window.gFootnotePopXY = {};
-                window.gFootnotePopXY.left = popoverXY.left < refLinkXY.left ? popoverXY.left : refLinkXY.left;
-                window.gFootnotePopXY.right = popoverXY.right > refLinkXY.right ? popoverXY.right : refLinkXY.right;
-                window.gFootnotePopXY.top = popoverXY.top < refLinkXY.top ? popoverXY.top : refLinkXY.top;
-                window.gFootnotePopXY.bottom = popoverXY.bottom > refLinkXY.bottom ? popoverXY.bottom : refLinkXY.bottom;
+
+                window.gPopoverXY = {}
+                window.gPopoverXY.top = popoverXY.top < refLinkXY.top ? popoverXY.top : refLinkXY.bottom;
+                window.gPopoverXY.bottom = popoverXY.top < refLinkXY.top ? refLinkXY.top : popoverXY.bottom;
+                window.gPopoverXY.left = popoverXY.left < refLinkXY.left ? popoverXY.left : refLinkXY.left;
+                window.gPopoverXY.right = popoverXY.right < refLinkXY.right ? refLinkXY.right : popoverXY.right;
+
+                window.gRefLinkXY = {}
+                window.gRefLinkXY.top = refLinkXY.top;
+                window.gRefLinkXY.bottom = refLinkXY.bottom;
+                window.gRefLinkXY.left = refLinkXY.left - 10;
+                window.gRefLinkXY.right = refLinkXY.right + 10;
             }
         });
     });    
@@ -340,14 +346,20 @@ function hideFootnotePopover() {
     ftRefLink.popover('hide');
 }
 
+function isPositionInRect(x, y, rect) {
+    if (x >= rect.left &&  x <= rect.right &&
+            y >= rect.top && y <= rect.bottom) {
+        return true;
+    }
+    return false;
+}
+
 // hide footnote popover
 function initMouseXYRecord() {
     $(document).mousemove(function(e) {
-        if (window.gEnableMouseXYRecord && window.gFootnotePopXY) {
-            if (e.clientX < window.gFootnotePopXY.left ||
-                    e.clientX > window.gFootnotePopXY.right ||
-                    e.clientY < window.gFootnotePopXY.top ||
-                    e.clientY > window.gFootnotePopXY.bottom) {
+        if (window.gEnableMouseXYRecord && window.gPopoverXY && window.gRefLinkXY) {
+            if (!isPositionInRect(e.clientX, e.clientY, window.gPopoverXY) &&
+                    !isPositionInRect(e.clientX, e.clientY, window.gRefLinkXY)) {
                 // hide footnote popover now
                 window.gEnableMouseXYRecord = false;
                 hideFootnotePopover();

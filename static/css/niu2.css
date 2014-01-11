@@ -36,7 +36,7 @@ blockquote p {
 }
 
 sup {
-    margin: 0 4px 0 3px;
+    margin: 0 4px 0 2px;
 }
 
 sup a.footnote-ref:before {
@@ -51,6 +51,10 @@ sup a.footnote-ref:after {
 
 sup a.footnote-ref:hover {
     text-decoration: none;
+}
+
+a.footnote-backref {
+    margin-left: -2px;
 }
 
 a.footnote-backref:hover {
