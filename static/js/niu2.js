@@ -255,8 +255,7 @@ function initFootnoteBackRefLinks() {
     // create backref links
     getFootnoteLis().each(function(i, e) {
         ftLiNode = $(e);
-        //ftLiNode.prepend('<a class="footnote-backref" href="#' + getFootnoteRefId(ftLiNode.attr('id')) + '">^</a>');
-        ftLiNode.append('<a class="footnote-backref" href="#' + getFootnoteRefId(ftLiNode.attr('id')) + '">^</a>');
+        ftLiNode.append('<a class="footnote-backref" href="#' + getFootnoteRefId(ftLiNode.attr('id')) + '"><i class="icon-angle-up></i></a>');
     }); 
 
     // init backref links animation
