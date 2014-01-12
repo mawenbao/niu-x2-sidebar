@@ -61,6 +61,10 @@ a.footnote-backref:hover {
     text-decoration: none;
 }
 
+a.footnote-backref i {
+    vertical-align: top;
+}
+
 div.popover {
     line-height: 1.6;
     max-width: 300px;
