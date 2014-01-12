@@ -44,13 +44,11 @@
         {%- block content -%} {%- endblock content -%}
     </div>
 
-    <div class="row">
-        {%- block footer -%}
-        <div id="body-footer" class="col-md-6 col-md-offset-2">
-            {%- include "footer.html" -%}
-        </div>
-        {%- endblock footer -%}
+    {%- block footer -%}
+    <div id="body-footer" class="col-md-6 col-md-offset-2">
+        {%- include "footer.html" -%}
     </div>
+    {%- endblock footer -%}
     {%- if GOOGLE_ANALYTICS -%}
 	    <script type="text/javascript">
 	      var _gaq = _gaq || [];
