@@ -15,7 +15,7 @@
 		{%- if NIUX2_HEADER_SECTIONS -%}
 		{%- for section in NIUX2_HEADER_SECTIONS -%}
 			<li><a href="{{ section[2] }}" title="{{ section[1] }}">
-			    <i class="{{ section[3] }}"></i>{{ section[0] }}</a>
+			    <i class="fa {{ section[3] }}"></i>{{ section[0] }}</a>
 			</li>
 		{%- endfor -%}
 		{%- else -%}
@@ -35,7 +35,7 @@
                {%- for cat, article_list in categories -%}
                <li><a href="{{ SITEURL }}/{{ cat.url }}">
                    {%- if NIUX2_CATEGORY_MAP and NIUX2_CATEGORY_MAP[cat] -%}
-                      <i class="{{ NIUX2_CATEGORY_MAP[cat][1] }}"></i>{{ NIUX2_CATEGORY_MAP[cat][0] }}
+                      <i class="fa {{ NIUX2_CATEGORY_MAP[cat][1] }}"></i>{{ NIUX2_CATEGORY_MAP[cat][0] }}
 	               {%- else -%}
 	               <i class="fa fa-folder-close"></i>{{ cat }}
 	               {%- endif %}
@@ -48,12 +48,12 @@
 		{%- for dpsection, dplinks in NIUX2_HEADER_DROPDOWN_SECTIONS.items() -%}
 		<li class="dropdown">
 		   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		       <i class="{{ dpsection[1] }}"></i>{{ dpsection[0] }}<b class="caret"></b>
+		       <i class="fa {{ dpsection[1] }}"></i>{{ dpsection[0] }}<b class="caret"></b>
 		   </a>
 		   <ul class="dropdown-menu">
 		   {%- for link in dplinks -%}
 		       <li><a href="{{ link[2] }}" title="{{ link[1] }}">
-                 <i class="{{ link[3] }}"></i>{{ link[0] }}</a>
+                 <i class="fa {{ link[3] }}"></i>{{ link[0] }}</a>
 		       </li>
 		   {%- endfor -%}
 		   </ul>

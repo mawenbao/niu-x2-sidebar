@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     {% set theme_loc = NIUX2_LIB_THEME if NIUX2_LIB_THEME else SITEURL + '/theme' -%}
-    {% set fontawesome_loc = NIUX2_LIB_FONTAWESOME if NIUX2_LIB_FONTAWESOME else '//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1' -%}
+    {% set fontawesome_loc = NIUX2_LIB_FONTAWESOME if NIUX2_LIB_FONTAWESOME else SITEURL + '/theme/font-awesome' -%}
+    {% set lib_jquery_loc = NIUX2_LIB_JQUERY if NIUX2_LIB_JQUERY else SITEURL + '/theme/js/jquery-1.10.2.min.js' -%}
+    {% set bootstrap_js_loc = NIUX2_LIB_BOOTSTRAP_JS if NIUX2_LIB_BOOTSTRAP_JS else SITEURL + '/theme/js/bootstrap.min.js' -%}
     {%- block head -%}
     {%- block head_init -%}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,7 +15,7 @@
     <link rel="stylesheet" href="{{ fontawesome_loc }}/css/font-awesome.min.css" type="text/css" />
     <link rel="stylesheet" href="{{ theme_loc }}/css/niu2.css" type="text/css" />
     <link rel="stylesheet" href="{{ theme_loc }}/css/custom.css" type="text/css" />
-    <script type="text/javascript" src="{{ NIUX2_LIB_JQUERY | default('//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ lib_jquery_loc }}"></script>
     <script type="text/javascript" src="{{ theme_loc }}/js/niu2.js"></script>
     {%- endblock head_init %}
     
@@ -65,7 +67,7 @@
     
     {%- block additional_js -%}
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script type="text/javascript" src="{{ NIUX2_LIB_BOOTSTRAP_JS | default('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ bootstrap_js_loc }}"></script>
     {%- endblock additional_js -%}
   </body>
 </html>

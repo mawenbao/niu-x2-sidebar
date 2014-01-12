@@ -6,7 +6,7 @@
     <div class="niu2-sidebar-value">{{ article.updatedate }}</div>
     {% endif %}
     {%- if NIUX2_CATEGORY_MAP and NIUX2_CATEGORY_MAP[article.category] -%}
-    <div class="niu2-sidebar-label"><i class="{{ NIUX2_CATEGORY_MAP[article.category][1] }}"></i>{{ NIUX2_CATEGORY_TRANSL | default("Category") }}:</div>
+    <div class="niu2-sidebar-label"><i class="fa {{ NIUX2_CATEGORY_MAP[article.category][1] }}"></i>{{ NIUX2_CATEGORY_TRANSL | default("Category") }}:</div>
     <div class="niu2-sidebar-value"><a href="{{ SITEURL }}/{{ article.category.url }}">{{ NIUX2_CATEGORY_MAP[article.category][0] }}</a></div>
     {%- else -%}
     <div class="niu2-sidebar-label"><i class="fa fa-open-folder"></i>{{ NIUX2_CATEGORY_TRANSL | default("Category") }}:</div>
@@ -15,7 +15,7 @@
     <div class="niu2-sidebar-label"><i class="fa fa-tag"></i>{{ NIUX2_TAG_TRANSL | default("Tag") }}:</div>
     {%- if article.tags -%} 
     {%- for tag in article.tags -%} 
-    <div class="niu2-sidebar-inter-value niu2-sidebar-tag"></i><a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a></div>
+    <div class="niu2-sidebar-inter-value niu2-sidebar-tag"><a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a></div>
     {%- endfor -%} 
     {%- endif -%}
 </div>
