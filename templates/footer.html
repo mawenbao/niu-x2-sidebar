@@ -19,14 +19,14 @@
 		{%- endif %}
 		<a href="{{ SITEURL }}">{{ AUTHOR | default("") }}</a>
 		{% for link in NIUX2_FOOTER_LINKS %}
-			| <i class="fa {{ link[3] }}"></i>
+        | {%- if link[3] -%} <i class="fa {{ link[3] }}"></i> {%- endif -%}
 			<a href="{{ link[2] }}" title="{{ link[1] }}">{{ link[0] }}</a>
 		{%- endfor -%}
     </p>
     <p class="niu2-icons">
 	    {%- for icon in NIUX2_FOOTER_ICONS -%}
 	        <a href="{{ icon[2] }}" title="{{ icon[1] }}">
-	            <i class="fa {{ icon[0] }} fa-large"></i>
+	            <i class="fa {{ icon[0] }} fa-lg"></i>
 	        </a>
 	    {%- endfor -%}
 	</p>
