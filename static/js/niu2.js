@@ -71,7 +71,7 @@ function initGoogleCSEAnimation() {
 function getHtmlHeaders() {
     if (!window.gHtmlHeaders) {
         window.gHtmlHeaders = $(':header');
-        commentsNode = $('#content-comments')[0];
+        var commentsNode = $('#content-comments')[0];
         if (commentsNode) {
             window.gHtmlHeaders.push(commentsNode);
         }
@@ -112,7 +112,7 @@ function getSidebarTocLinks() {
 function updateTocLinkStatus(anchor) {
     closeAllTocList();
     getSidebarTocLinks().each(function(li, lelem) {
-        cLink = $(lelem);
+        var cLink = $(lelem);
         if (anchor == cLink.attr('href').substr(cLink.attr('href').indexOf('#') + 1)) {
             cLink.attr('class', 'niu2-active-toc');
             openActiveTocList(cLink.parent());
@@ -124,7 +124,7 @@ function updateTocLinkStatus(anchor) {
 
 function openActiveTocList(active) {
     // show next level tocs
-    activeChilds = active.children();
+    var activeChilds = active.children();
     if (activeChilds.length > 1 && $(activeChilds[1]).is('ol')) {
         showToc($(activeChilds[1]));  // show ol
         showToc($(activeChilds[1]).children()); // show ol li
@@ -154,7 +154,7 @@ function closeAllTocList() {
 function initTocLinkScrollAnimation() {
     initScrollAnimation(
         getSidebarTocLinks(),
-        0,
+        function(target) { return target.offset().top; },
         400,
         function() { window.gEnableTocStatusUpdate = true; locateTocInViewport(); }
     );
@@ -165,7 +165,7 @@ function initFootnote() {
 
     initMouseXYRecord();
     initFootnoteRefPopover();
-    initFootnoteScrollAnimation();
+    initFootnoteRefAnimation();
 }
 
 function updateFootnoteStatus() {
@@ -181,27 +181,48 @@ function unhighlightElement(obj) {
     obj.removeClass('alert-success');
 }
 
+function highlightSubBackref(obj) {
+    obj.addClass('activeSubBackref');
+}
+
+function unhighlightSubBackref(obj) {
+    obj.removeClass('activeSubBackref');
+}
+
 function getFootnoteHlIndex() {
     // the first element in footnote list li
     // is <p>, the valid footnote
     return 0;
 }
 
+function highlightFtSubBackrefs(ftLiNode) {
+    if (null != window.gCurrFootnoteRefPos) {
+        var currBackref = $(ftLiNode.children('.backref-span').children('.sub-backref-link').children()[window.gCurrFootnoteRefPos]);
+        if (currBackref[0]) {
+            highlightSubBackref(currBackref);
+            window.gHlFootnoteSubBackref = currBackref;
+        }
+    }
+}
+
 function highlightFootnote() {
-    footnoteRef = $(document.getElementById(window.location.hash.substring(1)));
-    if (footnoteRef[0]) {
-        footnoteRefLink = $(footnoteRef.children()[0]);
-        if (footnoteRefLink[0] && 'footnote' == footnoteRefLink.attr('rel')) {
-            highlightElement(footnoteRef);
-            window.gHlFootnoteRef = footnoteRef;
+    var ftHlId = window.location.hash.substring(1);
+    // highlight footnote ref link
+    if (null != window.gCurrFootnoteHlPos) {
+        var currSupNodes = $(getFootnoteRefs().parent().filter('[id="' + ftHlId + '"]'));
+        if (currSupNodes.length > window.gCurrFootnoteHlPos) {
+            window.gHlFootnoteRef = $(currSupNodes[window.gCurrFootnoteHlPos]);
+            highlightElement(window.gHlFootnoteRef);
             return;
         }
     }
 
+    // highlight footnote and current sub-backref link
     getFootnoteLis().each(function(i, e) {
-        currLi = $(e);
-        if ('#' + currLi.attr('id') == window.location.hash) {
+        var currLi = $(e);
+        if (currLi.attr('id') == ftHlId) {
             highlightElement($(currLi.children()[getFootnoteHlIndex()]));
+            highlightFtSubBackrefs(currLi);
             window.gHlFootnote = currLi;
             return false;
         }
@@ -210,6 +231,9 @@ function highlightFootnote() {
 
 function unhighlightFootnote() {
     if (window.gHlFootnoteRef) {
+        if ('#' + window.gHlFootnoteRef.attr('id') == window.location.hash) {
+            return false;
+        }
         unhighlightElement(window.gHlFootnoteRef);
         window.gHlFootnoteRef = null;
         return;
@@ -219,12 +243,16 @@ function unhighlightFootnote() {
         if ('#' + window.gHlFootnote.attr('id') == window.location.hash) {
             return false;
         }
-        currP = $(window.gHlFootnote.children()[getFootnoteHlIndex()])
+        var currP = $(window.gHlFootnote.children()[getFootnoteHlIndex()])
         if ('' != currP.attr('class')) {
             unhighlightElement(currP);
             window.gHlFootnote = null;
-            return;
         }
+    }
+
+    if (window.gHlFootnoteSubBackref) {
+        unhighlightSubBackref(window.gHlFootnoteSubBackref);
+        return;
     }
 }
 
@@ -235,12 +263,23 @@ function getFootnoteRefs() {
     return window.gFootnoteRefs;
 }
 
-function getFootnoteRefId(ftId) {
+// currently, the python markdown footnote extension may
+// generate multiple footnote reference links with the
+// same id
+function getFootnoteRefMap(ftId) {
     if (!window.gFootnoteIdMap) {
         window.gFootnoteIdMap = {};
         getFootnoteRefs().each(function(i, e) {
-            refNode = $(e);
-            window.gFootnoteIdMap[refNode.attr('href').substring(1)] = refNode.parent().attr('id');
+            var refNode = $(e);
+            var supNode = refNode.parent();
+            // footnote => {ref link id, [footnote ref link offset]}
+            var footnoteId = refNode.attr('href').substring(1);
+            if (!window.gFootnoteIdMap[footnoteId]) {
+                window.gFootnoteIdMap[footnoteId] = {};
+                window.gFootnoteIdMap[footnoteId].id = supNode.attr('id');
+                window.gFootnoteIdMap[footnoteId].offsets = [];
+            }
+            window.gFootnoteIdMap[footnoteId].offsets.push(supNode.offset());
         });
     } 
     return window.gFootnoteIdMap[ftId];
@@ -260,22 +299,53 @@ function getFootnoteLis() {
     return window.gFootnoteList;
 }
 
-// add a backref link to footnote ref
+// add a backref span to footnote ref
 function initFootnoteBackRefLinks() {
     // create backref links
     getFootnoteLis().each(function(i, e) {
-        ftLiNode = $(e);
-        ftLiNode.append('<a class="footnote-backref" title="jump back" href="#' +
-            getFootnoteRefId(ftLiNode.attr('id')) +
-            '"><i class="fa fa-angle-up"></i></a>');
+        var ftLiNode = $(e);
+        var ftLiNodeId = ftLiNode.attr('id');
+        var ftRefLinksMap = getFootnoteRefMap(ftLiNode.attr('id'));
+        var ftRefLinksNum = ftRefLinksMap.offsets.length;
+        var backrefSpan = '<span class="backref-span">';
+        if (1 == (ftRefLinksNum)) {
+            backrefSpan += '<a class="footnote-backref" title="jump back" href="#' +
+                ftRefLinksMap.id + '" data-source="' + ftLiNodeId + 
+                '"><i class="fa fa-angle-up"></i></a>';
+        } else {
+            backrefSpan += '<i class="fa fa-angle-up"></i><span class="sub-backref-link">';
+            for (var i = 0; i < ftRefLinksNum; i++) {
+                // starts with ascii character a(97)
+                backrefSpan += '<a class="footnote-backref" href="#' +
+                    ftRefLinksMap.id + '" data-source="' + ftLiNodeId +
+                    '">' + String.fromCharCode(97 + i) + '</a> ';
+            }
+            backrefSpan += '</span>';
+        }
+        backrefSpan += '</span>';
+        ftLiNode.append(backrefSpan);
     }); 
 
     // init backref links animation
     initScrollAnimation(
         getFootnoteBackRefs(),
-        -32,
+        function(target, source) {
+            var ftRefLinksMap = getFootnoteRefMap(source.attr('data-source'));
+            if (1 == ftRefLinksMap.offsets.length) {
+                return ftRefLinksMap.offsets[0].top - window.gFixedHeaderHeight;
+            } else {
+                // starts with ascii character a(97)
+                return ftRefLinksMap.offsets[source.text().charCodeAt(0) - 97].top - window.gFixedHeaderHeight;
+            }
+        },
         400,
-        function() {
+        function(source) {
+            if ("" != source.text()) {
+                window.gCurrFootnoteHlPos = source.text().charCodeAt(0) - 97;
+            } else {
+                window.gCurrFootnoteHlPos = 0;
+            }
+            alert('wokao:' + window.gCurrFootnoteHlPos);
             updateFootnoteStatus();
             window.gEnableTocStatusUpdate = true;
             locateTocInViewport();
@@ -283,13 +353,21 @@ function initFootnoteBackRefLinks() {
     );
 }
 
-function initFootnoteScrollAnimation() {
+function initFootnoteRefAnimation() {
     // footnote ref link click event
     initScrollAnimation(
         getFootnoteRefs(),
-        -32,
+        function(target) { return target.offset().top - 100 - window.gFixedHeaderHeight; },
         400,
-        function() {
+        function(source) {
+            // find current sub-backref link
+            var currFtSups = getFootnoteRefs().parent().filter('[id="' + source.parent().attr('id') + '"]');
+            currFtSups.each(function(i, e) {
+                if (source[0] == $(e).children()[0]) {
+                    window.gCurrFootnoteRefPos = i;
+                    return false;
+                }
+            });
             updateFootnoteStatus();
             window.gEnableTocStatusUpdate = true;
             locateTocInViewport();
@@ -299,9 +377,9 @@ function initFootnoteScrollAnimation() {
 
 function initFootnoteRefPopover() {
     getFootnoteRefs().each(function(i, e) {
-        ftRefLink = $(e);
-        ftLiNode = $(document.getElementById(ftRefLink.attr('href').substring(1)));
-        ftNode = $(ftLiNode.children()[getFootnoteHlIndex()]);
+        var ftRefLink = $(e);
+        var ftLiNode = $(document.getElementById(ftRefLink.attr('href').substring(1)));
+        var ftNode = $(ftLiNode.children()[getFootnoteHlIndex()]);
         ftRefLink.popover({
             'trigger': 'hover',
             'placement': 'auto top',
@@ -322,17 +400,17 @@ function initFootnoteRefPopover() {
 
         // record mouse position on footnote ref hover
         ftRefLink.mouseenter(function() {
-            currRefLink = $(this);
+            var currRefLink = $(this);
             // close previous popover first
             if (window.gFootnotePopoverLink && window.gFootnotePopoverLink[0] != currRefLink[0]) {
                 hideFootnotePopover();
             }
-            ftPopoverNode = $('.popover')[0];
+            var ftPopoverNode = $('.popover')[0];
             if (ftPopoverNode) {
                 window.gEnableMouseXYRecord = true;
                 window.gFootnotePopoverLink = currRefLink;
-                popoverXY = ftPopoverNode.getBoundingClientRect();
-                refLinkXY = e.getBoundingClientRect();
+                var popoverXY = ftPopoverNode.getBoundingClientRect();
+                var refLinkXY = e.getBoundingClientRect();
 
                 window.gPopoverXY = {}
                 window.gPopoverXY.top = popoverXY.top < refLinkXY.top ? popoverXY.top : refLinkXY.bottom;
@@ -351,7 +429,7 @@ function initFootnoteRefPopover() {
 }
 
 function hideFootnotePopover() {
-    ftRefLink = window.gFootnotePopoverLink;
+    var ftRefLink = window.gFootnotePopoverLink;
     window.gFootnotePopoverLink = null;
     window.gEnableFootnotePopover = false;
     ftRefLink.popover('hide');
@@ -379,20 +457,20 @@ function initMouseXYRecord() {
     });
 }
 
-function initScrollAnimation(targets, heightOffset, speed, callback) {
+function initScrollAnimation(targets, calcHeightFunc, speed, callback) {
     targets.each(function(i, e) {
         $(e).click(function(ev) {
             ev.preventDefault();
-            anchor = $(e).attr('href').substring($(e).attr('href').indexOf('#') + 1);
+            var anchor = $(e).attr('href').substring($(e).attr('href').indexOf('#') + 1);
             // update url anchor
             if (window.location.hash != anchor) {
                 window.history.pushState('toc change', anchor, '#' + anchor);
             }
             window.gEnableTocStatusUpdate = false;
             $('body, html').animate(
-                { scrollTop: $(document.getElementById(anchor)).offset().top + heightOffset },
+                { scrollTop: calcHeightFunc($(document.getElementById(anchor)), $(this)) },
                 speed, 
-                callback
+                callback($(this))
             );
         });
     });
@@ -400,7 +478,7 @@ function initScrollAnimation(targets, heightOffset, speed, callback) {
 
 function showToc(tocs) {
     tocs.each(function(i, elem) {
-        toc = $(elem);
+        var toc = $(elem);
         if (toc.is('li')) {
             toc.attr('style', 'display:list-item;');
         } else if (toc.is('ol')) {

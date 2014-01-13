@@ -53,16 +53,28 @@ sup a.footnote-ref:hover {
     text-decoration: none;
 }
 
+div.footnote li {
+    margin-top: -5px;
+}
+
+.activeSubBackref {
+    text-decoration: underline;
+}
+
+a.activeSubBackref:hover {
+    text-decoration: underline !important;
+}
+
+.backref-span {
+    vertical-align: super;
+}
+
 a.footnote-backref {
     margin-left: -2px;
 }
 
 a.footnote-backref:hover {
     text-decoration: none;
-}
-
-a.footnote-backref i {
-    vertical-align: top;
 }
 
 div.popover {
