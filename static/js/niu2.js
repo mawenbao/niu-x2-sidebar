@@ -71,7 +71,10 @@ function initGoogleCSEAnimation() {
 function getHtmlHeaders() {
     if (!window.gHtmlHeaders) {
         window.gHtmlHeaders = $(':header');
-        window.gHtmlHeaders.push($('#content-comments')[0]);
+        commentsNode = $('#content-comments')[0];
+        if (commentsNode) {
+            window.gHtmlHeaders.push(commentsNode);
+        }
     }
     return window.gHtmlHeaders;
 }
