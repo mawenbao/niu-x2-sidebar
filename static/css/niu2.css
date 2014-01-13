@@ -41,12 +41,12 @@ sup {
 
 sup a.footnote-ref:before {
     content: "[";
-    margin-right: 1.5px;
+    margin-right: 1px;
 }
 
 sup a.footnote-ref:after {
     content: "]";
-    margin-left: 1.5px;
+    margin-left: 1px;
 }
 
 sup a.footnote-ref:hover {

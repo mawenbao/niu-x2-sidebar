@@ -174,11 +174,11 @@ function updateFootnoteStatus() {
 }
 
 function highlightElement(obj) {
-    obj.attr('class', 'alert-success');
+    obj.addClass('alert-success');
 }
 
 function unhighlightElement(obj) {
-    obj.attr('class', '');
+    obj.removeClass('alert-success');
 }
 
 function getFootnoteHlIndex() {
