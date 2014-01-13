@@ -32,11 +32,11 @@ blockquote p {
 }
 
 #content-comments {
-    margin-top: 45px;
+    margin-top: 25px;
 }
 
 sup {
-    margin: 0 4px 0 2px;
+    margin: 0 3px 0 2px;
 }
 
 sup a.footnote-ref:before {
@@ -57,9 +57,11 @@ div.footnote hr {
     margin-bottom: 10px;
 }
 
+/*
 div.footnote ol {
     padding-left: 22px;
 }
+*/
 
 div.footnote li {
     margin-top: -4px;
@@ -75,10 +77,6 @@ a.activeSubBackref:hover {
 
 .backref-span {
     vertical-align: super;
-}
-
-a.footnote-backref {
-    margin-left: -2px;
 }
 
 a.footnote-backref:hover {

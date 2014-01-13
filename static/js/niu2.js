@@ -10,7 +10,8 @@ $(document).ready(function() {
     initGoogleCSEAnimation();
 });
 
-function onArticleLoaded() {
+function onContentLoaded() {
+    initFootnote();
     $(window).scroll(function() {
         toggleSidebarTocFixed();
         locateTocInViewport();
@@ -18,7 +19,6 @@ function onArticleLoaded() {
     //window.setInterval(updateFootnoteStatus, 500);
     updateFootnoteStatus();
     initTocLinkScrollAnimation();
-    initFootnote();
 }
 
 function toggleSidebarTocFixed() {
@@ -71,6 +71,11 @@ function initGoogleCSEAnimation() {
 function getHtmlHeaders() {
     if (!window.gHtmlHeaders) {
         window.gHtmlHeaders = $(':header');
+        
+        if (getFootnoteRefs().length > 0) {
+            window.gHtmlHeaders.push($('#content-references')[0]);
+        }
+
         var commentsNode = $('#content-comments')[0];
         if (commentsNode) {
             window.gHtmlHeaders.push(commentsNode);
@@ -165,8 +170,14 @@ function initTocLinkScrollAnimation() {
 }
 
 function initFootnote() {
-    initFootnoteBackRefLinks();
+    // insert footnote title node
+    if (getFootnoteRefs().length > 0) {
+        var ftTitle = '参考资料';
+        $('#niu2-sidebar-toc-list').children(':last').before('<li><a href="#content-references">' + ftTitle + '</a></li>');
+        $('.footnote').before('<h2 id="content-references">' + ftTitle + '</h2>');
+    }
 
+    initFootnoteBackRefLinks();
     initMouseXYRecord();
     initFootnoteRefPopover();
     initFootnoteRefAnimation();
@@ -319,10 +330,8 @@ function initFootnoteBackRefLinks() {
         } else {
             backrefSpan += '<i class="fa fa-angle-up"></i><span class="sub-backref-link">';
             for (var i = 0; i < ftRefLinksNum; i++) {
-                // starts with ascii character a(97)
-                backrefSpan += '<a class="footnote-backref" href="#' +
-                    ftRefLinksMap.id + '" data-source="' + ftLiNodeId +
-                    '">' + String.fromCharCode(97 + i) + '</a> ';
+                backrefSpan += '<a class="footnote-backref" href="#' + ftRefLinksMap.id +
+                    '" data-source="' + ftLiNodeId + '">' + (i + 1) + '</a> ';
             }
             backrefSpan += '</span>';
         }
@@ -338,14 +347,13 @@ function initFootnoteBackRefLinks() {
             if (1 == ftRefLinksMap.offsets.length) {
                 return ftRefLinksMap.offsets[0].top - window.gFixedHeaderHeight;
             } else {
-                // starts with ascii character a(97)
-                return ftRefLinksMap.offsets[source.text().charCodeAt(0) - 97].top - window.gFixedHeaderHeight;
+                return ftRefLinksMap.offsets[parseInt(source.text()) - 1].top - window.gFixedHeaderHeight;
             }
         },
         400,
         function(source) {
             if ("" != source.text()) {
-                window.gCurrFootnoteHlPos = source.text().charCodeAt(0) - 97;
+                window.gCurrFootnoteHlPos = parseInt(source.text()) - 1;
             } else {
                 window.gCurrFootnoteHlPos = 0;
             }
