@@ -32,7 +32,7 @@ blockquote p {
 }
 
 #content-comments {
-    margin-top: 25px;
+    margin-top: 45px;
 }
 
 sup {
@@ -51,6 +51,15 @@ sup a.footnote-ref:after {
 
 sup a.footnote-ref:hover {
     text-decoration: none;
+}
+
+div.footnote hr {
+    margin-top: 15px;
+    margin-bottom: 12px;
+}
+
+div.footnote ol {
+    padding-left: 23px;
 }
 
 div.footnote li {
