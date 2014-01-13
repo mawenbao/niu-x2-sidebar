@@ -345,7 +345,6 @@ function initFootnoteBackRefLinks() {
             } else {
                 window.gCurrFootnoteHlPos = 0;
             }
-            alert('wokao:' + window.gCurrFootnoteHlPos);
             updateFootnoteStatus();
             window.gEnableTocStatusUpdate = true;
             locateTocInViewport();
