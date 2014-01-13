@@ -54,15 +54,15 @@ sup a.footnote-ref:hover {
 }
 
 div.footnote hr {
-    margin-bottom: 11px;
+    margin-bottom: 10px;
 }
 
 div.footnote ol {
-    padding-left: 21px;
+    padding-left: 22px;
 }
 
 div.footnote li {
-    margin-top: -5px;
+    margin-top: -4px;
 }
 
 .activeSubBackref {

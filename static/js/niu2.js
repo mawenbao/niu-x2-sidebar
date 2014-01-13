@@ -15,7 +15,7 @@ function onArticleLoaded() {
         toggleSidebarTocFixed();
         locateTocInViewport();
     });
-    window.setInterval(updateFootnoteStatus, 500);
+    //window.setInterval(updateFootnoteStatus, 500);
     updateFootnoteStatus();
     initTocLinkScrollAnimation();
     initFootnote();
@@ -156,7 +156,11 @@ function initTocLinkScrollAnimation() {
         getSidebarTocLinks(),
         function(target) { return target.offset().top; },
         400,
-        function() { window.gEnableTocStatusUpdate = true; locateTocInViewport(); }
+        function() {
+            updateFootnoteStatus();
+            window.gEnableTocStatusUpdate = true;
+            locateTocInViewport();
+        }
     );
 }
 
@@ -466,10 +470,12 @@ function initScrollAnimation(targets, calcHeightFunc, speed, callback) {
                 window.history.pushState('toc change', anchor, '#' + anchor);
             }
             window.gEnableTocStatusUpdate = false;
+            target = $(document.getElementById(anchor));
+            source = $(this);
             $('body, html').animate(
-                { scrollTop: calcHeightFunc($(document.getElementById(anchor)), $(this)) },
+                { scrollTop: calcHeightFunc(target, source) },
                 speed, 
-                callback($(this))
+                function() { callback(source); }
             );
         });
     });
