@@ -15,9 +15,10 @@
            {%- endif -%}
        {%- endfor -%}
        
+       <div class="panel">
        {%- for monthArc in allLists -%}
            {%- set currArcDate = monthArc[0].date.strftime('%Y-%m') -%}
-            <a class="niu2-toggle-ctrl" data-toggle="collapse" data-target="#arc-{{ currArcDate }}">
+            <a class="niu2-toggle-ctrl" data-parent="#niu2-archives" data-toggle="collapse" data-target="#arc-{{ currArcDate }}">
             {{ currArcDate }} ({{ monthArc | length }})
             </a>
             <ul id="arc-{{ currArcDate }}" class="collapse {{ 'in' if loop.first else 'out' }}">
@@ -36,6 +37,7 @@
             {%- endfor -%}
             </ul>
        {%- endfor -%}
+       </div>
 	</div>
 </div>
 {%- endblock -%}
