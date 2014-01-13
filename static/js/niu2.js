@@ -68,12 +68,19 @@ function initGoogleCSEAnimation() {
     });
 }
 
+function getHtmlHeaders() {
+    if (!window.gHtmlHeaders) {
+        window.gHtmlHeaders = $(':header');
+        window.gHtmlHeaders.push($('#content-comments')[0]);
+    }
+    return window.gHtmlHeaders;
+}
+
 function locateTocInViewport() {
     if (!window.gEnableTocStatusUpdate) {
         return;
     }
-    var headerList = $(':header');
-    headerList.push($('#content-comments')[0]);
+    var headerList = getHtmlHeaders();
     var tocFound = false;
     for (var i = 0; i < headerList.length; i++) {
         var elem = headerList[i];
