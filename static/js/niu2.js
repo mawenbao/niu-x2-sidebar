@@ -205,9 +205,10 @@ function unhighlightSubBackref(obj) {
 }
 
 function getFootnoteHlIndex() {
-    // the first element in footnote list li
-    // is <p>, the valid footnote
-    return 0;
+    // the second element in footnote list li
+    // is <p>, the valid footnote, while the
+    // first one is the footntoe backref link.
+    return 1;
 }
 
 function highlightFtSubBackrefs(ftLiNode) {
@@ -336,7 +337,7 @@ function initFootnoteBackRefLinks() {
             backrefSpan += '</span>';
         }
         backrefSpan += '</span>';
-        ftLiNode.append(backrefSpan);
+        ftLiNode.prepend(backrefSpan);
     }); 
 
     // init backref links animation
