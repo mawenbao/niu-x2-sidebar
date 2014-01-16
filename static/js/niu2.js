@@ -331,7 +331,7 @@ function initFootnoteBackRefLinks() {
         } else {
             backrefSpan += '<i class="fa fa-angle-up"></i><span class="sub-backref-link">';
             for (var i = 0; i < ftRefLinksNum; i++) {
-                backrefSpan += '<a class="footnote-backref" href="#' + ftRefLinksMap.id +
+                backrefSpan += '<a class="footnote-backref" title="jump back" href="#' + ftRefLinksMap.id +
                     '" data-source="' + ftLiNodeId + '">' + (i + 1) + '</a> ';
             }
             backrefSpan += '</span>';
