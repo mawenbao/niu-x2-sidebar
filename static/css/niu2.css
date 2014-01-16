@@ -36,7 +36,8 @@ blockquote p {
 }
 
 #content-comments {
-    margin-top: 45px;
+    margin-top: 25px;
+    padding-top: 20px;
 }
 
 sup {
