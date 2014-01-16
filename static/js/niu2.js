@@ -325,13 +325,13 @@ function initFootnoteBackRefLinks() {
         var ftRefLinksNum = ftRefLinksMap.offsets.length;
         var backrefSpan = '<span class="backref-span">';
         if (1 == (ftRefLinksNum)) {
-            backrefSpan += '<a class="footnote-backref" title="jump back" href="#' +
+            backrefSpan += '<a class="footnote-backref" href="#' +
                 ftRefLinksMap.id + '" data-source="' + ftLiNodeId + 
                 '"><i class="fa fa-angle-up"></i></a>';
         } else {
             backrefSpan += '<i class="fa fa-angle-up"></i><span class="sub-backref-link">';
             for (var i = 0; i < ftRefLinksNum; i++) {
-                backrefSpan += '<a class="footnote-backref" title="jump back" href="#' + ftRefLinksMap.id +
+                backrefSpan += '<a class="footnote-backref" href="#' + ftRefLinksMap.id +
                     '" data-source="' + ftLiNodeId + '">' + (i + 1) + '</a> ';
             }
             backrefSpan += '</span>';
