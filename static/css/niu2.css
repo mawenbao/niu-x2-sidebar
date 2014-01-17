@@ -98,8 +98,8 @@ a.footnote-backref:hover {
 
 div.popover {
     line-height: 1.6;
-    max-width: 300px;
-    background-color: none;
+    max-width: 320px;
+    background-color: white;
     color: black;
 }
 
