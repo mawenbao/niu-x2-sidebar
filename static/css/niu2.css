@@ -66,10 +66,18 @@ div.footnote hr {
 div.footnote ol {
     padding-left: 22px;
 }
-*/
 
 div.footnote li {
-    margin-top: -4px;
+    margin-top: -3px;
+}
+*/
+
+div.footnote span {
+    line-height: 1.2;
+}
+
+div.footnote p {
+    display: inline;
 }
 
 .activeSubBackref {

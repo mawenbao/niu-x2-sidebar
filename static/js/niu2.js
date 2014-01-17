@@ -237,7 +237,7 @@ function highlightFootnote() {
     getFootnoteLis().each(function(i, e) {
         var currLi = $(e);
         if (currLi.attr('id') == ftHlId) {
-            highlightElement($(currLi.children()[getFootnoteHlIndex()]));
+            highlightElement($(currLi));
             highlightFtSubBackrefs(currLi);
             window.gHlFootnote = currLi;
             return false;
@@ -259,7 +259,7 @@ function unhighlightFootnote() {
         if ('#' + window.gHlFootnote.attr('id') == window.location.hash) {
             return false;
         }
-        var currP = $(window.gHlFootnote.children()[getFootnoteHlIndex()])
+        var currP = $(window.gHlFootnote);
         if ('' != currP.attr('class')) {
             unhighlightElement(currP);
             window.gHlFootnote = null;
