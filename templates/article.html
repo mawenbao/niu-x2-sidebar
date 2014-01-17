@@ -8,9 +8,9 @@
 <link rel="stylesheet" href="{{ theme_loc }}/css/pygments/{{ NIUX2_PYGMENTS_THEME | default("github") }}.css" type="text/css" />
 {%- endblock head_init -%}
 
-{%- block head_js_onload %}
+{%- block js_on_body_ready %}
     onContentLoaded();
-{%- endblock head_js_onload -%}
+{%- endblock js_on_body_ready -%}
 
 {%- block content -%}
 <div class="col-md-8 col-md-offset-2">

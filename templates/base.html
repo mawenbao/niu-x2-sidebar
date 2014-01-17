@@ -3,8 +3,6 @@
   <head>
     {% set theme_loc = NIUX2_LIB_THEME if NIUX2_LIB_THEME else SITEURL + '/theme' -%}
     {% set fontawesome_loc = NIUX2_LIB_FONTAWESOME if NIUX2_LIB_FONTAWESOME else SITEURL + '/theme/font-awesome' -%}
-    {% set lib_jquery_loc = NIUX2_LIB_JQUERY if NIUX2_LIB_JQUERY else SITEURL + '/theme/js/jquery-1.10.2.min.js' -%}
-    {% set bootstrap_js_loc = NIUX2_LIB_BOOTSTRAP_JS if NIUX2_LIB_BOOTSTRAP_JS else SITEURL + '/theme/js/bootstrap.min.js' -%}
     {%- block head -%}
     {%- block head_init -%}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -15,15 +13,13 @@
     <link rel="stylesheet" href="{{ fontawesome_loc }}/css/font-awesome.min.css" type="text/css" />
     <link rel="stylesheet" href="{{ theme_loc }}/css/niu2.css" type="text/css" />
     <link rel="stylesheet" href="{{ theme_loc }}/css/custom.css" type="text/css" />
-    <script type="text/javascript" src="{{ lib_jquery_loc }}"></script>
-    <script type="text/javascript" src="{{ theme_loc }}/js/niu2.js"></script>
     {%- endblock head_init %}
     
     <script type="text/javascript">
-        $(document).ready(function(){
-            {% block head_js_onload -%}
-            {%- endblock head_js_onload %}
-        });
+        window.onload = function() {
+            {% block js_on_window_load -%}
+            {%- endblock js_on_window_load %}
+        };
     </script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -35,7 +31,7 @@
     <![endif]-->
     {%- endblock head -%}
   </head>
-  <body>
+  <body> 
     <div id="body-header">
     {%- block body_header -%}
         {%- include "header.html" -%}
@@ -65,9 +61,19 @@
 	    </script>
     {%- endif -%}
     
-    {%- block additional_js -%}
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    {% set lib_jquery_loc = NIUX2_LIB_JQUERY if NIUX2_LIB_JQUERY else SITEURL + '/theme/js/jquery-1.10.2.min.js' -%}
+    {% set bootstrap_js_loc = NIUX2_LIB_BOOTSTRAP_JS if NIUX2_LIB_BOOTSTRAP_JS else SITEURL + '/theme/js/bootstrap.min.js' -%}
+    <script type="text/javascript" src="{{ lib_jquery_loc }}"></script>
+    <script type="text/javascript" src="{{ theme_loc }}/js/niu2.js"></script>
     <script type="text/javascript" src="{{ bootstrap_js_loc }}"></script>
-    {%- endblock additional_js -%}
+
+    {% block additional_js_file %}
+    {% endblock additional_js_file -%}
+
+    <script type="text/javascript">
+    {% block js_on_body_ready %}
+    {% endblock js_on_body_ready %}
+    </script>
   </body>
 </html>

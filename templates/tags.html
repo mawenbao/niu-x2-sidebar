@@ -1,10 +1,11 @@
 {%- extends "base.html" -%}
 
-{%- block head_init -%}
 {{ super() }}
-{% set theme_loc = NIUX2_LIB_THEME if NIUX2_LIB_THEME else SITEURL + '/theme' -%}
+{% block additional_js_file -%}
 <script type="text/javascript" src="{{ theme_loc }}/js/tagcloud.min.js"></script>
-<script type="text/javascript">
+{%- endblock %}
+
+{%- block js_on_body_ready %}
 var tc = TagCloud.create();
 {%- for tag, article_list in tags -%}
 tc.add('{{ tag }}', {{ article_list | count }}, '{{ SITEURL }}/{{ tag.url }}', null);
@@ -15,13 +16,8 @@ function tag_filter() {
   tc.searchAndDisplay('niu2-tagcloud', $('#niu2-tagcloud-filter-input').val());
   return false;
 }
-</script>
-
-{%- endblock head_init -%}
-
-{%- block head_js_onload -%}
 tc.setup('niu2-tagcloud');
-{%- endblock head_js_onload -%}
+{% endblock -%}
 
 {%- block title -%}{{ NIUX2_TAG_TRANSL | default("Tags") }} - {{ super() }}{%- endblock title -%}
 
