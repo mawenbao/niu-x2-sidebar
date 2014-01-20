@@ -15,7 +15,7 @@ BSD 3-Clause License. Please see LICENSE.txt for more details.
 You can check out my blog [blog.atime.me](http://blog.atime.me) for a live demo.
 
 ## Features
-*  Bootstrap3.0.0, font-awesome3.2.1 and jQuery1.10 included.
+*  Bootstrap3.0.0, font-awesome4.0 and jQuery1.10 included.
 *  <del>Responsive. </del>
 *  Disqus, duoshuo, google analytics and google custom search support.
 *  Pagination bar with customizable length. 
