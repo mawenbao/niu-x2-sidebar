@@ -475,7 +475,7 @@ function initScrollAnimation(targets, calcHeightFunc, speed, callback) {
             ev.preventDefault();
             var anchor = $(e).attr('href').substring($(e).attr('href').indexOf('#') + 1);
             // update url anchor
-            if (window.location.hash != anchor) {
+            if (window.location.hash != anchor && window.history.pushState) {
                 window.history.pushState('toc change', anchor, '#' + anchor);
             }
             window.gEnableTocStatusUpdate = false;
