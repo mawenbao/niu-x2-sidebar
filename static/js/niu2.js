@@ -164,7 +164,7 @@ function updateTocLinkStatus(anchor) {
         var cLink = $(lelem);
         if (anchor == cLink.attr('href').substr(cLink.attr('href').indexOf('#') + 1)) {
             openActiveTocList(cLink.parent());
-            setTocListHeight(cLink);
+            resetTocListHeight();
             cLink.attr('class', window.gActiveTocClass);
         } else if ('' != cLink.attr('class')) {
             cLink.attr('class', '');
@@ -172,14 +172,13 @@ function updateTocLinkStatus(anchor) {
     });
 }
 
-function setTocListHeight(tocLink) {
+function resetTocListHeight() {
     var tocListOffsetTop = 85;
-    var tocOffsetY = tocLink[0].getBoundingClientRect().top;
     var windowHeight = $(window).height();
-    if (tocOffsetY >= windowHeight - tocListOffsetTop) {
+    if (getTocList().height() >= windowHeight - tocListOffsetTop) {
         var tocListHeight = windowHeight - tocListOffsetTop;
         getTocList().attr('style', 'height: ' + tocListHeight + 'px;');
-    } else if (getTocList().height() < windowHeight - tocListOffsetTop) {
+    } else {
         getTocList().attr('style', '');
     }
 }
