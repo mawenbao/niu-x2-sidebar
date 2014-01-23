@@ -3,8 +3,10 @@
  */
 
 window.gEnableTocStatusUpdate = true;
+window.gEnableTocAutoScroll = true;
 window.gFixedHeaderHeight = 32;
 window.gFootnotePopoverMaxWidth = 300;
+window.gActiveTocClass = 'niu2-active-toc'
 
 $(document).ready(function() {
     initGoogleCSEAnimation();
@@ -18,6 +20,13 @@ function onContentLoaded() {
     });
     //window.setInterval(updateFootnoteStatus, 500);
     updateFootnoteStatus();
+
+    // detach toc list before inserting many
+    // toc index <span>, for performance reason
+    getTocList().detach();
+    initTocListIndex(getTocList());
+    getTocList().appendTo(getSidebarToc());
+
     initTocLinkScrollAnimation();
 }
 
@@ -89,22 +98,21 @@ function locateTocInViewport() {
         return;
     }
     var headerList = getHtmlHeaders();
-    var tocFound = false;
+    var currTocId;
     for (var i = 0; i < headerList.length; i++) {
         var elem = headerList[i];
-        // 30px is the height of fixed head bar
         if (elem.getBoundingClientRect().top >= window.gFixedHeaderHeight) {
             if (i > 0) {
                 elem = headerList[i - 1];
             }
-            tocFound = true;
-            updateTocLinkStatus(elem.id);
+            currTocId = elem.id;
             break;
         }
     }
-    if (!tocFound) {
-        updateTocLinkStatus(headerList.last().attr('id'));
+    if (!currTocId) {
+        currTocId = headerList.last().attr('id');
     }
+    updateTocLinkStatus(currTocId);
 }
 
 function getSidebarTocLinks() {
@@ -114,33 +122,82 @@ function getSidebarTocLinks() {
     return window.gSidebarTocLinks;
 }
 
+function getSidebarToc() {
+    if (!window.gSidebarToc) {
+        window.gSidebarToc = $('#niu2-sidebar-toc');
+    }
+    return window.gSidebarToc;
+}
+
+function getTocList() {
+    if (!window.gTocList) {
+        window.gTocList = $('#niu2-sidebar-toc-list');
+    }
+    return window.gTocList;
+}
+
+function initTocListIndex(list, baseIndex) {
+    if (baseIndex && '' != baseIndex) {
+        baseIndex += '.';
+    } else {
+        baseIndex = '';
+    }
+
+    // iterate on list
+    list.children().each(function(i, e) {
+        var li = $(e);
+        // prepend a index span in front of each <a> of <li>
+        var liIndex = baseIndex + (i + 1);
+        li.prepend('<span class="niu2-sidebar-toc-index">' + liIndex + '.</span>');
+
+        // recursion on child list
+        var subLiChildren = li.children();
+        if (2 < subLiChildren.length) {
+            initTocListIndex($(subLiChildren[2]), liIndex);
+        }
+    });
+}
+
 function updateTocLinkStatus(anchor) {
     closeAllTocList();
     getSidebarTocLinks().each(function(li, lelem) {
         var cLink = $(lelem);
         if (anchor == cLink.attr('href').substr(cLink.attr('href').indexOf('#') + 1)) {
-            cLink.attr('class', 'niu2-active-toc');
             openActiveTocList(cLink.parent());
+            setTocListHeight(cLink);
+            cLink.attr('class', window.gActiveTocClass);
         } else if ('' != cLink.attr('class')) {
             cLink.attr('class', '');
         }
     });
 }
 
-function openActiveTocList(active) {
+function setTocListHeight(tocLink) {
+    var tocListOffsetTop = 85;
+    var tocOffsetY = tocLink[0].getBoundingClientRect().top;
+    var windowHeight = $(window).height();
+    if (tocOffsetY >= windowHeight - tocListOffsetTop) {
+        var tocListHeight = windowHeight - tocListOffsetTop;
+        getTocList().attr('style', 'height: ' + tocListHeight + 'px;');
+    } else if (getTocList().height() < windowHeight - tocListOffsetTop) {
+        getTocList().attr('style', '');
+    }
+}
+
+function openActiveTocList(activeLi) {
     // show next level tocs
-    var activeChilds = active.children();
-    if (activeChilds.length > 1 && $(activeChilds[1]).is('ol')) {
-        showToc($(activeChilds[1]));  // show ol
-        showToc($(activeChilds[1]).children()); // show ol li
+    var activeChilds = activeLi.children();
+    if (activeChilds.length > 2 && $(activeChilds[2]).is('ol')) {
+        showToc($(activeChilds[2]));  // show ol
+        showToc($(activeChilds[2]).children()); // show ol li
     }
 
     // show active toc and his sibling tocs
-    showToc(active);
-    showToc(active.siblings());
+    showToc(activeLi);
+    showToc(activeLi.siblings());
 
     // show active toc's parent toc and the parent toc's sibling tocs(only the top level)
-    active.parents().each(function(i, elem) {
+    activeLi.parents().each(function(i, elem) {
         if ('niu2-sidebar-toc-list' == elem.id) {
             return false;
         }
@@ -173,7 +230,7 @@ function initFootnote() {
     // insert footnote title node
     if (getFootnoteRefs().length > 0) {
         var ftTitle = '参考资料';
-        $('#niu2-sidebar-toc-list').children(':last').before('<li><a href="#content-references">' + ftTitle + '</a></li>');
+        getTocList().children(':last').before('<li><a href="#content-references">' + ftTitle + '</a></li>');
         $('.footnote').before('<h2 id="content-references">' + ftTitle + '</h2>');
     }
 
