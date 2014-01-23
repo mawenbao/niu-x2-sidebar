@@ -225,6 +225,7 @@ a.niu2-active-toc:before {
     padding: 0 3px;
     margin-left: 3px;
     display: inline-block;
+    max-width: 250px;
 }
 
 #niu2-sidebar-toc-list li ol {
