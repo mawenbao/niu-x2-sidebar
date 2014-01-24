@@ -232,7 +232,12 @@ a.niu2-active-toc:before {
     max-width: 270px;
 }
 
+#niu2-sidebar-toc-list li ol {
+    display: none;
+}
+
 #niu2-sidebar-toc-list ol li {
+    display: none;
     position: relative;
     left: 1em;
     list-style-position: outside;
