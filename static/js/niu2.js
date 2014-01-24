@@ -559,7 +559,7 @@ function initMouseXYRecord() {
         }
 
         // sidebar toc list scroll
-        if (isPositionInRect(e.clientX, e.clientY, getSidebarToc()[0].getBoundingClientRect())) {
+        if (isPositionInRect(e.clientX, e.clientY, getTocList()[0].getBoundingClientRect())) {
             window.gMouseInSidebarTocList = true;
         } else {
             window.gMouseInSidebarTocList = false;
