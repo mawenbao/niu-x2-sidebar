@@ -4,6 +4,7 @@
 
 window.gEnableTocStatusUpdate = true;
 window.gEnableTocListAutoScroll = true;
+window.gMouseInSidebarTocList = false;
 window.gFixedHeaderHeight = 32;
 window.gFixedTocListOffsetTop = 111;
 window.gFootnotePopoverMaxWidth = 300;
@@ -191,7 +192,7 @@ function resetTocListHeight() {
 }
 
 function autoscrollTocList() {
-    if (!window.gEnableTocListAutoScroll) {
+    if (!window.gEnableTocListAutoScroll || window.gMouseInSidebarTocList) {
         return;
     }
 
@@ -547,6 +548,7 @@ function isPositionInRect(x, y, rect) {
 // hide footnote popover
 function initMouseXYRecord() {
     $(document).mousemove(function(e) {
+        // footnote popover
         if (window.gEnableMouseXYRecord && window.gPopoverXY && window.gRefLinkXY) {
             if (!isPositionInRect(e.clientX, e.clientY, window.gPopoverXY) &&
                     !isPositionInRect(e.clientX, e.clientY, window.gRefLinkXY)) {
@@ -554,6 +556,13 @@ function initMouseXYRecord() {
                 window.gEnableMouseXYRecord = false;
                 hideFootnotePopover();
             }
+        }
+
+        // sidebar toc list scroll
+        if (isPositionInRect(e.clientX, e.clientY, getSidebarToc()[0].getBoundingClientRect())) {
+            window.gMouseInSidebarTocList = true;
+        } else {
+            window.gMouseInSidebarTocList = false;
         }
     });
 }
