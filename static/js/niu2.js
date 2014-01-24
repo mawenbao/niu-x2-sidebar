@@ -596,12 +596,6 @@ function hideToc(tocs) {
     });
 }
 
-function showToc(tocs) {
-    tocs.each(function(i, elem) {
-        $(elem).attr('style', '');
-    });
-}
-
 function initAllTocsCtrl() {
     if (isAllTocsClosed()) {
         closeAllTocs();
