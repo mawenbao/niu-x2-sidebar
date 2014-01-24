@@ -20,9 +20,11 @@
     {%- endif -%}
 </div>
 
-<div id="niu2-sidebar-toc" class="niu2-sidebar">
+<div id="niu2-sidebar-toc" class="niu2-sidebar" data-status="closed">
     {%- if article -%}
-    <div class="niu2-sidebar-label"><i class="fa fa-list-ul"></i>{{ NIUX2_HEADER_TOC_TRANSL | default("TOC") }}</div>
+    <div class="niu2-sidebar-label">
+        <i id="niu2-sidebar-toc-ctrl" class="fa fa-plus"></i>{{ NIUX2_HEADER_TOC_TRANSL | default("TOC") }}
+    </div>
     <ol id="niu2-sidebar-toc-list">
         <li><a href="#content-heading">{{ article.title }}</a></li>
         {{ article.html_toc }}
