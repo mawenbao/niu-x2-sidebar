@@ -232,6 +232,14 @@ a.niu2-active-toc:before {
     max-width: 270px;
 }
 
+#niu2-sidebar-toc-list li li a {
+    max-width: 230px;
+}
+
+#niu2-sidebar-toc-list li li li a {
+    max-width: 190px;
+}
+
 #niu2-sidebar-toc-list li ol {
     display: none;
 }
