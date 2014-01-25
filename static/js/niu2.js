@@ -37,7 +37,7 @@ function onContentLoaded() {
 }
 
 function setSidebarTocMaxWidth() {
-    getSidebarToc.attr('style', 'max-width:' + getSidebarToc().width() + 'px;');
+    getSidebarToc().attr('style', 'max-width:' + getSidebarToc().width() + 'px;');
 }
 
 function toggleSidebarTocFixed() {
