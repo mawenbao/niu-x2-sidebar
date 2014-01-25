@@ -29,9 +29,15 @@ function onContentLoaded() {
     initTocListIndex(getTocList());
     getTocList().appendTo(getSidebarToc());
 
+    setSidebarTocMaxWidth();
+
     initTocLinkScrollAnimation();
     initAllTocsCtrl();
     locateTocInViewport();
+}
+
+function setSidebarTocMaxWidth() {
+    getSidebarToc.attr('style', 'max-width:' + getSidebarToc().width() + 'px;');
 }
 
 function toggleSidebarTocFixed() {
