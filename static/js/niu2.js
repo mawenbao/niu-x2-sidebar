@@ -29,14 +29,15 @@ function onContentLoaded() {
     initTocListIndex(getTocList());
     getTocList().appendTo(getSidebarToc());
 
-    setSidebarTocMaxWidth();
+    setSidebarTocSize();
+    setTocOverflowedTitle();
 
     initTocLinkScrollAnimation();
     initAllTocsCtrl();
     locateTocInViewport();
 }
 
-function setSidebarTocMaxWidth() {
+function setSidebarTocSize() {
     getSidebarToc().attr('style', 'max-width:' + getSidebarToc().width() + 'px;');
 }
 
@@ -68,6 +69,24 @@ function hideCSE() {
         $("#niu2-cse-search-input").hide(300);
         $("#niu2-cse-search-image").show(300);
     }
+}
+
+function setTocOverflowedTitle() {
+    getSidebarTocLinks().each(function(i, e) {
+        $(e).mouseenter(function() {
+            var currLink = $(this);
+            if (isOverflowed(this) && !currLink.attr('title')) {
+                currLink.attr('title', currLink.text());
+            }
+        });
+    });
+}
+
+function isOverflowed(elem) {
+    if (elem.scrollHeight > elem.offsetHeight || elem.scrollWidth > elem.offsetWidth) {
+        return true;
+    }
+    return false;
 }
 
 function toggleTopIcon() {

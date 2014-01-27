@@ -229,15 +229,20 @@ a.niu2-active-toc:before {
     padding: 0 3px;
     margin-left: 3px;
     display: inline-block;
-    max-width: 270px;
+    max-width: 85%;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    overflow: hidden;
+    vertical-align: top;
+    white-space: nowrap;
 }
 
 #niu2-sidebar-toc-list li li a {
-    max-width: 230px;
+    max-width: 78%;
 }
 
 #niu2-sidebar-toc-list li li li a {
-    max-width: 190px;
+    max-width: 68%;
 }
 
 #niu2-sidebar-toc-list li ol {
