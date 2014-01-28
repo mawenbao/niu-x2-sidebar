@@ -226,7 +226,10 @@ function autoscrollTocList() {
     var tocListXY = getTocList()[0].getBoundingClientRect();
 
     var scrollHeight = activeTocXY.top - (tocListXY.top + tocListXY.bottom) / 2;
-    if (activeTocXY.top < tocListXY.top + 10 || activeTocXY.bottom > tocListXY.bottom - 10) {
+    var heightSign = (scrollHeight > 0) ? 1 : -1;
+    scrollHeight += heightSign * tocListXY.height / 5;
+
+    if (activeTocXY.top < tocListXY.top + 15 || activeTocXY.bottom > tocListXY.bottom - 15) {
         window.gEnableTocListAutoScroll = false;
         getTocList().animate(
                 { scrollTop: getTocList().scrollTop() + scrollHeight },
