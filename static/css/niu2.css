@@ -219,6 +219,7 @@ a.niu2-active-toc:before {
     margin-left: -4px;
     overflow-x: hidden;
     overflow-y: auto;
+    line-height: 1.6;
 }
 
 #niu2-sidebar-toc-list li ol li ol {
