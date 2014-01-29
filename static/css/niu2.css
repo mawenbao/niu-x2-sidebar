@@ -129,8 +129,12 @@ div.popover {
     line-height: 1.42 !important;
 }
 
-p, #body-content ul, #body-content ol {
-    line-height: 1.6;
+p, #niu2-main-content ul, #niu2-main-content ol {
+    line-height: 1.7;
+}
+
+.footnote ul, .footnote ol, .footnote p {
+    line-height: 1.6 !important;
 }
 
 hr {
@@ -414,7 +418,7 @@ img {
 }
 
 .tagcloud-list {
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 .niu2-button {
@@ -434,10 +438,8 @@ img {
 }
 
 a.niu2-toggle-ctrl {
-    /* border: 1px solid #999;*/
     height: 28px;
     font-size: 18px;
-    padding-top: 2px;
     padding-left: 5px;
     cursor: pointer;
     display: block;
@@ -446,7 +448,7 @@ a.niu2-toggle-ctrl {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
 }
 
 a.niu2-toggle-ctrl:hover {
@@ -457,10 +459,11 @@ a.niu2-toggle-ctrl:hover {
 
 #niu2-archives {
     font-size: 15px;
+    line-height: 1.7;
 }
 
 #niu2-archives ul {
-  margin-bottom: 5px; 
+  margin-bottom: 4px; 
   padding-left: 25px;
 }
 
