@@ -4,6 +4,11 @@
  * @nav-link-padding: 7px
  */
 
+code {
+    white-space: pre-line;
+    word-wrap: break-word;
+}
+
 i {
     margin-right: 4px;
 }
