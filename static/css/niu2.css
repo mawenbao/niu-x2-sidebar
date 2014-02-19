@@ -4,6 +4,11 @@
  * @nav-link-padding: 7px
  */
 
+pre {
+    word-break: normal;
+    word-wrap: normal;
+}
+
 code {
     white-space: pre-line;
     word-wrap: break-word;
@@ -227,12 +232,13 @@ a.niu2-active-toc:before {
     line-height: 1.6;
 }
 
-#niu2-sidebar-toc-list li ol li ol {
-    margin-left: 12px;
+#niu2-sidebar-toc-list li ol {
+    margin-left: -3px;
 }
 
+#niu2-sidebar-toc-list li ol li ol,
 #niu2-sidebar-toc-list li ul li ul {
-    margin-left: 12px;
+    margin-left: -2px;
 }
 
 #niu2-sidebar-toc-list a {
