@@ -62,7 +62,7 @@
     {%- endif -%}
     
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    {% set lib_jquery_loc = NIUX2_LIB_JQUERY if NIUX2_LIB_JQUERY else SITEURL + '/theme/js/jquery-1.10.2.min.js' -%}
+    {% set lib_jquery_loc = NIUX2_LIB_JQUERY if NIUX2_LIB_JQUERY else SITEURL + '/theme/js/jquery-1.11.0.min.js' -%}
     {% set bootstrap_js_loc = NIUX2_LIB_BOOTSTRAP_JS if NIUX2_LIB_BOOTSTRAP_JS else SITEURL + '/theme/js/bootstrap.min.js' -%}
     <script type="text/javascript" src="{{ lib_jquery_loc }}"></script>
     <script type="text/javascript" src="{{ theme_loc }}/js/niu2.js"></script>

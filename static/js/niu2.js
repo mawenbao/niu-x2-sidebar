@@ -275,10 +275,9 @@ function openAllTocs() {
 
 // toc scroll anamation
 function initTocLinkScrollAnimation() {
-    initScrollAnimation(
+    initScrollTopWithCallback(
         getSidebarTocLinks(),
         function(target) { return target.offset().top; },
-        400,
         function() {
             updateFootnoteStatus();
             window.gEnableTocStatusUpdate = true;
@@ -459,7 +458,7 @@ function initFootnoteBackRefLinks() {
     }); 
 
     // init backref links animation
-    initScrollAnimation(
+    initScrollTopWithCallback(
         getFootnoteBackRefs(),
         function(target, source) {
             var ftRefLinksMap = getFootnoteRefMap(source.attr('data-source'));
@@ -469,7 +468,6 @@ function initFootnoteBackRefLinks() {
                 return ftRefLinksMap.offsets[parseInt(source.text()) - 1].top - window.gFixedHeaderHeight;
             }
         },
-        400,
         function(source) {
             if ("" != source.text()) {
                 window.gCurrFootnoteHlPos = parseInt(source.text()) - 1;
@@ -485,10 +483,9 @@ function initFootnoteBackRefLinks() {
 
 function initFootnoteRefAnimation() {
     // footnote ref link click event
-    initScrollAnimation(
+    initScrollTopWithCallback(
         getFootnoteRefs(),
         function(target) { return target.offset().top - 100 - window.gFixedHeaderHeight; },
-        400,
         function(source) {
             // find current sub-backref link
             var currFtSups = getFootnoteRefs().parent().filter('[id="' + source.parent().attr('id') + '"]');
@@ -595,7 +592,7 @@ function initMouseXYRecord() {
     });
 }
 
-function initScrollAnimation(targets, calcHeightFunc, speed, callback) {
+function initScrollTopWithCallback(targets, calcHeightFunc, callback) {
     targets.each(function(i, e) {
         $(e).click(function(ev) {
             ev.preventDefault();
@@ -607,11 +604,8 @@ function initScrollAnimation(targets, calcHeightFunc, speed, callback) {
             window.gEnableTocStatusUpdate = false;
             target = $(document.getElementById(anchor));
             source = $(this);
-            $('body, html').animate(
-                { scrollTop: calcHeightFunc(target, source) },
-                speed, 
-                function() { callback(source); }
-            );
+            $('body, html').scrollTop(calcHeightFunc(target, source));
+            callback(source);
         });
     });
 }
