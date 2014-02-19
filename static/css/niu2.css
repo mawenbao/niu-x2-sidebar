@@ -165,6 +165,10 @@ img {
     border-right: 1px solid #ccc;
 }
 
+#niu2-right-container {
+    margin-left: 5px;
+}
+
 a.niu2-active-toc, a.niu2-active-toc:hover {
     color: white;
     background-color: #428bca;
