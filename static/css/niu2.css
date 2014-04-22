@@ -263,6 +263,7 @@ a.niu2-active-toc:before {
 
 #niu2-sidebar-toc-list li li li a {
     max-width: 68%;
+    margin-left: 12px;
 }
 
 #niu2-sidebar-toc-list li ol {
