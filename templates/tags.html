@@ -6,6 +6,7 @@
 {%- endblock %}
 
 {%- block js_on_body_ready %}
+{{ super() }}
 var tc = TagCloud.create();
 {%- for tag, article_list in tags -%}
 tc.add('{{ tag }}', {{ article_list | count }}, '{{ SITEURL }}/{{ tag.url }}', null);

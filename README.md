@@ -29,8 +29,8 @@ You can check out my blog [blog.atime.me](http://blog.atime.me) for a live demo.
 *  Categories shown in a dropdown list.
 *  Category aliases, which should be useful when you set `USE_FOLDER_AS_CATEGORY` to `True`.
 *  Custom dropdown menu, footer links and footer icons through pelican configuration with font-awesome icons.
-*  Custom 404 page.
 *  Translations through pelican configuration.
+*  Lazy load images with the jquery.lazy.load plugin. (You have to manually set `NIUX2_LAZY_LOAD` as True)
 
 ## Usage
 
@@ -60,10 +60,6 @@ Currently the following pelican configuration variables are supported:
 
 *  `DISQUS_SITENAME` is your disqus site ID.
 *  `GOOGLE_ANALYTICS` is your Google analytics ID.
-
-## Custom css
-
-You can define custom css codes in `niu-x2-sidebar/static/css/custom.css`, and they will be available to all the templates.
 
 ## Theme settings
 
@@ -182,5 +178,5 @@ Currently, there is not a search result page in this theme, so I suggest that yo
 *  `NIUX2_LIB_FONTAWESOME` string(default SITEURL+'/theme/font-awesome'), url of font-awesome
 *  `NIUX2_LIB_BOOTSTRAP_JS` string(default SITEURL+'/theme/js/bootstrap.min.js'), url of bootstrap javascript
 *  `NIUX2_LIB_JQUERY` string(default SITEURL+'/theme/js/jquery-1.10.2.min.js'), url of jquery
-
+*  `NIUX2_LAZY_LOAD` bool(default False), enable lazy loading images.
 

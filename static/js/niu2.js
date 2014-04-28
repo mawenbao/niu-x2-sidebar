@@ -35,6 +35,24 @@ function onContentLoaded() {
     initTocLinkScrollAnimation();
     initAllTocsCtrl();
     locateTocInViewport();
+
+    initLazyLoad();
+}
+
+function initLazyLoad() {
+    if ($('#lazyLoadScriptNode')[0]) {
+        // find all the images and prepare for lazy load js
+        var imageNodes = $('#body-content img');
+        imageNodes.each(function(i, elem) {
+            $(elem).attr('data-original', $(elem).attr('src'));
+            $(elem).attr('src', '');
+        });
+        // enable lazy load
+        imageNodes.show().lazyload({
+            threshold : 200,
+            effect : 'fadeIn'
+        });
+    }
 }
 
 function setSidebarTocSize() {

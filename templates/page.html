@@ -9,6 +9,7 @@
 {%- endblock head_init -%}
 
 {%- block js_on_body_ready -%}
+    {{ super() }}
     onContentLoaded();
 {%- endblock js_on_body_ready -%}
 
