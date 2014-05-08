@@ -73,7 +73,12 @@ function initToolbar() {
                 $('#body-footer').attr('class', 'col-md-6 col-md-offset-2');
                 $('#niu2-toolbar-ctrlsidebar i').attr('class', 'fa fa-3x fa-arrow-circle-right');
                 $('#niu2-toolbar-ctrlsidebar').attr('title', hideSidebarTitle);
+                locateTocInViewport();
             }
+            // must reset cached objects of footnote refs and backrefs
+            resetFootnoteRefs();
+            resetFootnoteBackRefs();
+            resetFootnoteRefMap();
         });
     }
 }
@@ -367,6 +372,7 @@ function initFootnote() {
     }
 
     initFootnoteBackRefLinks();
+    initFootnoteBackRefAnimation();
     initMouseXYRecord();
     initFootnoteRefPopover();
     initFootnoteRefAnimation();
@@ -461,11 +467,31 @@ function unhighlightFootnote() {
     }
 }
 
+function resetFootnoteRefs() {
+    window.gFootnoteRefs = $('.footnote-ref');
+}
+
 function getFootnoteRefs() {
     if (!window.gFootnoteRefs) {
-        window.gFootnoteRefs = $('.footnote-ref');
+        resetFootnoteRefs();
     }
     return window.gFootnoteRefs;
+}
+
+function resetFootnoteRefMap() {
+    window.gFootnoteIdMap = {};
+    getFootnoteRefs().each(function(i, e) {
+        var refNode = $(e);
+        var supNode = refNode.parent();
+        // footnote => {ref link id, [footnote ref link offset]}
+        var footnoteId = refNode.attr('href').substring(1);
+        if (!window.gFootnoteIdMap[footnoteId]) {
+            window.gFootnoteIdMap[footnoteId] = {};
+            window.gFootnoteIdMap[footnoteId].id = supNode.attr('id');
+            window.gFootnoteIdMap[footnoteId].offsets = [];
+        }
+        window.gFootnoteIdMap[footnoteId].offsets.push(supNode.offset());
+    });
 }
 
 // currently, the python markdown footnote extension may
@@ -473,26 +499,18 @@ function getFootnoteRefs() {
 // same id
 function getFootnoteRefMap(ftId) {
     if (!window.gFootnoteIdMap) {
-        window.gFootnoteIdMap = {};
-        getFootnoteRefs().each(function(i, e) {
-            var refNode = $(e);
-            var supNode = refNode.parent();
-            // footnote => {ref link id, [footnote ref link offset]}
-            var footnoteId = refNode.attr('href').substring(1);
-            if (!window.gFootnoteIdMap[footnoteId]) {
-                window.gFootnoteIdMap[footnoteId] = {};
-                window.gFootnoteIdMap[footnoteId].id = supNode.attr('id');
-                window.gFootnoteIdMap[footnoteId].offsets = [];
-            }
-            window.gFootnoteIdMap[footnoteId].offsets.push(supNode.offset());
-        });
+        resetFootnoteRefMap();
     } 
     return window.gFootnoteIdMap[ftId];
 }
 
+function resetFootnoteBackRefs() {
+    window.gFootnoteBackRefs = $('.footnote-backref');
+}
+
 function getFootnoteBackRefs() {
     if (!window.gFootnoteBackRefs) {
-        window.gFootnoteBackRefs = $('.footnote-backref');
+        resetFootnoteBackRefs();
     }
     return window.gFootnoteBackRefs;
 }
@@ -529,6 +547,9 @@ function initFootnoteBackRefLinks() {
         ftLiNode.prepend(backrefSpan);
     }); 
 
+}
+
+function initFootnoteBackRefAnimation() {
     // init backref links animation
     initScrollAnimation(
         getFootnoteBackRefs(),
