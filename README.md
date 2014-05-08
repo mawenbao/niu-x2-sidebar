@@ -31,6 +31,7 @@ You can check out my blog [blog.atime.me](http://blog.atime.me) for a live demo.
 *  Custom dropdown menu, footer links and footer icons through pelican configuration with font-awesome icons.
 *  Translations through pelican configuration.
 *  Lazy load images with the jquery.lazy.load plugin. (You have to manually set `NIUX2_LAZY_LOAD` as True)
+*  A toolbar.
 
 ## Usage
 
@@ -86,6 +87,13 @@ You should add the following setting to your pelican configuration.
     TEMPLATE_PAGES = {
         "404.html": "404.html",
     }
+
+### Toolbar
+
+The toolbar only supports for github project now.
+
+*  `NIUX2_TOOLBAR` bool(default False), enable/disable toolbar.
+*  `NIUX2_GITHUB_REPO` string(default ''), repository of your github project, for example `mawenbao/niu-x2-sidebar`.
 
 ### Pygments theme
 
@@ -165,6 +173,10 @@ Currently, there is not a search result page in this theme, so I suggest that yo
 *  `NIUX2_PUBLISHED_TRANSL` string(default "Published"), translation of publish date
 *  `NIUX2_LASTMOD_TRANSL` string(default "Last modified"), translation of last modified label, need pelican update_date plugin support
 *  `NIUX2_RECENT_UPDATE_TRANSL` string(default "Recent Updated Posts"), translation of recent updated posts
+*  `NIUX2_HIDE_SIDEBAR_TRANSL` string(default "Hide Sidebar")
+*  `NIUX2_SHOW_SIDEBAR_TRANSL` string(default "Show Sidebar")
+*  `NIUX2_REVISION_HISTORY_TRANSL` string(default "Revision History")
+*  `NIUX2_VIEW_SOURCE_TRANSL` string(default "View Source")
 
 ### Misc settings
 
@@ -179,4 +191,5 @@ Currently, there is not a search result page in this theme, so I suggest that yo
 *  `NIUX2_LIB_BOOTSTRAP_JS` string(default SITEURL+'/theme/js/bootstrap.min.js'), url of bootstrap javascript
 *  `NIUX2_LIB_JQUERY` string(default SITEURL+'/theme/js/jquery-1.10.2.min.js'), url of jquery
 *  `NIUX2_LAZY_LOAD` bool(default False), enable lazy loading images.
+
 

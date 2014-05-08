@@ -44,6 +44,9 @@ function onContentLoaded() {
 function initToolbar() {
     if (getToolbar()) {
         var githubRepo = $('#niu2-toolbar-github').data('repo').replace(/\/+$/g, '');
+        if ('' == githubRepo) {
+            return;
+        }
         var rightContainer = $('#niu2-right-container');
         var showSidebarTitle = $('#niu2-toolbar-showsidebar').data('title');
         var hideSidebarTitle = $('#niu2-toolbar-ctrlsidebar').attr('title');
