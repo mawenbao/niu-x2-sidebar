@@ -50,6 +50,10 @@ function initToolbar() {
             var showSidebarTitle = $('#niu2-toolbar-showsidebar').data('title');
             var hideSidebarTitle = $('#niu2-toolbar-ctrlsidebar').attr('title');
             var docPath = window.location.pathname.replace(/html$/, 'md');
+            if (-1 == docPath.replace(/^\//, '').search('/')) {
+                // is a page
+                docPath = '/pages' + docPath;
+            }
             $('#niu2-toolbar-revhistory').attr('href', 'https://github.com/' + githubRepo + '/commits/master/content' + docPath);
             $('#niu2-toolbar-viewsource').attr('href', 'https://raw.githubusercontent.com/' + githubRepo + '/master/content' + docPath);
         }
