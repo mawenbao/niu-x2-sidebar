@@ -43,18 +43,16 @@ function onContentLoaded() {
 
 function initToolbar() {
     if (getToolbar()) {
-        var githubRepo = $('#niu2-toolbar-github').data('repo').replace(/\/+$/g, '');
-        if ('' == githubRepo) {
-            return;
-        }
-        var rightContainer = $('#niu2-right-container');
-        var showSidebarTitle = $('#niu2-toolbar-showsidebar').data('title');
-        var hideSidebarTitle = $('#niu2-toolbar-ctrlsidebar').attr('title');
-
         // init raw link and revision link
-        var docPath = window.location.pathname.replace(/html$/, 'md');
-        $('#niu2-toolbar-revhistory').attr('href', 'https://github.com/' + githubRepo + '/commits/master/content' + docPath);
-        $('#niu2-toolbar-viewsource').attr('href', 'https://raw.githubusercontent.com/' + githubRepo + '/master/content' + docPath);
+        var githubRepo = $('#niu2-toolbar-github').data('repo').replace(/\/+$/g, '');
+        if ('' != githubRepo) {
+            var rightContainer = $('#niu2-right-container');
+            var showSidebarTitle = $('#niu2-toolbar-showsidebar').data('title');
+            var hideSidebarTitle = $('#niu2-toolbar-ctrlsidebar').attr('title');
+            var docPath = window.location.pathname.replace(/html$/, 'md');
+            $('#niu2-toolbar-revhistory').attr('href', 'https://github.com/' + githubRepo + '/commits/master/content' + docPath);
+            $('#niu2-toolbar-viewsource').attr('href', 'https://raw.githubusercontent.com/' + githubRepo + '/master/content' + docPath);
+        }
 
         // init sidebar controller
         $('#niu2-toolbar-ctrlsidebar').click(function(e) {
