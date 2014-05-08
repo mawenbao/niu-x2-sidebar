@@ -45,6 +45,25 @@ blockquote p {
     display: inline-block;
 }
 
+#niu2-toolbar {
+    position: fixed;
+    top: 30%;
+    left: -36px;
+}
+
+#niu2-toolbar-viewsource {
+    padding-left: 2px;
+}
+
+#niu2-toolbar a {
+    color: #666666;
+}
+
+#niu2-toolbar a:hover {
+    color: #428bca;
+    text-decoration: none;
+}
+
 #content-comments {
     margin-top: 25px;
     padding-top: 20px;
@@ -161,7 +180,7 @@ img {
     */
 }
 
-#niu2-left-container {
+.with-right-border {
     border-right: 1px solid #ccc;
 }
 

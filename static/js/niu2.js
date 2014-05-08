@@ -5,6 +5,7 @@
 window.gEnableTocStatusUpdate = true;
 window.gEnableTocListAutoScroll = true;
 window.gMouseInSidebarTocList = false;
+window.gToolbarHidden = true;
 window.gFixedHeaderHeight = 32;
 window.gFixedTocListOffsetTop = 111;
 window.gFootnotePopoverMaxWidth = 300;
@@ -36,7 +37,40 @@ function onContentLoaded() {
     initAllTocsCtrl();
     locateTocInViewport();
 
+    initToolbar();
     initLazyLoad();
+}
+
+function initToolbar() {
+    if (getToolbar()) {
+        var githubRepo = $('#niu2-toolbar-github').data('repo').replace(/\/+$/g, '');
+        var rightContainer = $('#niu2-right-container');
+        var showSidebarTitle = $('#niu2-toolbar-showsidebar').data('title');
+        var hideSidebarTitle = $('#niu2-toolbar-ctrlsidebar').attr('title');
+
+        // init raw link and revision link
+        var docPath = window.location.pathname.replace(/html$/, 'md');
+        $('#niu2-toolbar-revhistory').attr('href', 'https://github.com/' + githubRepo + '/commits/master/content' + docPath);
+        $('#niu2-toolbar-viewsource').attr('href', 'https://raw.githubusercontent.com/' + githubRepo + '/master/content' + docPath);
+
+        // init sidebar controller
+        $('#niu2-toolbar-ctrlsidebar').click(function(e) {
+            e.preventDefault();
+            if (!rightContainer.is(':hidden')) {
+                rightContainer.hide();
+                $('#niu2-left-container').attr('class', 'col-md-8 col-md-offset-2');
+                $('#body-footer').attr('class', 'col-md-8 col-md-offset-2');
+                $('#niu2-toolbar-ctrlsidebar i').attr('class', 'fa fa-3x fa-arrow-circle-left');
+                $('#niu2-toolbar-ctrlsidebar').attr('title', showSidebarTitle);
+            } else {
+                rightContainer.show();
+                $('#niu2-left-container').attr('class', 'col-md-6 col-md-offset-2 with-right-border');
+                $('#body-footer').attr('class', 'col-md-6 col-md-offset-2');
+                $('#niu2-toolbar-ctrlsidebar i').attr('class', 'fa fa-3x fa-arrow-circle-right');
+                $('#niu2-toolbar-ctrlsidebar').attr('title', hideSidebarTitle);
+            }
+        });
+    }
 }
 
 function initLazyLoad() {
@@ -64,7 +98,7 @@ function toggleSidebarTocFixed() {
     var sidebarMeta = $('#niu2-sidebar-meta');
     var vtop = $(window).scrollTop();
     var vpos = sidebarMeta.offset().top + sidebarMeta.height() - 55;
-    if (vtop > vpos && 'niu2-sidebar' == sidebarToc.attr('class')) {
+    if (!sidebarToc.is(':hidden') && vtop > vpos && 'niu2-sidebar' == sidebarToc.attr('class')) {
         sidebarToc.attr('class', 'niu2-sidebar niu2-sidebar-toc-fixed');
     } else if (vtop <= vpos && 'niu2-sidebar' != sidebarToc.attr('class')) {
         sidebarToc.attr('class', 'niu2-sidebar');
@@ -122,6 +156,20 @@ function initGoogleCSEAnimation() {
             hideCSE();
         }
     });
+}
+
+function getToolbar() {
+    if (!window.gToolbar) {
+        window.gToolbar = $('#niu2-toolbar')[0];
+    }
+    return window.gToolbar;
+}
+
+function getMainContent() {
+    if (!window.gMainContent) {
+        window.gMainContent = $('#niu2-main-content')[0];
+    }
+    return window.gMainContent;
 }
 
 function getHtmlHeaders() {
@@ -609,6 +657,18 @@ function initMouseXYRecord() {
             window.gMouseInSidebarTocList = true;
         } else {
             window.gMouseInSidebarTocList = false;
+        }
+
+        // toggle toolbar
+        var mainErea = getMainContent().getBoundingClientRect();
+        if (getToolbar() && e.clientY > mainErea.bottom - mainErea.height) {
+            if (window.gToolbarHidden && e.clientX < mainErea.left) {
+                $(getToolbar()).animate({left: '0px'}, 500);
+                window.gToolbarHidden = false;
+            } else if (!window.gToolbarHidden && e.clientX > mainErea.left) {
+                $(getToolbar()).animate({left: '-36px'}, 500);
+                window.gToolbarHidden = true;
+            }
         }
     });
 }
