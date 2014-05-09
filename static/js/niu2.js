@@ -45,12 +45,13 @@ function onContentLoaded() {
 
 function initToolbar() {
     if (getToolbar()) {
+        var rightContainer = $('#niu2-right-container');
+        var showSidebarTitle = $('#niu2-toolbar-showsidebar').data('title');
+        var hideSidebarTitle = $('#niu2-toolbar-ctrlsidebar').attr('title');
+
         // init raw link and revision link
         var githubRepo = $('#niu2-toolbar-github').data('repo').replace(/\/+$/g, '');
         if ('' != githubRepo) {
-            var rightContainer = $('#niu2-right-container');
-            var showSidebarTitle = $('#niu2-toolbar-showsidebar').data('title');
-            var hideSidebarTitle = $('#niu2-toolbar-ctrlsidebar').attr('title');
             var docPath = window.location.pathname.replace(/html$/, 'md');
             if (-1 == docPath.replace(/^\//, '').search('/')) {
                 // is a page
@@ -88,7 +89,7 @@ function initToolbar() {
 function initLazyLoad() {
     if ($('#niu2-lazy-load')[0]) {
         // find all the images and prepare for lazyload.js
-        var imageNodes = $('#body-content img');
+        var imageNodes = $('#body-content img.lazy');
         imageNodes.each(function(i, elem) {
             var imgRealWidth = $(elem).data('width');
             var imgRealHeight = $(elem).data('height');
@@ -96,6 +97,11 @@ function initLazyLoad() {
             if (imgRealWidth && imgRealHeight) {
                 $(elem).attr('height', imgWidthLimit / parseInt(imgRealWidth) * parseInt(imgRealHeight) + 'px');
             }
+            $(elem).load(function() {
+                // reset height after image loaded
+                $(this).css('height', 'auto');
+                $(this).attr('height', '');
+            });
         });
         // enable lazy load
         imageNodes.show().lazyload({

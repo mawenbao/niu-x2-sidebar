@@ -1,9 +1,9 @@
 SHELL := /bin/bash
 PYGMENTS_MIN_DIR=static/css/pygments.min
 
-all: compress
-
 compress: static/css/niu2.min.css static/js/niu2.min.js
+
+all: compress pygments.min
 
 static/js/niu2.min.js: static/js/niu2.js
 	yui-compressor -o $@ $<
