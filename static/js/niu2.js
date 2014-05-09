@@ -1,4 +1,6 @@
 /*
+ * @author: mawenbao@hotmail.com
+ * @license: see LICENSE.txt
  * Depends on jquery 1.10
  */
 
