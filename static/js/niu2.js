@@ -97,16 +97,16 @@ function initLazyLoad() {
             if (imgRealWidth && imgRealHeight) {
                 $(elem).attr('height', imgWidthLimit / parseInt(imgRealWidth) * parseInt(imgRealHeight) + 'px');
             }
-            $(elem).load(function() {
-                // reset height after image loaded
-                $(this).css('height', 'auto');
-                $(this).attr('height', '');
-            });
         });
         // enable lazy load
         imageNodes.show().lazyload({
-            threshold : 200,
-            effect : 'fadeIn'
+            threshold : 100,
+            effect : 'fadeIn',
+            load: function() {
+                // reset height after image loaded
+                $(this).css('height', 'auto');
+                $(this).attr('height', '');
+            }
         });
     }
 }
