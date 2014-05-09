@@ -5,7 +5,7 @@
 {%- block head_init -%}
 {{ super() }}
 {% set theme_loc = NIUX2_LIB_THEME if NIUX2_LIB_THEME else SITEURL + '/theme' -%}
-<link rel="stylesheet" href="{{ theme_loc }}/css/pygments/{{ NIUX2_PYGMENTS_THEME | default("github") }}.css" type="text/css" />
+<link rel="stylesheet" href="{{ theme_loc }}/css/pygments.min/{{ NIUX2_PYGMENTS_THEME | default("github") }}.css" type="text/css" />
 {%- endblock head_init -%}
 
 {%- block js_on_body_ready %}

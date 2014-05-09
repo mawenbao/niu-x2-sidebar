@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ NIUX2_FAVICON_URL | default('/favicon.png') }}">
     <link rel="stylesheet" href="{{ theme_loc }}/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="{{ fontawesome_loc }}/css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="{{ theme_loc }}/css/niu2.css" type="text/css" />
+    <link rel="stylesheet" href="{{ theme_loc }}/css/niu2.min.css" type="text/css" />
     {%- endblock head_init %}
     
     <script type="text/javascript">
@@ -59,7 +59,7 @@
     {% set lib_jquery_loc = NIUX2_LIB_JQUERY if NIUX2_LIB_JQUERY else SITEURL + '/theme/js/jquery-1.11.0.min.js' %}
     {% set bootstrap_js_loc = NIUX2_LIB_BOOTSTRAP_JS if NIUX2_LIB_BOOTSTRAP_JS else SITEURL + '/theme/js/bootstrap.min.js' %}
     <script type="text/javascript" src="{{ lib_jquery_loc }}"></script>
-    <script type="text/javascript" src="{{ theme_loc }}/js/niu2.js"></script>
+    <script type="text/javascript" src="{{ theme_loc }}/js/niu2.min.js"></script>
     <script type="text/javascript" src="{{ bootstrap_js_loc }}"></script>
     {% if NIUX2_LAZY_LOAD %}
     <script id="niu2-lazy-load" type="text/javascript" src="{{ theme_loc }}/js/jquery.lazyload.min.js"></script>
