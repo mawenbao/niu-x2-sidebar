@@ -84,8 +84,8 @@ function initToolbar() {
 }
 
 function initLazyLoad() {
-    if ($('#lazyLoadScriptNode')[0]) {
-        // find all the images and prepare for lazy load js
+    if ($('#niu2-lazy-load')[0]) {
+        // find all the images and prepare for lazyload.js
         var imageNodes = $('#body-content img');
         imageNodes.each(function(i, elem) {
             $(elem).attr('data-original', $(elem).attr('src'));
