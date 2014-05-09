@@ -88,8 +88,12 @@ function initLazyLoad() {
         // find all the images and prepare for lazyload.js
         var imageNodes = $('#body-content img');
         imageNodes.each(function(i, elem) {
-            $(elem).attr('data-original', $(elem).attr('src'));
-            $(elem).attr('src', '');
+            var imgRealWidth = $(elem).data('width');
+            var imgRealHeight = $(elem).data('height');
+            var imgWidthLimit = elem.getBoundingClientRect().width;
+            if (imgRealWidth && imgRealHeight) {
+                $(elem).attr('height', imgWidthLimit / parseInt(imgRealWidth) * parseInt(imgRealHeight) + 'px');
+            }
         });
         // enable lazy load
         imageNodes.show().lazyload({
