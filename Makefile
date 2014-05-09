@@ -13,7 +13,7 @@ static/css/niu2.min.css: static/css/niu2.css
 
 pygments.min: static/css/pygments
 	mkdir -p ${PYGMENTS_MIN_DIR}
-	@for f in `ls $< | grep "\.css"`; do \
+	@for f in `ls -1 $< | grep "\.css"`; do \
 		cmd="yui-compressor -o ${PYGMENTS_MIN_DIR}/$${f/.css/.min.css} $</$${f}"; \
 		echo $${cmd}; \
 		`$${cmd}`; \
