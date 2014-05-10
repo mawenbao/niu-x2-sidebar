@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ theme_loc }}/css/niu2.min.css" type="text/css" />
     {% endblock head_init %}
     
-    <script type="text/javascript">window.onload=function(){{% block js_on_window_load %}{% endblock js_on_window_load %}};</script>
+    <script type="text/javascript">window.onload=function(){ {% block js_on_window_load %}{% endblock js_on_window_load %} };</script>
     <!--[if lt IE 9]>
         <script src="{{ theme_loc }}/js/html5shiv.js"></script>
         <script src="{{ theme_loc }}/js/respond.min.js"></script>
