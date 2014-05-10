@@ -8,18 +8,18 @@
 </div>
 
 <div id="niu2-sidebar-toc" class="niu2-sidebar" data-status="closed">
-    {%- if page -%}
+    {% if page %}
     <div class="niu2-sidebar-label">
         <i id="niu2-sidebar-toc-ctrl" class="fa fa-plus"></i>{{ NIUX2_HEADER_TOC_TRANSL | default("TOC") }}
     </div>
     <ol id="niu2-sidebar-toc-list">
         <li><a href="#content-heading">{{ page.title }}</a></li>
         {{ page.html_toc }}
-        {%- if (page.metadata['comment'] is not defined) or (page.metadata['comment'] | trim | upper == 'ON') -%}
-        {%- if DISQUS_SITENAME or NIUX2_DUOSHUO_SHORTNAME -%}
+        {% if (page.metadata['comment'] is not defined) or (page.metadata['comment'] | trim | upper == 'ON') %}
+        {% if DISQUS_SITENAME or NIUX2_DUOSHUO_SHORTNAME %}
         <li><a href="#content-comments">{{ NIUX2_COMMENTS_TRANSL | default("Comments") }}</a></li>
-        {%- endif -%}
-        {%- endif -%}
+        {% endif %}
+        {% endif %}
     </ol>
-    {%- endif -%}
+    {% endif %}
 </div>

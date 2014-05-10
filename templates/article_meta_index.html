@@ -3,18 +3,18 @@
         <i class="fa fa-calendar"></i>{{ article.date.strftime("%Y-%m-%d") }}
     </span>
     <span class="niu2-meta-category-index">
-    {%- if NIUX2_CATEGORY_MAP and NIUX2_CATEGORY_MAP[article.category] -%}
+    {% if NIUX2_CATEGORY_MAP and NIUX2_CATEGORY_MAP[article.category] %}
         <i class="fa {{ NIUX2_CATEGORY_MAP[article.category][1] }}"></i><a href="{{ SITEURL }}/{{ article.category.url }}">{{ NIUX2_CATEGORY_MAP[article.category][0] }}</a>
-    {%- else -%}
+    {% else %}
         <i class="fa fa-open-folder"></i>{{ article.category }}
-    {%- endif -%}
+    {% endif %}
     </span>
-    {%- if article.tags -%}
+    {% if article.tags %}
     <span class="niu2-meta-tag-index">
         <i class="fa fa-tag"></i>
-        {%- for tag in article.tags -%}
+        {% for tag in article.tags %}
         <a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
-    {%- endfor -%}
+    {% endfor %}
     </span>
-    {%- endif -%}
+    {% endif %}
 </div>

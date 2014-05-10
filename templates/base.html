@@ -3,58 +3,48 @@
   <head>
     {% set theme_loc = NIUX2_LIB_THEME if NIUX2_LIB_THEME else SITEURL + '/theme' %}
     {% set fontawesome_loc = NIUX2_LIB_FONTAWESOME if NIUX2_LIB_FONTAWESOME else SITEURL + '/theme/font-awesome' %}
-    {% block head -%}
+    {% block head %}
     {% block head_init %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{%- block title -%}{{ SITENAME }}{%- endblock -%}</title>
+    <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ NIUX2_FAVICON_URL | default('/favicon.png') }}">
     <link rel="stylesheet" href="{{ theme_loc }}/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="{{ fontawesome_loc }}/css/font-awesome.min.css" type="text/css" />
     <link rel="stylesheet" href="{{ theme_loc }}/css/niu2.min.css" type="text/css" />
-    {%- endblock head_init %}
+    {% endblock head_init %}
     
     <script type="text/javascript">
         window.onload = function() {
-            {% block js_on_window_load -%}
-            {%- endblock js_on_window_load %}
+            {% block js_on_window_load %}
+            {% endblock js_on_window_load %}
         };
     </script>
     <!--[if lt IE 9]>
         <script src="{{ theme_loc }}/js/html5shiv.js"></script>
         <script src="{{ theme_loc }}/js/respond.min.js"></script>
     <![endif]-->
-    {%- endblock head %}
+    {% endblock head %}
   </head>
   <body> 
     <div id="body-header">
-    {% block body_header -%}
+    {% block body_header %}
         {% include "header.html" %}
-    {%- endblock body_header %}
+    {% endblock body_header %}
     </div>
     
     <div id="body-content">
-        {% block content -%} {%- endblock content %}
+        {% block content %} {% endblock content %}
     </div>
 
-    {% block footer -%}
+    {% block footer %}
     <div id="body-footer" class="col-md-6 col-md-offset-2">
         {% include "footer.html" %}
     </div>
-    {%- endblock footer %}
-    {% if GOOGLE_ANALYTICS -%}
-	    <script type="text/javascript">
-	      var _gaq = _gaq || [];
-	      _gaq.push(['_setAccount', '{{ GOOGLE_ANALYTICS }}']);
-	      _gaq.push(['_trackPageview']);
-	
-	      (function() {
-	        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	      })();
-	    </script>
-    {%- endif %}
+    {% endblock footer %}
+    {% if GOOGLE_ANALYTICS %}
+        {% include "google_analytics.html" %}
+    {% endif %}
     
     {% set lib_jquery_loc = NIUX2_LIB_JQUERY if NIUX2_LIB_JQUERY else SITEURL + '/theme/js/jquery-1.11.0.min.js' %}
     {% set bootstrap_js_loc = NIUX2_LIB_BOOTSTRAP_JS if NIUX2_LIB_BOOTSTRAP_JS else SITEURL + '/theme/js/bootstrap.min.js' %}
@@ -64,11 +54,11 @@
     {% if NIUX2_LAZY_LOAD %}
     <script id="niu2-lazy-load" type="text/javascript" src="{{ theme_loc }}/js/jquery.lazyload.min.js"></script>
     {% endif %}
-    {% block additional_js_file -%}
-    {%- endblock additional_js_file %}
+    {% block additional_js_file %}
+    {% endblock additional_js_file %}
     <script type="text/javascript">
-    {% block js_on_body_ready -%}
-    {%- endblock js_on_body_ready %}
+    {% block js_on_body_ready %}
+    {% endblock js_on_body_ready %}
     </script>
   </body>
 </html>

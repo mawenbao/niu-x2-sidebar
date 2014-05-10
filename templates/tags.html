@@ -1,16 +1,16 @@
-{%- extends "base.html" -%}
+{% extends "base.html" %}
 
 {{ super() }}
-{% block additional_js_file -%}
+{% block additional_js_file %}
 <script type="text/javascript" src="{{ theme_loc }}/js/tagcloud.min.js"></script>
-{%- endblock %}
+{% endblock %}
 
-{%- block js_on_body_ready %}
+{% block js_on_body_ready %}
 {{ super() }}
 var tc = TagCloud.create();
-{%- for tag, article_list in tags -%}
+{% for tag, article_list in tags %}
 tc.add('{{ tag }}', {{ article_list | count }}, '{{ SITEURL }}/{{ tag.url }}', null);
-{%- endfor -%}
+{% endfor %}
 tc.loadEffector('CountSize');tc.loadEffector('CountSize');
 
 function tag_filter() {
@@ -18,11 +18,11 @@ function tag_filter() {
   return false;
 }
 tc.setup('niu2-tagcloud');
-{% endblock -%}
+{% endblock %}
 
-{%- block title -%}{{ NIUX2_TAG_TRANSL | default("Tags") }} - {{ super() }}{%- endblock title -%}
+{% block title %}{{ NIUX2_TAG_TRANSL | default("Tags") }} - {{ super() }}{% endblock title %}
 
-{%- block content -%}
+{% block content %}
 <div class="col-md-8 col-md-offset-2">
     <h1><i class="fa fa-tags"></i>{{ NIUX2_TAG_TRANSL | default("Tag") }}</h1>
     <input id="niu2-tagcloud-filter-input" type="text" placeholder="{{ NIUX2_TAG_FILTER_TRANSL | default("filter tags") }}"
@@ -32,10 +32,10 @@ tc.setup('niu2-tagcloud');
     <div id="niu2-tagcloud">
     </div>
 </div>
-{%- endblock content -%}
+{% endblock content %}
 
-{%- block footer -%}
+{% block footer %}
 <div id="body-footer" class="col-md-8 col-md-offset-2">
-    {%- include "footer.html" -%}
+    {% include "footer.html" %}
 </div>
-{%- endblock footer -%}
+{% endblock footer %}

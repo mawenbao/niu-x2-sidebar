@@ -1,4 +1,4 @@
-{%- if NIUX2_TOOLBAR -%}
+{% if NIUX2_TOOLBAR %}
 <div id="niu2-toolbar">
     <ul class="list-unstyled">
         <li><a id="niu2-toolbar-ctrlsidebar" href="#" title="{{ NIUX2_HIDE_SIDEBAR_TRANSL | default('Hide Sidebar') }}"><i class="fa fa-3x fa-arrow-circle-right"></i></a></li>
@@ -8,4 +8,4 @@
     <div id="niu2-toolbar-showsidebar" data-title="{{ NIUX2_SHOW_SIDEBAR_TRANSL | default('Show Sidebar') }}"></div>
     <div id="niu2-toolbar-github" data-repo="{{ NIUX2_GITHUB_REPO | default('') }}"></div>
 </div>
-{%- endif -%}
+{% endif %}
