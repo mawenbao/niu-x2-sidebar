@@ -1,9 +1,9 @@
 <div id="niu2-sidebar-meta" class="niu2-sidebar">
     <div class="niu2-sidebar-label"><i class="fa fa-calendar"></i>{{ NIUX2_PUBLISHED_TRANSL | default("Published") }}:</div>
-    <div class="niu2-sidebar-value">{{ page.date.strftime("%Y-%m-%d %H:%M:%S") }}</div>
+    <div class="niu2-sidebar-value">{{ page.date.strftime("%Y-%m-%d %H:%M") }}</div>
     {% if page.updatedate %}
     <div class="niu2-sidebar-label"><i class="fa fa-pencil"></i>{{ NIUX2_LASTMOD_TRANSL | default("Last modified") }}:</div>
-    <div class="niu2-sidebar-value">{{ page.updatedate }}</div>
+    <div class="niu2-sidebar-value">{{ page.updatedate.strftime("%Y-%m-%d %H:%M") }}</div>
     {% endif %}
 </div>
 
