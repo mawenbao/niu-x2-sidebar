@@ -91,12 +91,18 @@ function initLazyLoad() {
         // find all the images and prepare for lazyload.js
         var imageNodes = $('#body-content img.lazy');
         var imgWidthLimit = getMainContent().getBoundingClientRect().width;
+        var imgHoverText = $('#niu2-lazy-load-text').data('loading');
         imageNodes.each(function(i, elem) {
             var imgRealWidth = $(elem).data('width');
             var imgRealHeight = $(elem).data('height');
+            var imgCurrHeight = imgWidthLimit / parseInt(imgRealWidth) * parseInt(imgRealHeight);
             if (imgRealWidth && imgRealHeight) {
-                $(elem).attr('height', imgWidthLimit / parseInt(imgRealWidth) * parseInt(imgRealHeight) + 'px');
+                $(elem).attr('height',  imgCurrHeight + 'px');
             }
+            // show loading text
+            $(elem).parent().addClass('image-cover-box');
+            var imgCover = $('<span class="image-cover">' + imgHoverText + '</span>').insertAfter($(elem));
+            imgCover.css('top', imgCurrHeight / 2 - imgCover.height() + 'px');
         });
         // enable lazy load
         imageNodes.lazyload({
@@ -106,6 +112,9 @@ function initLazyLoad() {
                 // reset height after image loaded
                 $(this).css('height', 'auto');
                 $(this).attr('height', '');
+                // remove hover text
+                $(this).removeClass('image-cover-box');
+                $(this).next('.image-cover').hide();
             }
         });
     }

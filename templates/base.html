@@ -52,6 +52,7 @@
     <script type="text/javascript" src="{{ bootstrap_js_loc }}"></script>
     {% if NIUX2_LAZY_LOAD %}
     <script id="niu2-lazy-load" type="text/javascript" src="{{ theme_loc }}/js/jquery.lazyload.min.js"></script>
+    <div id="niu2-lazy-load-text" data-loading="{{ NIUX2_LAZY_LOAD_TEXT | default('Loading ...') }}"></div>
     {% endif %}
     {% block additional_js_file %}
     {% endblock additional_js_file %}

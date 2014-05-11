@@ -40,6 +40,20 @@ blockquote p {
     line-height: 1.3 !important;
 }
 
+.image-cover-box {
+    position: relative;
+}
+
+.image-cover {
+    position: absolute;
+    top: 45%;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+}
+
 .footnote li p {
     margin-bottom: 0;
     display: inline-block;
