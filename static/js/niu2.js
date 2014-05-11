@@ -102,7 +102,7 @@ function initLazyLoad() {
             // show loading text
             $(elem).parent().addClass('image-cover-box');
             var imgCover = $('<span class="image-cover">' + imgHoverText + '</span>').insertAfter($(elem));
-            imgCover.css('top', imgCurrHeight / 2 - imgCover.height() + 'px');
+            imgCover.css('top', (imgCurrHeight - imgCover.height()) / 2 + 'px');
         });
         // enable lazy load
         imageNodes.lazyload({
