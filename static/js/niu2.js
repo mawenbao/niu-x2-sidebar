@@ -18,6 +18,7 @@ $(document).ready(function() {
 });
 
 function onContentLoaded() {
+    initLazyLoad();
     initFootnote();
     $(window).scroll(function() {
         toggleSidebarTocFixed();
@@ -40,7 +41,6 @@ function onContentLoaded() {
     locateTocInViewport();
 
     initToolbar();
-    initLazyLoad();
 }
 
 function initToolbar() {
@@ -90,16 +90,16 @@ function initLazyLoad() {
     if ($('#niu2-lazy-load')[0]) {
         // find all the images and prepare for lazyload.js
         var imageNodes = $('#body-content img.lazy');
+        var imgWidthLimit = getMainContent().getBoundingClientRect().width;
         imageNodes.each(function(i, elem) {
             var imgRealWidth = $(elem).data('width');
             var imgRealHeight = $(elem).data('height');
-            var imgWidthLimit = elem.getBoundingClientRect().width;
             if (imgRealWidth && imgRealHeight) {
                 $(elem).attr('height', imgWidthLimit / parseInt(imgRealWidth) * parseInt(imgRealHeight) + 'px');
             }
         });
         // enable lazy load
-        imageNodes.show().lazyload({
+        imageNodes.lazyload({
             threshold : 100,
             effect : 'fadeIn',
             load: function() {
