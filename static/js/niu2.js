@@ -95,14 +95,15 @@ function initLazyLoad() {
         imageNodes.each(function(i, elem) {
             var imgRealWidth = $(elem).data('width');
             var imgRealHeight = $(elem).data('height');
-            var imgCurrHeight = imgWidthLimit / parseInt(imgRealWidth) * parseInt(imgRealHeight);
+            var imgHeightLimit = (imgRealWidth > imgWidthLimit) ? (imgWidthLimit / parseInt(imgRealWidth) * parseInt(imgRealHeight)) : imgRealHeight;
             if (imgRealWidth && imgRealHeight) {
-                $(elem).attr('height',  imgCurrHeight + 'px');
+                $(elem).attr('height',  imgHeightLimit + 'px');
             }
             // show loading text
             $(elem).parent().addClass('image-cover-box');
             var imgCover = $('<span class="image-cover">' + imgHoverText + '</span>').insertAfter($(elem));
-            imgCover.css('top', (imgCurrHeight - imgCover.height()) / 2 + 'px');
+            imgCover.css('top', (imgHeightLimit - imgCover.height()) / 2 + 'px');
+            imgCover.css('width', $(elem).width() + 'px');
         });
         // enable lazy load
         imageNodes.lazyload({
