@@ -93,12 +93,10 @@ function initLazyLoad() {
         var imgWidthLimit = getMainContent().getBoundingClientRect().width;
         var imgHoverText = $('#niu2-lazy-load-text').data('loading');
         imageNodes.each(function(i, elem) {
-            var imgRealWidth = $(elem).data('width');
-            var imgRealHeight = $(elem).data('height');
-            var imgHeightLimit = (imgRealWidth > imgWidthLimit) ? (imgWidthLimit / parseInt(imgRealWidth) * parseInt(imgRealHeight)) : imgRealHeight;
-            if (imgRealWidth && imgRealHeight) {
-                $(elem).attr('height',  imgHeightLimit + 'px');
-            }
+            var imgRealWidth = parseInt($(elem).data('width'));
+            var imgRealHeight = parseInt($(elem).data('height'));
+            var imgHeightLimit = (imgRealWidth > imgWidthLimit) ? (imgWidthLimit / imgRealWidth * imgRealHeight) : imgRealHeight;
+            $(elem).attr('height',  imgHeightLimit + 'px');
             // show loading text
             $(elem).parent().addClass('image-cover-box');
             var imgCover = $('<span class="image-cover">' + imgHoverText + '</span>').insertAfter($(elem));
