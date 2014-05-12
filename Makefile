@@ -1,9 +1,11 @@
 SHELL := /bin/bash
-PYGMENTS_MIN_DIR=static/css/pygments.min
+PYGMENTS_MIN_DIR = static/css/pygments.min
+PYGMENTS_SOURCE = ${wildcard static/css/pygments/*.css}
+PYGMENTS = $(subst pygments,pygments.min,$(patsubst %.css,%.min.css,${PYGMENTS_SOURCE}))
 
-compress: static/css/niu2.min.css static/js/niu2.min.js
+all: compress
 
-all: compress pygments.min
+compress: static/css/niu2.min.css static/js/niu2.min.js ${PYGMENTS}
 
 static/js/niu2.min.js: static/js/niu2.js
 	yui-compressor -o $@ $<
@@ -11,13 +13,9 @@ static/js/niu2.min.js: static/js/niu2.js
 static/css/niu2.min.css: static/css/niu2.css
 	yui-compressor -o $@ $<
 
-pygments.min: static/css/pygments
-	mkdir -p ${PYGMENTS_MIN_DIR}
-	@for f in `ls -1 $< | grep "\.css"`; do \
-		cmd="yui-compressor -o ${PYGMENTS_MIN_DIR}/$${f/.css/.min.css} $</$${f}"; \
-		echo $${cmd}; \
-		`$${cmd}`; \
-	done
+${PYGMENTS}: static/css/pygments.min/%.min.css: static/css/pygments/%.css
+	@[ -d ${PYGMENTS_MIN_DIR} ] || mkdir -p ${PYGMENTS_MIN_DIR}
+	yui-compressor -o $@ $<
 
 clean:
 	rm -rf static/js/niu2.min.js static/css/niu2.min.css ${PYGMENTS_MIN_DIR}
