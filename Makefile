@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 PYGMENTS_MIN_DIR = static/css/pygments.min
 PYGMENTS_SOURCE = ${wildcard static/css/pygments/*.css}
-PYGMENTS = $(subst pygments,pygments.min,$(patsubst %.css,%.min.css,${PYGMENTS_SOURCE}))
+PYGMENTS = $(subst /pygments/,/pygments.min/,$(patsubst %.css,%.min.css,${PYGMENTS_SOURCE}))
 
 all: compress
 
