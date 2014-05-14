@@ -4,6 +4,14 @@
  * Depends on jquery 1.10
  */
 
+// set theme path, got from http://stackoverflow.com/questions/8523200/javascript-get-current-filescript-path
+(function() {
+    var scriptEls = document.getElementsByTagName('script');
+    var thisScriptEl = scriptEls[scriptEls.length - 1];
+    var scriptPath = thisScriptEl.src;
+    window.gThemePath = scriptPath.substr(0, scriptPath.lastIndexOf('/js/'));
+})();
+
 window.gEnableTocStatusUpdate = true;
 window.gEnableTocListAutoScroll = true;
 window.gMouseInSidebarTocList = false;
@@ -18,6 +26,7 @@ $(document).ready(function() {
 });
 
 function onContentLoaded() {
+    initHermitPlayer();
     initLazyLoad();
     initFootnote();
     $(window).scroll(function() {
@@ -41,6 +50,17 @@ function onContentLoaded() {
     locateTocInViewport();
 
     initToolbar();
+}
+
+function initHermitPlayer() {
+    if ($('.hermit')[0]) {
+        var hermitCss= '<link href="' + window.gThemePath + '/hermit/assets/style/hermit.min.css" rel="stylesheet" type="text/css"/>';
+        $(hermitCss).appendTo($('head'));
+        hermit = {'url': window.gThemePath + 'hermit/assets/swf'}; // hermit should be global
+        var hermitJs = '<script src="' + window.gThemePath + '/hermit/assets/script/hermit.min.js" type="text/javascript"></script>';
+        $(hermitJs).appendTo($('body'));
+        hermitInit();
+    }
 }
 
 function initToolbar() {
