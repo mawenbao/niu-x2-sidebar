@@ -1,23 +1,23 @@
 {% extends "base.html" %}
-{% block title %}{{ NIUX2_ARCHIVE_PUBDATE_TRANSL | default("Archives (by pubdate)") }} - {{ super() }} {% endblock %}
+{% block title %}{{ NIUX2_ARCHIVE_UPDATEDATE_TRANSL | default("Archives (by updatedate)") }} - {{ super() }} {% endblock %}
 {% block content %}
 <div class="col-md-8 col-md-offset-2">
-    <h1><i class="fa fa-archive"></i>{{ NIUX2_ARCHIVE_PUBDATE_TRANSL | default("Archives (by pubdate)") }}</h1>
+    <h1><i class="fa fa-archive"></i>{{ NIUX2_ARCHIVE_UPDATEDATE_TRANSL | default("Archives (by updatedate)") }}</h1>
 	<div id="niu2-archives">
 	{% set allLists = [] %}
-	{% for article in articles %}
-           {% if loop.first or article.date.strftime('%Y %m') != articles[loop.index0-1].date.strftime('%Y %m') %}
+	{% for article in articles_updatedate %}
+           {% if loop.first or article.updatedate.strftime('%Y %m') != articles_updatedate[loop.index0-1].updatedate.strftime('%Y %m') %}
                {% set monthList = [] %}
            {% endif %}
            {% do monthList.append(article) %}
-           {% if loop.last or article.date.strftime('%Y %m') != articles[loop.index0+1].date.strftime('%Y %m') %}
+           {% if loop.last or article.updatedate.strftime('%Y %m') != articles_updatedate[loop.index0+1].updatedate.strftime('%Y %m') %}
                {% do allLists.append(monthList[:]) %}
            {% endif %}
        {% endfor %}
        
        <div class="panel">
        {% for monthArc in allLists %}
-           {% set currArcDate = monthArc[0].date.strftime('%Y-%m') %}
+           {% set currArcDate = monthArc[0].updatedate.strftime('%Y-%m') %}
             <a class="niu2-toggle-ctrl" data-parent="#niu2-archives" data-toggle="collapse" data-target="#arc-{{ currArcDate }}">
             {{ currArcDate }} ({{ monthArc | length }})
             </a>
@@ -29,7 +29,7 @@
                     {% set my_cat = article.category %}
                 {% endif %}
                 <li>
-                    <span>{{ article.date.strftime('%d') }}</span>
+                    <span>{{ article.updatedate.strftime('%d') }}</span>
                     <a href="{{ SITEURL }}/{{ article.url }}" title="{{ NIUX2_CATEGORY_TRANSL | default("Category") }}: {{ my_cat }}">
                         {{ article.title }}
                     </a>

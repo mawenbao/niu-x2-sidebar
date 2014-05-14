@@ -69,6 +69,14 @@ Note that:
 *  All the following theme configuration variables are optional.
 *  All the icons come from font awesome. You can find the icon class name [here](http://fortawesome.github.io/Font-Awesome/icons/).
 
+Require:
+
+* [pelican-update-date](https://github.com/mawenbao/pelican-update-date) plugin, and you should add the following setting to your pelican configuration.
+
+        TEMPLATE_PAGES = {
+            "archives_updatedate.html": "archives_updatedate.html",
+        }
+
 ### Enable/Disable comments
 
 The theme enables comments for all the articles and pages by default. However you can disable comments for some particular articles or pages by setting `Comment` metadata to any value other than `on`, e.g.:
@@ -173,7 +181,9 @@ Currently, there is not a search result page in this theme, so I suggest that yo
 *  `NIUX2_404_TITLE_TRANSL` string(default "ERROR 404 Page Not Found!"), title of the 404 page
 *  `NIUX2_404_INFO_TRANSL` string(default "The requested url was not found!"), warning infomation on the 404 page
 *  `NIUX2_TAG_TRANSL` string(default "Tag"), translation of tag
-*  `NIUX2_ARCHIVE_TRANSL` string(default "Archive"), translation of archive
+*  `NIUX2_ARCHIVE_TRANSL` string(default "Archives"), translation of archives
+*  `NIUX2_ARCHIVE_PUBDATE_TRANSL` string(default "Archives(by pubdate)"), translation of archives by publish date
+*  `NIUX2_ARCHIVE_UPDATEDATE_TRANSL` string(default "Archives(by updatedate)"), translation of archives by update date
 *  `NIUX2_CATEGORY_TRANSL` string(default "Category"), translation of category
 *  `NIUX2_TAG_CLEAR_TRANSL` string(default "clear"), name of clear button on the tags page
 *  `NIUX2_TAG_FILTER_TRANSL` string(default "filter tags"), placeholder of the tag_filter input on the tags page
