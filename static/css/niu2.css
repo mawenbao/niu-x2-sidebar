@@ -53,6 +53,10 @@ blockquote p {
     font-weight: bold;
 }
 
+.image-cover i {
+    margin-left: 5px;
+}
+
 .footnote li p {
     margin-bottom: 0;
     display: inline-block;

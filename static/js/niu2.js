@@ -99,7 +99,7 @@ function initLazyLoad() {
             $(elem).attr('height',  imgHeightLimit + 'px');
             // show loading text
             $(elem).parent().addClass('image-cover-box');
-            var imgCover = $('<span class="image-cover">' + imgHoverText + '</span>').insertAfter($(elem));
+            var imgCover = $('<span class="image-cover">' + imgHoverText + '<i class="fa fa-spinner fa-spin"></i></span>').insertAfter($(elem));
             imgCover.css('top', (imgHeightLimit - imgCover.height()) / 2 + 'px');
             imgCover.css('width', $(elem).width() + 'px');
         });
@@ -112,7 +112,7 @@ function initLazyLoad() {
                 $(this).css('height', 'auto');
                 $(this).attr('height', '');
                 // remove hover text
-                $(this).removeClass('image-cover-box');
+                $(this).parent().removeClass('image-cover-box');
                 $(this).next('.image-cover').hide();
             }
         });
