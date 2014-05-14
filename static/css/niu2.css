@@ -4,6 +4,12 @@
  * @nav-link-padding: 7px
  */
 
+/* 3rd party css rules */
+.hermit-controls {
+    padding-bottom: 20px;
+}
+
+/* overwrite bootstrap3 css rules */
 pre {
     word-break: normal;
     word-wrap: normal;
@@ -40,6 +46,7 @@ blockquote p {
     line-height: 1.3 !important;
 }
 
+/* niu-x2-sidebar css rules */
 .image-cover-box {
     position: relative;
 }
