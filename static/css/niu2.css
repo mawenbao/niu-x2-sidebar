@@ -4,11 +4,6 @@
  * @nav-link-padding: 7px
  */
 
-/* 3rd party css rules */
-.hermit-controls {
-    padding-bottom: 20px;
-}
-
 /* overwrite bootstrap3 css rules */
 pre {
     word-break: normal;
