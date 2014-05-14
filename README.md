@@ -92,7 +92,7 @@ The theme enables comments for all the articles and pages by default. However yo
 Lazy load images(with the class name `lazy`) in the main content area with the lazyload jquery plugin.
 
 * `NIUX2_LAZY_LOAD`, default(False): enable lazy load function.
-* `NIUX2_LAZY_LOAD_TEXT`, default('Loading ...'): the hover text upon images when loading.
+* `NIUX2_LAZY_LOAD_TEXT`, default('Loading'): the hover text upon images when loading.
 
 Better use the [niux2_lazyload_helper](https://github.com/mawenbao/niux2_lazyload_helper) plugin with this function.
 
