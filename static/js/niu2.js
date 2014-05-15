@@ -56,7 +56,7 @@ function initHermitPlayer() {
     if ($('.hermit')[0]) {
         var hermitCss= '<link href="' + window.gThemePath + '/hermit/assets/style/hermit.min.css" rel="stylesheet" type="text/css"/>';
         $(hermitCss).appendTo($('head'));
-        hermit = {'url': window.gThemePath + 'hermit/assets/swf'}; // hermit should be global
+        hermit = {'url': window.gThemePath + '/hermit/assets/swf'}; // hermit should be global
         var hermitJs = '<script src="' + window.gThemePath + '/hermit/assets/script/hermit.min.js" type="text/javascript"></script>';
         $(hermitJs).appendTo($('body'));
     }
