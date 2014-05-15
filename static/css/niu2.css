@@ -50,7 +50,7 @@ blockquote p {
     position: absolute;
     left: -3px;
     text-align: center;
-    color: white;
+    color: #eee;
     font-size: 25px;
     font-weight: bold;
 }
