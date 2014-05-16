@@ -10,18 +10,24 @@
             <i class="fa fa-home"></i>{{ SITENAME }}
         </a>
     </div>
-	<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-		<ul class="nav navbar-nav">
-		{% if NIUX2_HEADER_SECTIONS %}
-		{% for section in NIUX2_HEADER_SECTIONS %}
-			<li><a href="{{ section[2] }}" title="{{ section[1] }}">
-			    <i class="fa {{ section[3] }}"></i>{{ section[0] }}</a>
-			</li>
-		{% endfor %}
-		{% endif %}
-		<li><a href="{{ SITEURL }}/{{ TAGS_SAVE_AS | default('tags.html') }}">
+    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+        <ul class="nav navbar-nav">
+        {% if NIUX2_HEADER_SECTIONS %}
+        {% for section in NIUX2_HEADER_SECTIONS %}
+            <li><a href="{{ section[2] }}" title="{{ section[1] }}">
+                <i class="fa {{ section[3] }}"></i>{{ section[0] }}</a>
+            </li>
+        {% endfor %}
+        {% else %}
+        <li><a href="{{ SITEURL }}/{{ TAGS_SAVE_AS | default('tags.html') }}">
                 <i class="fa fa-tag"></i>{{ NIUX2_TAG_TRANSL | default("Tag") }}</a>
-		</li>
+        </li>
+        {% if not NIUX2_ARCHIVE_UPDATEDATE %}
+        <li><a href="{{ SITEURL }}/{{ ARCHIVE_SAVE_AS | default('archives.html') }}">
+                <i class="fa fa-archive"></i>{{ NIUX2_ARCHIVE_TRANSL | default("Archive") }}
+            </a>
+        </li>
+        {% else %}
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-archive"></i>{{ NIUX2_ARCHIVE_TRANSL | default("Archive") }}<b class="caret"></b>
@@ -38,46 +44,50 @@
                     </a>
                 </li>
             </ul>
-		</li>
-		<!-- category dropdown list -->
-		<li class="dropdown">
+        </li>
+        {% endif %}
+        {% endif %}
+        <!-- category dropdown list -->
+        {% if NIUX2_CATEGORY_MAP %}
+        <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-folder-open"></i>{{ NIUX2_CATEGORY_TRANSL | default("Category") }}<b class="caret"></b>
            </a>
            <ul class="dropdown-menu">
                {% for cat, article_list in categories %}
                <li><a href="{{ SITEURL }}/{{ cat.url }}">
-                   {% if NIUX2_CATEGORY_MAP and NIUX2_CATEGORY_MAP[cat] %}
+                   {% if NIUX2_CATEGORY_MAP[cat] %}
                       <i class="fa {{ NIUX2_CATEGORY_MAP[cat][1] }}"></i>{{ NIUX2_CATEGORY_MAP[cat][0] }}
-	               {% else %}
-	               <i class="fa fa-folder-close"></i>{{ cat }}
-	               {% endif %}
+                   {% else %}
+                   <i class="fa fa-folder-close"></i>{{ cat }}
+                   {% endif %}
                       ({{ article_list | count }})</a></li>
                {% endfor %}
            </ul>
         </li>
+        {% endif %}
         <!--  self defined dropdown list -->
-		{% if NIUX2_HEADER_DROPDOWN_SECTIONS %}
-		{% for dpsection, dplinks in NIUX2_HEADER_DROPDOWN_SECTIONS.items() %}
-		<li class="dropdown">
-		   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		       <i class="fa {{ dpsection[1] }}"></i>{{ dpsection[0] }}<b class="caret"></b>
-		   </a>
-		   <ul class="dropdown-menu">
-		   {% for link in dplinks %}
-		       <li><a href="{{ link[2] }}" title="{{ link[1] }}">
+        {% if NIUX2_HEADER_DROPDOWN_SECTIONS %}
+        {% for dpsection, dplinks in NIUX2_HEADER_DROPDOWN_SECTIONS.items() %}
+        <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+               <i class="fa {{ dpsection[1] }}"></i>{{ dpsection[0] }}<b class="caret"></b>
+           </a>
+           <ul class="dropdown-menu">
+           {% for link in dplinks %}
+               <li><a href="{{ link[2] }}" title="{{ link[1] }}">
                  <i class="fa {{ link[3] }}"></i>{{ link[0] }}</a>
-		       </li>
-		   {% endfor %}
-		   </ul>
-		</li>
-		{% endfor %}
+               </li>
+           {% endfor %}
+           </ul>
+        </li>
+        {% endfor %}
         {% endif %}
         </ul>
         
         <!-- right nav bar -->
-		<ul class="nav navbar-nav navbar-right">
-		<!-- google custom search -->
+        <ul class="nav navbar-nav navbar-right">
+        <!-- google custom search -->
         {% if NIUX2_GOOGLE_CSE_ID %}
         <li>
         <div id="niu2-cse-wrapper">
@@ -99,6 +109,6 @@
        </li>
        {% endif %}
        </ul>
-	</nav>
+    </nav>
 </div>
 </div>

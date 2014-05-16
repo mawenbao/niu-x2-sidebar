@@ -44,6 +44,8 @@
         {% include "google_analytics.html" %}
     {% endif %}
     
+    <div id="niu2-pygments" data-theme="{{ NIUX2_PYGMENTS_THEME | default("github") }}"></div>
+
     {% set lib_jquery_loc = NIUX2_LIB_JQUERY if NIUX2_LIB_JQUERY else SITEURL + '/theme/js/jquery-1.11.0.min.js' %}
     {% set bootstrap_js_loc = NIUX2_LIB_BOOTSTRAP_JS if NIUX2_LIB_BOOTSTRAP_JS else SITEURL + '/theme/js/bootstrap.min.js' %}
     {% set niu2_js_file = 'niu2.js' if NIUX2_DEBUG else 'niu2.min.js' %}

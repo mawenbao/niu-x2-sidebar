@@ -26,6 +26,7 @@ $(document).ready(function() {
 });
 
 function onContentLoaded() {
+    initPygments();
     initHermitPlayer();
     initLazyLoad();
     initFootnote();
@@ -52,9 +53,16 @@ function onContentLoaded() {
     initToolbar();
 }
 
+function initPygments() {
+    if ($('pre')[0]) {
+        var pygmentsCss = '<link rel="stylesheet" href="' + window.gThemePath + '/css/pygments.min/' + $('#niu2-pygments').data('theme') + '.min.css" type="text/css"/>';
+        $(pygmentsCss).appendTo($('head'));
+    }
+}
+
 function initHermitPlayer() {
     if ($('.hermit')[0]) {
-        var hermitCss= '<link href="' + window.gThemePath + '/hermit/assets/style/hermit.min.css" rel="stylesheet" type="text/css"/>';
+        var hermitCss = '<link href="' + window.gThemePath + '/hermit/assets/style/hermit.min.css" rel="stylesheet" type="text/css"/>';
         $(hermitCss).appendTo($('head'));
         hermit = {'url': window.gThemePath + '/hermit/assets/swf'}; // hermit should be global
         var hermitJs = '<script src="' + window.gThemePath + '/hermit/assets/script/hermit.min.js" type="text/javascript"></script>';

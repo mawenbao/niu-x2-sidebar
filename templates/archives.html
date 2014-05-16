@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}{{ NIUX2_ARCHIVE_PUBDATE_TRANSL | default("Archives (by pubdate)") }} - {{ super() }} {% endblock %}
+{% block title %}{{ NIUX2_ARCHIVE_TRANSL | default("Archives") }} - {{ super() }} {% endblock %}
 {% block content %}
 <div class="col-md-8 col-md-offset-2">
-    <h1><i class="fa fa-archive"></i>{{ NIUX2_ARCHIVE_PUBDATE_TRANSL | default("Archives (by pubdate)") }}</h1>
+    <h1><i class="fa fa-archive"></i>{{ NIUX2_ARCHIVE_TRANSL | default("Archives") }}</h1>
 	<div id="niu2-archives">
 	{% set allLists = [] %}
 	{% for article in articles %}
