@@ -12,7 +12,7 @@ BSD 3-Clause License. Please see LICENSE.txt for more details.
 
 ![Demo image of niu-x2 theme](https://raw.github.com/mawenbao/niu-x2-sidebar/master/screenshot.png "niu-x2-sidebar demo image")
 
-You can check out my blog [blog.atime.me](http://blog.atime.me) for a live demo.
+You can check my blog [blog.atime.me](http://blog.atime.me) for a live demo.
 
 ## Features
 *  Bootstrap3.0.0, font-awesome4.0 and jQuery1.10 included.
