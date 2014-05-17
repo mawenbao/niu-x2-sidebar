@@ -26,11 +26,11 @@ $(document).ready(function() {
 });
 
 function onContentLoaded() {
-    initHeaderAnchors();
     initPygments();
     initHermitPlayer();
     initLazyLoad();
     initFootnote();
+    initHeaderAnchors();
     $(window).scroll(function() {
         toggleSidebarTocFixed();
         locateTocInViewport();
