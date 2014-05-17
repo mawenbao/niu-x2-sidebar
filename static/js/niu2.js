@@ -26,6 +26,7 @@ $(document).ready(function() {
 });
 
 function onContentLoaded() {
+    initHeaderAnchors();
     initPygments();
     initHermitPlayer();
     initLazyLoad();
@@ -144,6 +145,24 @@ function initLazyLoad() {
             }
         });
     }
+}
+
+function initHeaderAnchors() {
+    getMainContentHeaders().each(function(i, elem) {
+        $('<a class="niu2-header-anchor" href="' + $(elem).attr('id') + '">¶</a>').appendTo($(elem));
+    });
+    initHeaderScrollAnimation(getMainContentHeaders().children('.niu2-header-anchor'));
+    getMainContentHeaders().hover(
+        function() { $(this).children('.niu2-header-anchor').css('visibility', 'visible'); },
+        function() { $(this).children('.niu2-header-anchor').css('visibility', 'hidden'); }
+    );
+}
+
+function getMainContentHeaders() {
+    if (window.gMainContentHeaders == undefined) {
+        window.gMainContentHeaders = $('#niu2-main-content').find(':header');
+    }
+    return window.gMainContentHeaders;
 }
 
 function setSidebarTocSize() {
@@ -396,10 +415,9 @@ function openAllTocs() {
     showToc($('#niu2-sidebar-toc-list li ol'));
 }
 
-// toc scroll anamation
-function initTocLinkScrollAnimation() {
+function initHeaderScrollAnimation(targets) {
     initScrollAnimation(
-        getSidebarTocLinks(),
+        targets,
         function(target) { return target.offset().top; },
         400,
         function() {
@@ -408,6 +426,11 @@ function initTocLinkScrollAnimation() {
             locateTocInViewport();
         }
     );
+}
+
+// toc scroll anamation
+function initTocLinkScrollAnimation() {
+    initHeaderScrollAnimation(getSidebarTocLinks());
 }
 
 function initFootnote() {
@@ -750,7 +773,8 @@ function initScrollAnimation(targets, calcHeightFunc, speed, callback) {
     targets.each(function(i, e) {
         $(e).click(function(ev) {
             ev.preventDefault();
-            var anchor = $(e).attr('href').substring($(e).attr('href').indexOf('#') + 1);
+            var href = $(e).attr('href');
+            var anchor = href.substring(href.indexOf('#') + 1);
             // update url anchor
             if (window.location.hash != anchor && window.history.pushState) {
                 window.history.pushState('toc change', anchor, '#' + anchor);

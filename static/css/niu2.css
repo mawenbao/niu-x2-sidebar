@@ -64,6 +64,18 @@ blockquote p {
     display: inline-block;
 }
 
+.niu2-header-anchor {
+    margin-left: 7px;
+    font-size: 85%;
+    visibility: hidden;
+    color: rgb(51, 51, 51);
+}
+
+.niu2-header-anchor:hover {
+    color: rgb(51, 51, 51);
+    text-decoration: none;
+}
+
 #niu2-toolbar {
     position: fixed;
     top: 30%;
