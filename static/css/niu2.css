@@ -68,11 +68,11 @@ blockquote p {
     margin-left: 5px;
     font-size: 85%;
     visibility: hidden;
-    color: rgb(51, 51, 51);
+    color: #bbb;
 }
 
 .niu2-header-anchor:hover {
-    color: rgb(51, 51, 51);
+    color: #333;
     text-decoration: none;
 }
 
