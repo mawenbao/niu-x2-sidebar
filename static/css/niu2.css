@@ -76,6 +76,15 @@ blockquote p {
     text-decoration: none;
 }
 
+#niu2-main-content h1:hover .niu2-header-anchor,
+#niu2-main-content h2:hover .niu2-header-anchor,
+#niu2-main-content h3:hover .niu2-header-anchor,
+#niu2-main-content h4:hover .niu2-header-anchor,
+#niu2-main-content h5:hover .niu2-header-anchor,
+#niu2-main-content h6:hover .niu2-header-anchor {
+    visibility: visible;
+}
+
 #niu2-toolbar {
     position: fixed;
     top: 30%;

@@ -152,10 +152,6 @@ function initHeaderAnchors() {
         $('<a class="niu2-header-anchor" href="#' + $(elem).attr('id') + '">¶</a>').appendTo($(elem));
     });
     initHeaderScrollAnimation(getMainContentHeaders().children('.niu2-header-anchor'));
-    getMainContentHeaders().hover(
-        function() { $(this).children('.niu2-header-anchor').css('visibility', 'visible'); },
-        function() { $(this).children('.niu2-header-anchor').css('visibility', 'hidden'); }
-    );
 }
 
 function getMainContentHeaders() {
