@@ -149,7 +149,7 @@ function initLazyLoad() {
 
 function initHeaderAnchors() {
     getMainContentHeaders().each(function(i, elem) {
-        $('<a class="niu2-header-anchor" href="' + $(elem).attr('id') + '">¶</a>').appendTo($(elem));
+        $('<a class="niu2-header-anchor" href="#' + $(elem).attr('id') + '">¶</a>').appendTo($(elem));
     });
     initHeaderScrollAnimation(getMainContentHeaders().children('.niu2-header-anchor'));
     getMainContentHeaders().hover(
