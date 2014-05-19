@@ -56,18 +56,15 @@ function onContentLoaded() {
 
 function initPygments() {
     if ($('pre')[0]) {
-        var pygmentsCss = '<link rel="stylesheet" href="' + window.gThemePath + '/css/pygments.min/' + $('#niu2-pygments').data('theme') + '.min.css" type="text/css"/>';
-        $(pygmentsCss).appendTo($('head'));
+        appendCssFileToHead('/css/pygments.min/' + $('#niu2-pygments').data('theme') + '.min.css');
     }
 }
 
 function initHermitPlayer() {
     if ($('.hermit')[0]) {
-        var hermitCss = '<link href="' + window.gThemePath + '/hermit/assets/style/hermit.min.css" rel="stylesheet" type="text/css"/>';
-        $(hermitCss).appendTo($('head'));
+        appendCssFileToHead('/hermit/assets/style/hermit.min.css');
         hermit = {'url': window.gThemePath + '/hermit/assets/swf'}; // hermit should be global
-        var hermitJs = '<script src="' + window.gThemePath + '/hermit/assets/script/hermit.min.js" type="text/javascript"></script>';
-        $(hermitJs).appendTo($('body'));
+        appendJsFileToBody('/hermit/assets/script/hermit.min.js');
     }
 }
 
@@ -115,9 +112,14 @@ function initToolbar() {
 }
 
 function initLazyLoad() {
-    if ($('#niu2-lazy-load')[0]) {
+    var imageNodes = $('#niu2-main-content img.lazy');
+    if (0 != imageNodes.length && $('#niu2-lazy-load-text')[0]) {
+        // add lazyload js file
+        appendJsFileToBody('/js/jquery.lazyload.min.js');
+        // add lightbox js/css file
+        appendCssFileToHead('/lightbox/css/lightbox.min.css');
+        appendJsFileToBody('/lightbox/js/lightbox.min.js');
         // find all the images and prepare for lazyload.js
-        var imageNodes = $('#body-content img.lazy');
         var imgWidthLimit = getMainContent().getBoundingClientRect().width;
         var imgHoverText = $('#niu2-lazy-load-text').data('loading');
         imageNodes.each(function(i, elem) {
@@ -136,15 +138,30 @@ function initLazyLoad() {
             threshold : 100,
             effect : 'fadeIn',
             load: function() {
+                var img = $(this);
+                var par = $(this).parent();
                 // reset height after image loaded
-                $(this).css('height', 'auto');
-                $(this).attr('height', '');
+                img.css('height', 'auto');
+                img.attr('height', '');
                 // remove hover text
-                $(this).parent().removeClass('image-cover-box');
-                $(this).next('.image-cover').hide();
+                par.removeClass('image-cover-box');
+                img.next('.image-cover').hide();
+                // init lightbox
+                var imageLink = $('<a href="' + img.attr('src') + ' " data-title="' + img.attr('alt') +
+                    ' " data-lightbox="' + img.attr('src') + ' "></a>');
+                img.appendTo(imageLink);
+                imageLink.appendTo(par);
             }
         });
     }
+}
+
+function appendCssFileToHead(path) {
+    $('<link rel="stylesheet" href="' + window.gThemePath + path + '" type="text/css"/>').appendTo($('head'));
+}
+
+function appendJsFileToBody(path) {
+    $('<script src="' + window.gThemePath + path + '" type="text/javascript"></script>').appendTo($('body'));
 }
 
 function initHeaderAnchors() {
