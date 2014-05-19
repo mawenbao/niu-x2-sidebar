@@ -93,13 +93,13 @@ function initToolbar() {
                 rightContainer.hide();
                 $('#niu2-left-container').attr('class', 'col-md-8 col-md-offset-2');
                 $('#body-footer').attr('class', 'col-md-8 col-md-offset-2');
-                $('#niu2-toolbar-ctrlsidebar i').attr('class', 'fa fa-3x fa-arrow-circle-left');
+                $('#niu2-toolbar-ctrlsidebar i').attr('class', 'fa fa-3x fa-chevron-circle-left');
                 $('#niu2-toolbar-ctrlsidebar').attr('title', showSidebarTitle);
             } else {
                 rightContainer.show();
                 $('#niu2-left-container').attr('class', 'col-md-6 col-md-offset-2 with-right-border');
                 $('#body-footer').attr('class', 'col-md-6 col-md-offset-2');
-                $('#niu2-toolbar-ctrlsidebar i').attr('class', 'fa fa-3x fa-arrow-circle-right');
+                $('#niu2-toolbar-ctrlsidebar i').attr('class', 'fa fa-3x fa-chevron-circle-right');
                 $('#niu2-toolbar-ctrlsidebar').attr('title', hideSidebarTitle);
                 locateTocInViewport();
             }
