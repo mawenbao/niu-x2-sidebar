@@ -116,9 +116,9 @@ function initLazyLoad() {
     if (0 != imageNodes.length && $('#niu2-lazy-load-text')[0]) {
         // add lazyload js file
         appendJsFileToBody('/js/jquery.lazyload.min.js');
-        // add lightbox js/css file
-        appendCssFileToHead('/lightbox/css/lightbox.min.css');
-        appendJsFileToBody('/lightbox/js/lightbox.min.js');
+        // add colorbox js/css file
+        appendCssFileToHead('/colorbox/colorbox.min.css');
+        appendJsFileToBody('/colorbox/jquery.colorbox.min.js');
         // find all the images and prepare for lazyload.js
         var imgWidthLimit = getMainContent().getBoundingClientRect().width;
         var imgHoverText = $('#niu2-lazy-load-text').data('loading');
@@ -146,10 +146,16 @@ function initLazyLoad() {
                 // remove hover text
                 par.removeClass('image-cover-box');
                 img.next('.image-cover').hide();
-                // init lightbox
-                var imageLink = $('<a href="' + img.attr('src') + ' " data-title="' + img.attr('alt') +
-                    ' " data-lightbox="' + img.attr('src') + ' "></a>');
+                // init colorbox
+                var imageLink = $('<a href="' + img.attr('src') + ' " title="' + img.attr('alt') + '"></a>');
                 img.appendTo(imageLink);
+                imageLink.colorbox({
+                    href: img.attr('src'),
+                    fixed: true,
+                    scalePhotos: true,
+                    maxWidth: $(window).width() - 20,
+                    maxHeight: $(window).height(),
+                });
                 imageLink.appendTo(par);
             }
         });
