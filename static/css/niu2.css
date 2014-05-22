@@ -113,6 +113,10 @@ sup {
     margin: 0 3px 0 2px;
 }
 
+.niu2-sidebar-tag sup {
+    font-style: italic;
+}
+
 sup a.footnote-ref:before {
     content: "[";
     margin-right: 1px;
