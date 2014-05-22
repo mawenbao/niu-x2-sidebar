@@ -246,7 +246,10 @@ a.niu2-active-toc:before {
 */
 
 .niu2-sidebar-tag {
-    margin-top: 3px;
+    margin-bottom: 4px;
+    display: inline-block;
+    margin-right: -20px;
+    white-space: nowrap; 
 }
 
 .niu2-sidebar-label:first-child {

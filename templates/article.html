@@ -19,9 +19,7 @@
     {% from "comments_wrapper.html" import niu2_comments %}
     {{ niu2_comments(article, DISQUS_SITENAME, NIUX2_DUOSHUO_SHORTNAME) }}
 </div>
-<div id="niu2-right-container" class="col-md-3">
-    {% include "article_sidebar.html" %}
-</div>
+{% include "article_sidebar.html" %}
 {% include "toolbar.html" %}
 {% endblock %}
 
