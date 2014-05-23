@@ -70,7 +70,7 @@ function initHermitPlayer() {
 
 function initToolbar() {
     if (getToolbar()) {
-        var rightContainer = $('#niu2-right-container');
+        var rightContainers = $('.niu2-right-container');
         var showSidebarTitle = $('#niu2-toolbar-showsidebar').data('title');
         var hideSidebarTitle = $('#niu2-toolbar-ctrlsidebar').attr('title');
 
@@ -89,14 +89,14 @@ function initToolbar() {
         // init sidebar controller
         $('#niu2-toolbar-ctrlsidebar').click(function(e) {
             e.preventDefault();
-            if (!rightContainer.is(':hidden')) {
-                rightContainer.hide();
+            if (!rightContainers.is(':hidden')) {
+                rightContainers.hide();
                 $('#niu2-left-container').attr('class', 'col-md-8 col-md-offset-2');
                 $('#body-footer').attr('class', 'col-md-8 col-md-offset-2');
                 $('#niu2-toolbar-ctrlsidebar i').attr('class', 'fa fa-3x fa-chevron-circle-left');
                 $('#niu2-toolbar-ctrlsidebar').attr('title', showSidebarTitle);
             } else {
-                rightContainer.show();
+                rightContainers.show();
                 $('#niu2-left-container').attr('class', 'col-md-6 col-md-offset-2 with-right-border');
                 $('#body-footer').attr('class', 'col-md-6 col-md-offset-2');
                 $('#niu2-toolbar-ctrlsidebar i').attr('class', 'fa fa-3x fa-chevron-circle-right');
