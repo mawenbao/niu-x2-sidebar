@@ -1,5 +1,7 @@
 <div class="niu2-right-container col-md-2">
     <div id="niu2-sidebar-meta" class="niu2-sidebar">
+        <div class="niu2-sidebar-label"><i class="fa fa-user"></i>{{ NIUX2_AUTHOR_TRANSL | default("Author") }}:</div>
+        <div class="niu2-sidebar-value"><a rel="author" href="{{ NIUX2_AUTHOR_LINK | default(SITEURL) }}">{{ AUTHOR }}</a></div>
         <div class="niu2-sidebar-label"><i class="fa fa-calendar"></i>{{ NIUX2_PUBLISHED_TRANSL | default("Published") }}:</div>
         <div class="niu2-sidebar-value">{{ article.date.strftime("%Y-%m-%d %H:%M") }}</div>
         {% if article.updatedate and article.updatedate != article.date %}

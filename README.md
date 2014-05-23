@@ -202,6 +202,7 @@ Currently, there is not a search result page in this theme, so I suggest that yo
 *  `NIUX2_SHOW_SIDEBAR_TRANSL` string(default "Show Sidebar")
 *  `NIUX2_REVISION_HISTORY_TRANSL` string(default "Revision History")
 *  `NIUX2_VIEW_SOURCE_TRANSL` string(default "View Source")
+*  `NIUX2_AUTHOR_TRANSL` string(default "Author")
 
 ### Misc settings
 
@@ -217,4 +218,5 @@ Currently, there is not a search result page in this theme, so I suggest that yo
 *  `NIUX2_LIB_JQUERY` string(default SITEURL+'/theme/js/jquery-1.10.2.min.js'), url of jquery
 *  `NIUX2_LAZY_LOAD` bool(default False), enable lazy loading images.
 *  `NIUX2_DEBUG` bool(default False), if set as True, use niu2.js instead of niu2.min.js
+*  `NIUX2_AUTHOR_LINK` string(default 'SITEURL'), the author link of ariticles
 
