@@ -214,7 +214,7 @@ Currently, there is not a search result page in this theme, so I suggest that yo
 *  `NIUX2_DUOSHUO_SHORTNAME` string(default None), your duoshuo shortname. Note that if `DISQUS_SITENAME` is set, duoshuo will not be loaded.
 *  `NIUX2_LIB_THEME` string(default SITEURL+'/theme'), url of niu-x2-sidebar theme root
 *  `NIUX2_LIB_FONTAWESOME` string(default SITEURL+'/theme/font-awesome'), url of font-awesome
-*  `NIUX2_LIB_BOOTSTRAP_JS` string(default SITEURL+'/theme/js/bootstrap.min.js'), url of bootstrap javascript
+*  `NIUX2_LIB_BOOTSTRAP` string(default SITEURL+'/theme'), url of bootstrap library
 *  `NIUX2_LIB_JQUERY` string(default SITEURL+'/theme/js/jquery-1.10.2.min.js'), url of jquery
 *  `NIUX2_LAZY_LOAD` bool(default False), enable lazy loading images.
 *  `NIUX2_DEBUG` bool(default False), if set as True, use niu2.js instead of niu2.min.js

@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     {% set theme_loc = NIUX2_LIB_THEME if NIUX2_LIB_THEME else SITEURL + '/theme' %}
+    {% set bootstrap_loc = NIUX2_LIB_BOOTSTRAP if NIUX2_LIB_BOOTSTRAP else SITEURL + '/theme' %}
     {% set fontawesome_loc = NIUX2_LIB_FONTAWESOME if NIUX2_LIB_FONTAWESOME else SITEURL + '/theme/font-awesome' %}
     {% block head %}
     {% block head_init %}
@@ -9,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ NIUX2_FAVICON_URL | default('/favicon.png') }}">
-    <link rel="stylesheet" href="{{ theme_loc }}/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="{{ bootstrap_loc }}/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="{{ fontawesome_loc }}/css/font-awesome.min.css" type="text/css" />
     <link rel="stylesheet" href="{{ theme_loc }}/css/niu2.min.css" type="text/css" />
     {% endblock head_init %}
@@ -47,11 +48,10 @@
     <div id="niu2-pygments" data-theme="{{ NIUX2_PYGMENTS_THEME | default("github") }}"></div>
 
     {% set lib_jquery_loc = NIUX2_LIB_JQUERY if NIUX2_LIB_JQUERY else SITEURL + '/theme/js/jquery-1.11.0.min.js' %}
-    {% set bootstrap_js_loc = NIUX2_LIB_BOOTSTRAP_JS if NIUX2_LIB_BOOTSTRAP_JS else SITEURL + '/theme/js/bootstrap.min.js' %}
     {% set niu2_js_file = 'niu2.js' if NIUX2_DEBUG else 'niu2.min.js' %}
     <script type="text/javascript" src="{{ lib_jquery_loc }}"></script>
     <script type="text/javascript" src="{{ theme_loc }}/js/{{ niu2_js_file }}"></script>
-    <script type="text/javascript" src="{{ bootstrap_js_loc }}"></script>
+    <script type="text/javascript" src="{{ bootstrap_loc }}/js/bootstrap.min.js"></script>
     {% if NIUX2_LAZY_LOAD %}
     <div id="niu2-lazy-load-text" data-loading="{{ NIUX2_LAZY_LOAD_TEXT | default('Loading') }}"></div>
     {% endif %}
