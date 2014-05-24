@@ -151,7 +151,7 @@ function initLazyLoad() {
                 img.appendTo(imageLink);
                 imageLink.colorbox({
                     href: img.attr('src'),
-                    fixed: true,
+                    returnFocus: false,
                     scalePhotos: true,
                     maxWidth: $(window).width() - 20,
                     maxHeight: $(window).height(),
