@@ -7,7 +7,7 @@
 		<a href="http://fortawesome.github.io/Font-Awesome">Font Awesome</a>.
 	</p>
 	<p>
-		Copyright
+		©
 		{% if articles[0] %}
 			{% if articles[0].date.year == articles[-1].date.year %}
 				{{ articles[0].date.year }}
@@ -17,15 +17,15 @@
 		{% else %}
 		     2013
 		{% endif %}
-		<a href="{{ SITEURL }}">{{ AUTHOR | default("") }}</a>
+		<a class="niu2-footer-link" href="{{ SITEURL }}">{{ AUTHOR | default("") }}</a>
 		{% for link in NIUX2_FOOTER_LINKS %}
         | {% if link[3] %} <i class="fa {{ link[3] }}"></i> {% endif %}
-			<a href="{{ link[2] }}" title="{{ link[1] }}">{{ link[0] }}</a>
+			<a class="niu2-footer-link" href="{{ link[2] }}" title="{{ link[1] }}">{{ link[0] }}</a>
 		{% endfor %}
     </p>
     <p class="niu2-icons">
 	    {% for icon in NIUX2_FOOTER_ICONS %}
-	        <a href="{{ icon[2] }}" title="{{ icon[1] }}">
+	        <a class="niu2-footer-icon" href="{{ icon[2] }}" title="{{ icon[1] }}">
 	            <i class="fa {{ icon[0] }} fa-lg"></i>
 	        </a>
 	    {% endfor %}
