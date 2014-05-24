@@ -30,7 +30,7 @@
                 {% endif %}
                 <li>
                     <span>{{ article.updatedate.strftime('%d') }}</span>
-                    <a href="{{ SITEURL }}/{{ article.url }}" title="{{ NIUX2_CATEGORY_TRANSL | default("Category") }}: {{ my_cat }}">
+                    <a href="{{ SITEURL }}/{{ article.url }}" title="{{ my_cat }}: {{ article.summary | striptags | truncate(100, True) }}">
                         {{ article.title }}
                     </a>
                 </li>
