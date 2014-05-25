@@ -124,37 +124,18 @@
                 var xiamiAlbum = f.getAttribute("xiami");
                 var neteaseAlbum = f.getAttribute("netease");
                 if (neteaseAlbum) {
-                    jQuery.ajax({
-                        type: "GET",
-                        url: "http://app.atime.me/163music-ajax-proxy.php?route=api/playlist/detail?id=" + neteaseAlbum
-                    }).done(function(neteaseRet) {
-                        if (neteaseRet) {
-                            neteaseRet = neteaseRet.result;
-                            var songs = [];
-                            var tracks = neteaseRet.tracks;
-                            for (var i = 0; i < neteaseRet.tracks.length; i++) {
-                                var track = neteaseRet.tracks[i];
-                                var authors = "";
-                                for (var j = 0; j < track.artists.length; j++) {
-                                    authors += (track.artists[j].name + ";");
-                                }
-                                songs.push({
-                                    "song_title": track.name,
-                                    "song_src": track.mp3Url,
-                                    "song_author": authors.substring(0, authors.length - 1)
-                                });
-                            }
-                            var fakeXiamiSongs = {
-                                "collect_id": 12345,
-                                "songs": songs
-                            };
-                            a.fn.createPlayListUI.call(f, fakeXiamiSongs, c);
-                            c == b && a.fn.autoPlay();
-                        }
-
+                    window.gAjaxProxy.ready(function() {
+                        jQuery.ajax({
+                            type: "GET",
+                            url: "http://app.atime.me/163music-ajax-proxy.php?route=api/playlist/detail",
+                            data: { id: neteaseAlbum}
+                        }).done(function(msg) {
+                            alert(msg);
+                        });
                     });
-                } else if (xiamiAlbum) {
-                    var e = xiamiAlbum.split("#:");
+                };
+                if (xiamiAlbum) {
+                    e = xiamiAlbum.split("#:");
                     a.fn.ajaxp({
                         url: "http://goxiami.duapp.com/",
                         param: {
@@ -176,16 +157,10 @@
             a.sound && (a.sound.destruct(), g == i[j].length && (g = 0));
             h.onready(function () {
                 a.sound = h.createSound({
-                    //id: "goXiami",
+                    id: "goXiami",
                     url: i[j][g].src,
                     volume: q,
-                    autoLoad: true,
-                    ondataerror: function() {
-                        console.log("fuck");
-                    },
-                    onconnect: function() {
-                        console.log('connect');
-                    },
+                    autoLoad: !1,
                     onload: function () {
                         3 > this.readyState && (a.fn.getByClassName("hermit-detail", b, "div")[0].innerHTML = "\u97f3\u4e50\u64ad\u653e\u5668\u521d\u59cb\u5316\u5931\u8d25!")
                     },
@@ -244,7 +219,7 @@
                 }), f += '<div class="hermit-song">' + this.song_title + " - " + this.song_author + "</div>")
             });
             else {
-                var e = this.getAttribute("xiami").split("#:")[1],
+                var e = this.getAttribute("songs").split("#:")[1],
                     e = e.split(",");
                 a.fn.each(e, function () {
                     null != c[this] && (i[b].push({
@@ -253,7 +228,7 @@
                 })
             }
             d.innerHTML = f;
-            a.fn.playEvent.call(this);
+            a.fn.playEvent.call(this)
         },
         playEvent: function () {
             var c = this,

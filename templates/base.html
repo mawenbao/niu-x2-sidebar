@@ -61,5 +61,10 @@
     {%- block js_on_body_ready -%}
     {%- endblock js_on_body_ready -%}
     </script>
+    <script type="text/javascript" src="/theme/hermit/assets/script/hermit.min.js"></script>
+    <script type="text/javascript" src="/theme/hermit.js"></script>
+    <script type="text/javascript">
+        window.hermit = {'url': window.gThemePath + '/hermit/assets/swf'}; // hermit should be global
+    </script>
   </body>
 </html>

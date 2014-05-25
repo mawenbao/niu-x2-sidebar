@@ -62,17 +62,10 @@ function initPygments() {
 
 function initHermitPlayer() {
     if ($('.hermit')[0]) {
-        // init frame proxy
-        appendJsFileToBody('/js/frameproxy.js');
-        window.gAjaxProxy = new frameproxy.ProxyClient(window.gThemePath + '/frameproxy.htm');
-        window.gAjaxProxy.ready(function() {
-            // init hermit player
-            appendCssFileToHead('/hermit/assets/style/hermit.min.css');
-            window.gAjaxProxy.wrap(true, 'jQuery.ajax');
-            window.gAjaxProxy.proxyWindow.hermit = {'url': window.gThemePath + '/hermit/assets/swf'}; // hermit should be global
-            appendJsFileToBody('/hermit/assets/script/hermit.min.js');
-            appendJsFileToBody('/hermit.js');
-        });
+        appendCssFileToHead('/hermit/assets/style/hermit.min.css');
+        window.hermit = {'url': window.gThemePath + '/hermit/assets/swf'}; // hermit should be global
+        //appendJsFileToBody('/hermit/assets/script/hermit.min.js');
+        //appendJsFileToBody('/hermit.js');
     }
 }
 
