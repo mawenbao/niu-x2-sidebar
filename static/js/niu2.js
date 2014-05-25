@@ -64,8 +64,7 @@ function initHermitPlayer() {
     if ($('.hermit')[0]) {
         appendCssFileToHead('/hermit/assets/style/hermit.min.css');
         window.hermit = {'url': window.gThemePath + '/hermit/assets/swf'}; // hermit should be global
-        //appendJsFileToBody('/hermit/assets/script/hermit.min.js');
-        //appendJsFileToBody('/hermit.js');
+        appendJsFileToBody('/hermit/assets/script/hermit.min.js');
     }
 }
 
