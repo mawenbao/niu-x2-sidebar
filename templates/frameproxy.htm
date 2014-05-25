@@ -1,0 +1,19 @@
+<!-- See https://github.com/benjamine/FrameProxy -->
+<html>
+    <head>
+        <title>JS Proxy</title>
+        {% set lib_jquery_loc = NIUX2_LIB_JQUERY if NIUX2_LIB_JQUERY else SITEURL + '/theme/js/jquery-1.11.0.min.js' %}
+        <script type="text/javascript" src="{{ lib_jquery_loc }}"></script>
+        {% set theme_loc = NIUX2_LIB_THEME if NIUX2_LIB_THEME else SITEURL + '/theme' %}
+        <script src="{{ theme_loc }}/js/frameproxy.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <h1>JS Proxy</h1>
+        <script type="text/javascript">
+            new frameproxy.ProxyServer({
+                domain: '*'
+            }).listen();
+        </script>
+    </body>
+</html>
