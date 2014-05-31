@@ -63,7 +63,14 @@ function initPygments() {
 function initHermitPlayer() {
     if ($('.hermit')[0]) {
         appendCssFileToHead('/hermit/assets/style/hermit.min.css');
-        window.hermit = {'url': window.gThemePath + '/hermit/assets/swf'}; // hermit should be global
+        window.hermit = {
+            'url': window.gThemePath + '/soundmanager2/swf',
+            //'debugMode': true,
+            //'debugFlash': true,
+            //'preferFlash': true,
+            //'flashVersion': 9,
+        }; // hermit should be global
+        appendJsFileToBody('/soundmanager2/script/soundmanager2.min.js');
         appendJsFileToBody('/hermit/assets/script/hermit.min.js');
     }
 }

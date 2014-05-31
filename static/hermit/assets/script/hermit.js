@@ -20,8 +20,12 @@
         d = D ? "touchmove" : "mousemove",
         c = D ? "touchend" : "mouseup";
     G.url = hermit.url;
-    G.debugMode = !1;
-    G.preferFlash = 5 < B ? !0 : !1;
+    G.debugMode = hermit.debugMode || false;
+    G.debugFlash = hermit.debugFlash || false;
+    G.preferFlash = hermit.preferFlash || false;
+    G.flashVersion = hermit.flashVersion || 8;
+    //G.debugMode = !1;
+    //G.preferFlash = 5 < B ? !0 : !1;
     J.init = function () {
         this.fn.getjson()
     };
@@ -304,7 +308,15 @@
                 J.fn.bind(C, this, function () {
                     var t = J.fn.index(this, j);
                     if (E == e) {
-                        t == H ? s.click() : (H = t, J.fn.create.call(r, e))
+                        t == H ? s.click() : function() {
+                            var k = J.fn.getByClassName("hermit")[E],
+                                i = J.fn.getByClassName("hermit-button", k, "div")[0];
+                            if (!J.fn.hasClass(i, "playing")) {
+                                J.fn.addClass(i, "playing");
+                            }
+                            H = t;
+                            J.fn.create.call(r, e);
+                        }();
                     } else {
                         if (J.sound) {
                             var k = J.fn.getByClassName("hermit")[E],
