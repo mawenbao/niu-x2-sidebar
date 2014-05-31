@@ -184,7 +184,7 @@
                             }
                             var q = o.mp3Url;
                             var x = q.indexOf("//") + 2;
-                            var w = "http://app.atime.me/ajax-proxy/163music-m1.php";
+                            var w = "http://proxy.atime.me/ajax-proxy/163music-m1.php";
                             var u = q.indexOf("/", x);
                             var K = q.substr(u + 1);
                             q = w + "?route=" + K;
