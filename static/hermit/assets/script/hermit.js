@@ -1,3 +1,14 @@
+/**
+ * @name Hermit
+ * @version 1.1.0
+ * @create 2014.2.7
+ * @lastmodified 2014-04-20 12:02
+ * @description Hermit Plugin
+ * @author MuFeng (http://mufeng.me)
+ * @url http://mufeng.me/hermit-for-wordpress.html
+ *
+ * Modified by mawenbao to work with niu-x2-sidebar pelican theme.
+ **/
 (function (A, I, f) {
     var G = soundManager,
         H = null,
