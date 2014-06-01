@@ -167,6 +167,14 @@
                         collect_id: 12345,
                         songs: []
                     };
+                    // parse additional songs first
+                    jQuery(".hermit-add-song").each(function(i, e) {
+                        result.songs.push({
+                            song_title: jQuery(e).data("title"),
+                            song_src: jQuery(e).data("url"),
+                            song_author: jQuery(e).data("author"),
+                        });
+                    });
                     if (xiamiArgs) {
                         var xiamiSongs = xiamiArgs[0].songs;
                         for (var xiamik in xiamiSongs) {
