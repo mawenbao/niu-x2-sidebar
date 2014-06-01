@@ -7,7 +7,7 @@
  * @author MuFeng (http://mufeng.me)
  * @url http://mufeng.me/hermit-for-wordpress.html
  *
- * Modified by mawenbao to work with niu-x2-sidebar pelican theme.
+ * 2014-06-01 Modified by mawenbao to work with the pelican niu-x2-sidebar theme and niux2_hermit_player plugin.
  **/
 (function (A, I, f) {
     var G = soundManager,
