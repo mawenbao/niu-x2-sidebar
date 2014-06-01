@@ -1,11 +1,11 @@
 <div class="niu2-right-container col-md-2">
     <div id="niu2-sidebar-meta" class="niu2-sidebar">
-        <div class="niu2-sidebar-label"><i class="fa fa-user"></i>{{ NIUX2_AUTHOR_TRANSL | default("Author") }}:</div>
+        <div class="niu2-sidebar-label"><i class="fa fa-user" style="font-size: 1.05em;"></i>{{ NIUX2_AUTHOR_TRANSL | default("Author") }}:</div>
         <div class="niu2-sidebar-value"><a rel="author" href="{{ NIUX2_AUTHOR_LINK | default(SITEURL) }}">{{ AUTHOR }}</a></div>
         <div class="niu2-sidebar-label"><i class="fa fa-calendar"></i>{{ NIUX2_PUBLISHED_TRANSL | default("Published") }}:</div>
         <div class="niu2-sidebar-value">{{ article.date.strftime("%Y-%m-%d %H:%M") }}</div>
         {% if article.updatedate and article.updatedate != article.date %}
-        <div class="niu2-sidebar-label"><i class="fa fa-pencil"></i>{{ NIUX2_LASTMOD_TRANSL | default("Last modified") }}:</div>
+        <div class="niu2-sidebar-label"><i class="fa fa-pencil" style="font-size: 1.05em;"></i>{{ NIUX2_LASTMOD_TRANSL | default("Last modified") }}:</div>
         <div class="niu2-sidebar-value">{{ article.updatedate.strftime("%Y-%m-%d %H:%M") }}</div>
         {% endif %}
         {% if NIUX2_CATEGORY_MAP and NIUX2_CATEGORY_MAP[article.category] %}
