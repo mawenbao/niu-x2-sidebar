@@ -33,7 +33,7 @@
     G.url = hermit.url;
     G.debugMode = hermit.debugMode || false;
     G.debugFlash = hermit.debugFlash || false;
-    G.preferFlash = hermit.preferFlash || false;
+    G.preferFlash = hermit.preferFlash || true;
     G.flashVersion = hermit.flashVersion || 8;
     //G.debugMode = !1;
     //G.preferFlash = 5 < B ? !0 : !1;
@@ -161,39 +161,37 @@
                 var i = this;
                 var h = i.getAttribute("xiami");
                 var g = i.getAttribute("netease");
-                jQuery.when(
-                    function() {
-                        if (h) {
-                            var j = h.split("#:");
-                            return jQuery.get("http://app.atime.me/ajax-proxy/xiami-list.php?route=index.php?type=" + j[0] + "%26id=" + j[1]);
-                        }
-                    }(),
-                    function() {
-                        if (g) {
-                            return jQuery.get("http://app.atime.me/ajax-proxy/163music-list.php?route=api/playlist/detail?id=" + g);
-                        }
-                    }()
-                ).then(function (xiamiArgs, L) {
-                    var result = {
-                        collect_id: 12345,
-                        songs: []
-                    };
-                    // parse additional songs first
-                    jQuery(".hermit-add-song").each(function(i, e) {
-                        result.songs.push({
-                            song_title: jQuery(e).data("title"),
-                            song_src: jQuery(e).data("url"),
-                            song_author: jQuery(e).data("author"),
-                        });
+                var result = {
+                    collect_id: 12345,
+                    songs: []
+                };
+                // parse additional songs first
+                jQuery(".hermit-add-song").each(function(i, e) {
+                    result.songs.push({
+                        song_title: jQuery(e).data("title"),
+                        song_src: jQuery(e).data("url"),
+                        song_author: jQuery(e).data("author"),
                     });
-                    if (xiamiArgs) {
-                        var xiamiSongs = xiamiArgs[0].songs;
-                        for (var xiamik in xiamiSongs) {
-                            result.songs.push(xiamiSongs[xiamik]);
-                        }
-                    }
-                    if (L) {
-                        L = L[0].result;
+                });
+                if (h) {
+                    var j = h.split("#:");
+                    J.fn.ajaxp({
+                            url: "http://goxiami.duapp.com/",
+                            param: {
+                                type: j[0],
+                                id: j[1]
+                            },
+                            after: function (e) {
+                                 for (var xiamik in e.songs) {
+                                     result.songs.push(e.songs[xiamik]);
+                                 }
+                                J.fn.createPlayListUI.call(i, result, k);
+                                k == a && J.fn.autoPlay()
+                            }
+                    });
+                } else if (g) {
+                    jQuery.get("http://app.atime.me/ajax-proxy/163music-list.php?route=api/playlist/detail?id=" + g).done(function(neteaseRet) {
+                        var L = neteaseRet.result;
                         var t = L.tracks;
                         for (var s = 0; s < L.tracks.length; s++) {
                             var o = L.tracks[s];
@@ -213,12 +211,10 @@
                                 song_author: v.substring(0, v.length - 1)
                             })
                         }
-                    }
-                    J.fn.createPlayListUI.call(i, result, k);
-                    k == a && J.fn.autoPlay()
-                }, function(xi, ne) {
-                    J.fn.getByClassName("hermit-detail", a, "div")[0].innerHTML = "\u97f3\u4e50\u64ad\u653e\u5668\u521d\u59cb\u5316\u5931\u8d25!";
-                });
+                        J.fn.createPlayListUI.call(i, result, k);
+                        k == a && J.fn.autoPlay()
+                    });
+                }
             });
         },
         create: function (e) {
