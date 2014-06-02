@@ -214,6 +214,9 @@
                         J.fn.createPlayListUI.call(i, result, k);
                         k == a && J.fn.autoPlay()
                     });
+                } else {
+                    J.fn.createPlayListUI.call(i, result, k);
+                    k == a && J.fn.autoPlay()
                 }
             });
         },
