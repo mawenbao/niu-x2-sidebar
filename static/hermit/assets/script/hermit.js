@@ -33,7 +33,7 @@
     G.url = hermit.url;
     G.debugMode = hermit.debugMode || false;
     G.debugFlash = hermit.debugFlash || false;
-    G.preferFlash = hermit.preferFlash || true;
+    G.preferFlash = hermit.preferFlash || (5 < B ? !0 : !1);
     G.flashVersion = hermit.flashVersion || 8;
     //G.debugMode = !1;
     //G.preferFlash = 5 < B ? !0 : !1;
