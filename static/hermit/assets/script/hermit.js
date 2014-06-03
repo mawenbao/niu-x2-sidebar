@@ -182,9 +182,10 @@
                                 id: j[1]
                             },
                             after: function (e) {
-                                 for (var xiamik in e.songs) {
-                                     result.songs.push(e.songs[xiamik]);
-                                 }
+                                var retSongs = e.songs ? e.songs : e;
+                                for (var xiamik in retSongs) {
+                                    result.songs.push(retSongs[xiamik]);
+                                }
                                 J.fn.createPlayListUI.call(i, result, k);
                                 k == a && J.fn.autoPlay()
                             }
