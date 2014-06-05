@@ -22,7 +22,7 @@
 		{% endif %}
 		<a class="niu2-footer-link" href="{{ SITEURL }}">{{ AUTHOR | default("") }}</a>
 		{% for link in NIUX2_FOOTER_LINKS %}
-        | {% if link[3] %} <i class="fa {{ link[3] }}"></i> {% endif %}
+        / {% if link[3] %} <i class="fa {{ link[3] }}"></i> {% endif %}
 			<a class="niu2-footer-link" href="{{ link[2] }}" title="{{ link[1] }}">{{ link[0] }}</a>
 		{% endfor %}
     </p>
