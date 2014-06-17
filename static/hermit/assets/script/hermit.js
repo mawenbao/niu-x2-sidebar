@@ -176,10 +176,11 @@
                 if (h) {
                     var j = h.split("#:");
                     J.fn.ajaxp({
-                            url: "http://goxiami.duapp.com/",
+                            url: "http://app.atime.me/music-service-api/",
                             param: {
-                                type: j[0],
-                                id: j[1]
+                                p: "xiami",
+                                t: j[0],
+                                i: j[1]
                             },
                             after: function (e) {
                                 var retSongs = e.songs ? e.songs : e;
@@ -481,7 +482,7 @@
                 body = I.documentElement;
                 head = body.getElementsByTagName("head")[0];
                 callbackName = "hermit" + parseInt(999999 * Math.random());
-                a.param.callback = callbackName;
+                a.param.c = callbackName;
                 a.param._ = e;
                 A[callbackName] = function (h) {
                     a.after.call(this, h);
