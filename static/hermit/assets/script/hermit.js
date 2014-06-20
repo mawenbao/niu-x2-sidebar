@@ -174,7 +174,7 @@
                     });
                 });
                 if (h) {
-                    var j = h.split("#:");
+                    var j = h.split(":");
                     J.fn.ajaxp({
                             url: "http://app.atime.me/music-service-api/",
                             param: {
@@ -183,9 +183,8 @@
                                 i: j[1]
                             },
                             after: function (e) {
-                                var retSongs = e.songs ? e.songs : e;
-                                for (var xiamik in retSongs) {
-                                    result.songs.push(retSongs[xiamik]);
+                                for (var xiamik in e.songs) {
+                                    result.songs.push(e.songs[xiamik]);
                                 }
                                 J.fn.createPlayListUI.call(i, result, k);
                                 k == a && J.fn.autoPlay()
@@ -299,7 +298,7 @@
                     }), g += '<div class="hermit-song">' + this.song_title + " - " + this.song_author + "</div>")
                 })
             } else {
-                var h = this.getAttribute("xiami").split("#:")[1],
+                var h = this.getAttribute("xiami").split(":")[1],
                     h = h.split(",");
                 J.fn.each(h, function () {
                     null != j[this] && (F[a].push({
