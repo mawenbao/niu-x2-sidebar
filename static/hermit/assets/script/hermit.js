@@ -168,54 +168,30 @@
                 // parse additional songs first
                 jQuery(".hermit-add-song").each(function(i, e) {
                     result.songs.push({
-                        song_title: jQuery(e).data("title"),
-                        song_src: jQuery(e).data("url"),
-                        song_author: jQuery(e).data("author"),
+                        name: jQuery(e).data("title"),
+                        url: jQuery(e).data("url"),
+                        artists: jQuery(e).data("author"),
                     });
                 });
-                if (h) {
-                    var j = h.split(":");
-                    J.fn.ajaxp({
-                            url: "http://app.atime.me/music-service-api/",
-                            param: {
-                                p: "xiami",
-                                t: j[0],
-                                i: j[1]
-                            },
-                            after: function (e) {
-                                for (var xiamik in e.songs) {
-                                    result.songs.push(e.songs[xiamik]);
-                                }
-                                J.fn.createPlayListUI.call(i, result, k);
-                                k == a && J.fn.autoPlay()
+                var musicParams = h ? h : g
+                var provider = h ? "xiami" : "netease"
+                var j = musicParams.split(":");
+                J.fn.ajaxp({
+                        url: "http://app.atime.me/music-api-server/",
+                        param: {
+                            p: provider,
+                            t: j[0],
+                            i: j[1]
+                        },
+                        after: function (e) {
+                            for (var xiamik in e.songs) {
+                                result.songs.push(e.songs[xiamik]);
                             }
-                    });
-                } else if (g) {
-                    jQuery.get("http://app.atime.me/ajax-proxy/163music-list.php?route=api/playlist/detail?id=" + g).done(function(neteaseRet) {
-                        var L = neteaseRet.result;
-                        var t = L.tracks;
-                        for (var s = 0; s < L.tracks.length; s++) {
-                            var o = L.tracks[s];
-                            var v = "";
-                            for (var r = 0; r < o.artists.length; r++) {
-                                v += (o.artists[r].name + ";")
-                            }
-                            var q = o.mp3Url;
-                            var x = q.indexOf("//") + 2;
-                            var w = "http://proxy.atime.me/ajax-proxy/163music-m1.php";
-                            var u = q.indexOf("/", x);
-                            var K = q.substr(u + 1);
-                            q = w + "?route=" + K;
-                            result.songs.push({
-                                song_title: o.name,
-                                song_src: q,
-                                song_author: v.substring(0, v.length - 1)
-                            })
+                            J.fn.createPlayListUI.call(i, result, k);
+                            k == a && J.fn.autoPlay()
                         }
-                        J.fn.createPlayListUI.call(i, result, k);
-                        k == a && J.fn.autoPlay()
-                    });
-                } else {
+                });
+                if (! h && !g) {
                     J.fn.createPlayListUI.call(i, result, k);
                     k == a && J.fn.autoPlay()
                 }
@@ -294,16 +270,16 @@
             if (F[a] = [], j.album_id || j.collect_id) {
                 j = j.songs, J.fn.each(j, function () {
                     null != this && (F[a].push({
-                        src: this.song_src
-                    }), g += '<div class="hermit-song">' + this.song_title + " - " + this.song_author + "</div>")
+                        src: this.url
+                    }), g += '<div class="hermit-song">' + this.name + " - " + this.artists + "</div>")
                 })
             } else {
                 var h = this.getAttribute("xiami").split(":")[1],
                     h = h.split(",");
                 J.fn.each(h, function () {
                     null != j[this] && (F[a].push({
-                        src: j[this].song_src
-                    }), g += '<div class="hermit-song">' + j[this].song_title + " - " + j[this].song_author + "</div>")
+                        src: j[this].url
+                    }), g += '<div class="hermit-song">' + j[this].name + " - " + j[this].artists + "</div>")
                 })
             }
             i.innerHTML = g;
