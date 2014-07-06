@@ -8,6 +8,7 @@
 pre {
     word-break: normal;
     word-wrap: normal;
+    position: relative;
 }
 
 code {
