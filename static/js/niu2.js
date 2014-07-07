@@ -81,16 +81,23 @@ function initToolbar() {
         var showSidebarTitle = $('#niu2-toolbar-showsidebar').data('title');
         var hideSidebarTitle = $('#niu2-toolbar-ctrlsidebar').attr('title');
 
+        var docPath = window.location.pathname.replace(/html$/, 'md');
+        if (-1 == docPath.replace(/^\//, '').search('/')) {
+            // is a page
+            docPath = '/pages' + docPath;
+        }
+
         // init raw link and revision link
         var githubRepo = $('#niu2-toolbar-github').data('repo').replace(/\/+$/g, '');
+        var bitbucketRepo = $('#niu2-toolbar-bitbucket').data('repo').replace(/\/+$/g, '');
         if ('' != githubRepo) {
-            var docPath = window.location.pathname.replace(/html$/, 'md');
-            if (-1 == docPath.replace(/^\//, '').search('/')) {
-                // is a page
-                docPath = '/pages' + docPath;
-            }
+            // a github repository
             $('#niu2-toolbar-revhistory').attr('href', 'https://github.com/' + githubRepo + '/commits/master/content' + docPath);
             $('#niu2-toolbar-viewsource').attr('href', 'https://raw.githubusercontent.com/' + githubRepo + '/master/content' + docPath);
+        } else if ('' != bitbucketRepo) {
+            // a bitbucket repository
+            $('#niu2-toolbar-revhistory').attr('href', 'https://bitbucket.org/' + bitbucketRepo + '/history-node/master/content' + docPath);
+            $('#niu2-toolbar-viewsource').attr('href', 'https://bitbucket.org/' + bitbucketRepo + '/raw/master/content' + docPath);
         }
 
         // init sidebar controller

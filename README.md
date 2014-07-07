@@ -114,10 +114,11 @@ You should add the following setting to your pelican configuration.
 
 ### Toolbar
 
-The toolbar only supports for github project now.
+The toolbar only supports for github/bitbucket project now.
 
 *  `NIUX2_TOOLBAR` bool(default False), enable/disable toolbar.
 *  `NIUX2_GITHUB_REPO` string(default ''), repository of your github project, for example `mawenbao/niu-x2-sidebar`.
+*  `NIUX2_BITBUCKET_REPO` string(default ''), repository of your bitbucket project, for example `mawenbao/niu-x2-sidebar`. Note that this setting will be ignored if `NIUX2_GITHUB_REPO` has been set.
 
 ### Pygments theme
 
