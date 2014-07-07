@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}{{ page.title }} - {{ super() }}{% endblock %}
-{% block head_init %}
+{% block head_init -%}
     {{ super() }}
     <link rel="canonical" href="{{ SITEURL }}/{{ page.url }}" />
 {% endblock %}
