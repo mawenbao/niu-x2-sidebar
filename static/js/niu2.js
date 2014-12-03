@@ -154,7 +154,8 @@ function initLazyLoad() {
             effect : 'fadeIn',
             load: function() {
                 var img = $(this);
-                var par = $(this).parent();
+                var imgOverly = img.next('.image-cover');
+                var par = img.parent();
                 // before detaching the img node, we should reserve
                 // the image's vertical space for its parent node
                 par.css('height', img.css('height'));
@@ -164,7 +165,7 @@ function initLazyLoad() {
                 img.attr('height', '');
                 // remove hover text
                 par.removeClass('image-cover-box');
-                img.next('.image-cover').hide();
+                imgOverly.hide();
                 // init colorbox
                 var imageLink = $('<a href="' + img.attr('src') + ' " title="' + img.attr('alt') + '"></a>');
                 img.appendTo(imageLink);
