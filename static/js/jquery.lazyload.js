@@ -41,15 +41,15 @@
                     return;
                 }
                 if ($.abovethetop(this, settings) ||
-                    $.leftofbegin(this, settings)) {
+                    $.leftofbegin(this, settings) ||
+                    // If the page is scrolling, do not trigger the appear event.
+                    // window.gEnableTocStatusUpdate == false(from niu2.js) means
+                    // the page is scrolling.
+                    (window.gEnableTocStatusUpdate == false)
+                    ) {
                         /* Nothing. */
                 } else if (!$.belowthefold(this, settings) &&
-                    !$.rightoffold(this, settings) &&
-                    // if the page is scrolling, do not trigger the appear event
-                    // window.gEnableTocStatusUpdate == true(from niu2.js) means there's
-                    // no scroll animation at present
-                    (window.gEnableTocStatusUpdate == true)
-                    ) {
+                    !$.rightoffold(this, settings)) {
                         $this.trigger("appear");
                         /* if we found an image we'll load, reset the counter */
                         counter = 0;
