@@ -140,6 +140,7 @@ function initLazyLoad() {
             var imgRealWidth = parseInt($(elem).data('width'));
             var imgRealHeight = parseInt($(elem).data('height'));
             var imgHeightLimit = (imgRealWidth > imgWidthLimit) ? (imgWidthLimit / imgRealWidth * imgRealHeight) : imgRealHeight;
+            imgHeightLimit = imgHeightLimit.toFixed();
             $(elem).attr('height',  imgHeightLimit + 'px');
             // show loading text
             $(elem).parent().addClass('image-cover-box');
@@ -149,11 +150,15 @@ function initLazyLoad() {
         });
         // enable lazy load
         imageNodes.lazyload({
-            threshold : 100,
+            threshold : 20,
             effect : 'fadeIn',
             load: function() {
                 var img = $(this);
                 var par = $(this).parent();
+                // before detaching the img node, we should reserve
+                // the image's vertical space for its parent node
+                par.css('height', img.css('height'));
+                img.detach();
                 // reset height after image loaded
                 img.css('height', 'auto');
                 img.attr('height', '');
@@ -171,6 +176,8 @@ function initLazyLoad() {
                     maxHeight: $(window).height(),
                 });
                 imageLink.appendTo(par);
+                // reset parent node's height
+                par.css('height', 'auto');
             }
         });
     }
