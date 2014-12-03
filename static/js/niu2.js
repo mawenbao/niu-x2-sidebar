@@ -150,7 +150,7 @@ function initLazyLoad() {
         });
         // enable lazy load
         imageNodes.lazyload({
-            threshold : 20,
+            threshold : 0,
             effect : 'fadeIn',
             load: function() {
                 var img = $(this);

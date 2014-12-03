@@ -5,12 +5,15 @@ HERMIT_JS_DIR = static/hermit/assets/script
 
 all: compress
 
-compress: static/css/niu2.min.css static/js/niu2.min.js ${PYGMENTS} ${HERMIT_JS_DIR}/hermit.min.js
+compress: static/css/niu2.min.css static/js/niu2.min.js static/js/jquery.lazyload.min.js ${PYGMENTS} ${HERMIT_JS_DIR}/hermit.min.js
 
 static/js/niu2.min.js: static/js/niu2.js
 	yui-compressor -o $@ $<
 
 static/css/niu2.min.css: static/css/niu2.css
+	yui-compressor -o $@ $<
+
+static/js/jquery.lazyload.min.js: static/js/jquery.lazyload.js
 	yui-compressor -o $@ $<
 
 ${HERMIT_JS_DIR}/hermit.min.js: ${HERMIT_JS_DIR}/hermit.js
@@ -21,7 +24,7 @@ ${PYGMENTS}: static/css/pygments.min/%.min.css: static/css/pygments/%.css
 	yui-compressor -o $@ $<
 
 clean:
-	rm -rf static/js/niu2.min.js static/css/niu2.min.css ${PYGMENTS_MIN_DIR} ${HERMIT_JS_DIR}/hermit.min.js
+	rm -rf static/js/niu2.min.js static/css/niu2.min.css static/js/jquery.lazyload.min.js ${PYGMENTS_MIN_DIR} ${HERMIT_JS_DIR}/hermit.min.js
 
 .PHONY: all compress pygments.min clean
 
