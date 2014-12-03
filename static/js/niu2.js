@@ -172,8 +172,8 @@ function initLazyLoad() {
                     href: img.attr('src'),
                     returnFocus: false,
                     scalePhotos: true,
-                    maxWidth: $(window).width() - 20,
-                    maxHeight: $(window).height(),
+                    maxWidth: '95%',
+                    maxHeight: '100%',
                 });
                 imageLink.appendTo(par);
                 // reset parent node's height
