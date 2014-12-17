@@ -20,6 +20,8 @@ window.gFixedHeaderHeight = 32;
 window.gFixedTocListOffsetTop = 111;
 window.gFootnotePopoverMaxWidth = 300;
 window.gActiveTocClass = 'niu2-active-toc'
+window.gCurrHighlightedElem = null
+window.gCurrHighlightedBackref = null
 
 $(document).ready(function() {
     initGoogleCSEAnimation();
@@ -494,8 +496,18 @@ function updateFootnoteStatus() {
     highlightFootnote();
 }
 
+function unhighlightCurrHighlighted() {
+    if (window.gCurrHighlightedElem) {
+        unhighlightElement(window.gCurrHighlightedElem);
+    }
+    if (window.gCurrHighlightedBackref) {
+        unhighlightSubBackref(window.gCurrHighlightedBackref);
+    }
+}
+
 function highlightElement(obj) {
     obj.addClass('alert-success');
+    window.gCurrHighlightedElem = obj;
 }
 
 function unhighlightElement(obj) {
@@ -504,6 +516,7 @@ function unhighlightElement(obj) {
 
 function highlightSubBackref(obj) {
     obj.addClass('activeSubBackref');
+    window.gCurrHighlightedBackref = obj;
 }
 
 function unhighlightSubBackref(obj) {
@@ -534,15 +547,17 @@ function highlightFootnote() {
         var currSupNodes = $(getFootnoteRefs().parent().filter('[id="' + ftHlId + '"]'));
         if (currSupNodes.length > window.gCurrFootnoteHlPos) {
             window.gHlFootnoteRef = $(currSupNodes[window.gCurrFootnoteHlPos]);
+            unhighlightCurrHighlighted();
             highlightElement(window.gHlFootnoteRef);
             return;
         }
     }
 
     // highlight footnote and current sub-backref link
-    getFootnoteLis().each(function(i, e) {
+    getFootnoteList().each(function(i, e) {
         var currLi = $(e);
         if (currLi.attr('id') == ftHlId) {
+            unhighlightCurrHighlighted();
             highlightElement($(currLi));
             highlightFtSubBackrefs(currLi);
             window.gHlFootnote = currLi;
@@ -626,7 +641,7 @@ function getFootnoteBackRefs() {
     return window.gFootnoteBackRefs;
 }
 
-function getFootnoteLis() {
+function getFootnoteList() {
     if (!window.gFootnoteList) {
         window.gFootnoteList = $('.footnote li');
     }
@@ -636,7 +651,7 @@ function getFootnoteLis() {
 // add a backref span to footnote ref
 function initFootnoteBackRefLinks() {
     // create backref links
-    getFootnoteLis().each(function(i, e) {
+    getFootnoteList().each(function(i, e) {
         var ftLiNode = $(e);
         var ftLiNodeId = ftLiNode.attr('id');
         var ftRefLinksMap = getFootnoteRefMap(ftLiNode.attr('id'));
