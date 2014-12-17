@@ -21,7 +21,7 @@
         {{ article.content }}
     </div>
     {% from "comments_wrapper.html" import niu2_comments %}
-    {{ niu2_comments(article, DISQUS_SITENAME, NIUX2_DUOSHUO_SHORTNAME) }}
+    {{ niu2_comments(article) }}
 </div>
 {% include "article_sidebar.html" %}
 {% include "toolbar.html" %}
