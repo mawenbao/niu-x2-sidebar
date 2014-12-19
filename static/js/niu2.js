@@ -259,15 +259,35 @@ function hideCSE() {
 
 function markVerticalPosition() {
     var currTocObj = $('#' + window.gCurrTocId);
-    currTocObj.siblings().each(function(i, e) {
+    if (currTocObj[0].getBoundingClientRect().top == 0) {
+        window.gCurrElemInViewport = currTocObj;
+        window.gCurrElemTopInViewport = 0;
+        return;
+    }
+    var followingElems;
+    if (window.gCurrTocId == 'content-heading') {
+        followingElems = $('#niu2-main-content').children();
+    } else if (window.gCurrTocId == 'content-comments') {
+        var duoshuoMain = $('#ds-reset');
+        if (duoshuoMain) {
+            // only duoshuo service for now
+            followingElems = duoshuoMain.children();
+        } else {
+            window.gCurrElemInViewport = null;
+            return;
+        }
+    } else {
+        followingElems = currTocObj.nextAll();
+    }
+    followingElems.each(function(i, e) {
         var currSib = $(e);
         var currSibTop = e.getBoundingClientRect().top;
-        if (currSibTop == 0) {
-            window.gCurrElemInViewport = currSib;
-            window.gCurrElemTopInViewport = 0;
-            return false;
-        } else if (currSibTop > 0) {
+        if (currSibTop > 0) {
             window.gCurrElemInViewport = currSib.prev();
+            if (window.gCurrElemInViewport.length == 0) {
+                window.gCurrElemInViewport = null;
+                return false;
+            }
             window.gCurrElemHeightInViewport = window.gCurrElemInViewport.height();
             window.gCurrElemTopInViewport = window.gCurrElemInViewport[0].getBoundingClientRect().top;
             return false;
@@ -276,15 +296,18 @@ function markVerticalPosition() {
 }
 
 function restoreVerticalPosition() {
-    var currElemDistance = 0;
+    if (window.gCurrElemInViewport == null) {
+        return;
+    }
+    var currElemTop = 0;
     if (window.gCurrElemTopInViewport != 0) {
         var currElemHeight = window.gCurrElemInViewport.height();
-        currElemDistance = currElemHeight / window.gCurrElemHeightInViewport * -1 * window.gCurrElemTopInViewport;
+        currElemTop = currElemHeight / window.gCurrElemHeightInViewport * -1 * window.gCurrElemTopInViewport;
     }
-    currElemTop = currElemDistance + window.gCurrElemInViewport.offset().top;
+    currElemScrollTop = currElemTop + window.gCurrElemInViewport.offset().top;
     window.gEnableTocListAutoScroll = false;
     $('body, html').animate(
-        { scrollTop: currElemTop },
+        { scrollTop: currElemScrollTop },
         window.gAutoScrollSpeed,
         function() { window.gEnableTocListAutoScroll = true; }
     );
