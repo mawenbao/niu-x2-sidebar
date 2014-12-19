@@ -258,6 +258,7 @@ function hideCSE() {
 }
 
 function markVerticalPosition() {
+    window.gCurrElemInViewport = null;
     var currTocElem = $('#' + window.gCurrTocId);
     if (currTocElem[0].getBoundingClientRect().top == 0) {
         window.gCurrElemInViewport = currTocElem;
@@ -268,17 +269,16 @@ function markVerticalPosition() {
     if (window.gCurrTocId == 'content-heading') {
         followingElems = $('#niu2-main-content').children();
     } else if (window.gCurrTocId == 'content-comments') {
-        var duoshuoMain = $('#ds-reset');
-        if (duoshuoMain) {
-            // only duoshuo service for now
-            followingElems = duoshuoMain.children();
-        } else {
-            window.gCurrElemInViewport = null;
+        // only support duoshuo comment service for now
+        var duoshuoMain = $('ds-reset');
+        if (!duoshuoMain) {
             return;
         }
+        followingElems = duoshuoMain.children().first().nextUntil('.ds-comments').andSelf().add('.ds-comments');
     } else {
         followingElems = currTocElem.nextAll();
     }
+    var numFollowingElems = followingElems.length;
     followingElems.each(function(i, e) {
         var currSib = $(e);
         var currSibTop = e.getBoundingClientRect().top;
@@ -291,6 +291,11 @@ function markVerticalPosition() {
             window.gCurrElemHeightInViewport = window.gCurrElemInViewport.height();
             window.gCurrElemTopInViewport = window.gCurrElemInViewport[0].getBoundingClientRect().top;
             return false;
+        }
+        if (i + 1 == numFollowingElems) {
+            window.gCurrElemInViewport = currSib;
+            window.gCurrElemHeightInViewport = window.gCurrElemInViewport.height();
+            window.gCurrElemTopInViewport = window.gCurrElemInViewport[0].getBoundingClientRect().top;
         }
     });
 }
@@ -391,7 +396,6 @@ function locateTocInViewport() {
                 elem = headerList[i - 1];
             }
             currTocId = elem.id;
-            window.gCurrTocId = currTocId;
             break;
         }
     }
@@ -399,6 +403,7 @@ function locateTocInViewport() {
         currTocId = headerList.last().attr('id');
     }
 
+    window.gCurrTocId = currTocId;
     resetTocListHeight();
     updateTocLinkStatus(currTocId);
     autoscrollTocList();
