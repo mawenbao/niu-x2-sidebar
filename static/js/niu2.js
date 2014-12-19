@@ -19,9 +19,11 @@ window.gToolbarHidden = true;
 window.gFixedHeaderHeight = 32;
 window.gFixedTocListOffsetTop = 111;
 window.gFootnotePopoverMaxWidth = 300;
-window.gActiveTocClass = 'niu2-active-toc'
-window.gCurrHighlightedElem = null
-window.gCurrHighlightedBackref = null
+window.gAutoScrollSpeed = 400;
+window.gActiveTocClass = 'niu2-active-toc';
+window.gCurrHighlightedElem = null;
+window.gCurrHighlightedBackref = null;
+window.gCurrTocId = '';
 
 $(document).ready(function() {
     initGoogleCSEAnimation();
@@ -102,21 +104,34 @@ function initToolbar() {
             $('#niu2-toolbar-viewsource').attr('href', 'https://bitbucket.org/' + bitbucketRepo + '/raw/master/content' + docPath);
         }
 
+        var leftContainer = $('#niu2-left-container');
+        var footer = $('#body-footer');
+        var ctrlIcon = $('#niu2-toolbar-ctrlsidebar i');
+        var ctrlSidebar = $('#niu2-toolbar-ctrlsidebar');
+        var leftCSlideSpeed = '300';
         // init sidebar controller
         $('#niu2-toolbar-ctrlsidebar').click(function(e) {
             e.preventDefault();
             if (!rightContainers.is(':hidden')) {
-                rightContainers.hide();
-                $('#niu2-left-container').attr('class', 'col-md-8 col-md-offset-2');
-                $('#body-footer').attr('class', 'col-md-8 col-md-offset-2');
-                $('#niu2-toolbar-ctrlsidebar i').attr('class', 'fa fa-3x fa-chevron-circle-left');
-                $('#niu2-toolbar-ctrlsidebar').attr('title', showSidebarTitle);
+                markVerticalPosition();
+                rightContainers.fadeOut('fast');
+                leftContainer.removeClass('with-right-border');
+                leftContainer.animate({width: '65%'}, leftCSlideSpeed, complete=function() {
+                    restoreVerticalPosition();
+                });
+                footer.animate({width: '65%'}, leftCSlideSpeed);
+                ctrlIcon.attr('class', 'fa fa-3x fa-chevron-circle-left');
+                ctrlSidebar.attr('title', showSidebarTitle);
             } else {
-                rightContainers.show();
-                $('#niu2-left-container').attr('class', 'col-md-6 col-md-offset-2 with-right-border');
-                $('#body-footer').attr('class', 'col-md-6 col-md-offset-2');
-                $('#niu2-toolbar-ctrlsidebar i').attr('class', 'fa fa-3x fa-chevron-circle-right');
-                $('#niu2-toolbar-ctrlsidebar').attr('title', hideSidebarTitle);
+                markVerticalPosition();
+                leftContainer.animate({width: '50%'}, leftCSlideSpeed, complete=function() {
+                    leftContainer.addClass('with-right-border');
+                    rightContainers.fadeIn();
+                    restoreVerticalPosition();
+                });
+                footer.animate({width: '50%'}, leftCSlideSpeed);
+                ctrlIcon.attr('class', 'fa fa-3x fa-chevron-circle-right');
+                ctrlSidebar.attr('title', hideSidebarTitle);
                 locateTocInViewport();
             }
             // must reset cached objects of footnote refs and backrefs
@@ -242,6 +257,40 @@ function hideCSE() {
     }
 }
 
+function markVerticalPosition() {
+    var currTocObj = $('#' + window.gCurrTocId);
+    currTocObj.siblings().each(function(i, e) {
+        var currSib = $(e);
+        var currSibTop = e.getBoundingClientRect().top;
+        if (currSibTop == 0) {
+            window.gCurrElemInViewport = currSib;
+            window.gCurrElemTopInViewport = 0;
+            return false;
+        } else if (currSibTop > 0) {
+            window.gCurrElemInViewport = currSib.prev();
+            window.gCurrElemHeightInViewport = window.gCurrElemInViewport.height();
+            window.gCurrElemTopInViewport = window.gCurrElemInViewport[0].getBoundingClientRect().top;
+            return false;
+        }
+    });
+}
+
+function restoreVerticalPosition() {
+    var currElemDistance = 0;
+    if (window.gCurrElemTopInViewport != 0) {
+        var currElemHeight = window.gCurrElemInViewport.height();
+        currElemDistance = currElemHeight / window.gCurrElemHeightInViewport * -1 * window.gCurrElemTopInViewport;
+    }
+    currElemTop = currElemDistance + window.gCurrElemInViewport.offset().top;
+    window.gEnableTocListAutoScroll = false;
+    $('body, html').animate(
+        { scrollTop: currElemTop },
+        window.gAutoScrollSpeed,
+        function() { window.gEnableTocListAutoScroll = true; }
+    );
+    locateTocInViewport();
+}
+
 function setTocOverflowedTitle() {
     getSidebarTocLinks().each(function(i, e) {
         $(e).mouseenter(function() {
@@ -320,6 +369,7 @@ function locateTocInViewport() {
                 elem = headerList[i - 1];
             }
             currTocId = elem.id;
+            window.gCurrTocId = currTocId;
             break;
         }
     }
@@ -418,7 +468,7 @@ function autoscrollTocList() {
         window.gEnableTocListAutoScroll = false;
         getTocList().animate(
                 { scrollTop: getTocList().scrollTop() + scrollHeight },
-                400,
+                window.gAutoScrollSpeed,
                 function() { window.gEnableTocListAutoScroll = true; }
         );
     }
@@ -462,7 +512,7 @@ function initHeaderScrollAnimation(targets) {
     initScrollAnimation(
         targets,
         function(target) { return target.offset().top; },
-        400,
+        window.gAutoScrollSpeed,
         function() {
             updateFootnoteStatus();
             window.gEnableTocStatusUpdate = true;
@@ -687,7 +737,7 @@ function initFootnoteBackRefAnimation() {
                 return ftRefLinksMap.offsets[parseInt(source.text()) - 1].top - window.gFixedHeaderHeight;
             }
         },
-        400,
+        window.gAutoScrollSpeed,
         function(source) {
             if ("" != source.text()) {
                 window.gCurrFootnoteHlPos = parseInt(source.text()) - 1;
@@ -706,7 +756,7 @@ function initFootnoteRefAnimation() {
     initScrollAnimation(
         getFootnoteRefs(),
         function(target) { return target.offset().top - 100 - window.gFixedHeaderHeight; },
-        400,
+        window.gAutoScrollSpeed,
         function(source) {
             // find current sub-backref link
             var currFtSups = getFootnoteRefs().parent().filter('[id="' + source.parent().attr('id') + '"]');
