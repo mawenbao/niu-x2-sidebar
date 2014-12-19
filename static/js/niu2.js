@@ -258,9 +258,9 @@ function hideCSE() {
 }
 
 function markVerticalPosition() {
-    var currTocObj = $('#' + window.gCurrTocId);
-    if (currTocObj[0].getBoundingClientRect().top == 0) {
-        window.gCurrElemInViewport = currTocObj;
+    var currTocElem = $('#' + window.gCurrTocId);
+    if (currTocElem[0].getBoundingClientRect().top == 0) {
+        window.gCurrElemInViewport = currTocElem;
         window.gCurrElemTopInViewport = 0;
         return;
     }
@@ -277,7 +277,7 @@ function markVerticalPosition() {
             return;
         }
     } else {
-        followingElems = currTocObj.nextAll();
+        followingElems = currTocElem.nextAll();
     }
     followingElems.each(function(i, e) {
         var currSib = $(e);
@@ -311,7 +311,6 @@ function restoreVerticalPosition() {
         window.gAutoScrollSpeed,
         function() { window.gEnableTocListAutoScroll = true; }
     );
-    locateTocInViewport();
 }
 
 function setTocOverflowedTitle() {
