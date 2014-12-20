@@ -24,6 +24,7 @@ window.gActiveTocClass = 'niu2-active-toc';
 window.gCurrHighlightedElem = null;
 window.gCurrHighlightedBackref = null;
 window.gCurrTocId = '';
+window.gSidebarCtrlButtonEnabled = true;
 
 $(document).ready(function() {
     initGoogleCSEAnimation();
@@ -110,29 +111,38 @@ function initToolbar() {
         var ctrlSidebar = $('#niu2-toolbar-ctrlsidebar');
         var leftCSlideSpeed = '300';
         // init sidebar controller
+        window.gSidebarCtrlButtonColor = $('#niu2-toolbar-ctrlsidebar').css('color');
         $('#niu2-toolbar-ctrlsidebar').click(function(e) {
+            if (!window.gSidebarCtrlButtonEnabled) {
+                return;
+            }
+            disableSidebarCtrlButton();
             e.preventDefault();
             if (!rightContainers.is(':hidden')) {
                 markVerticalPosition();
                 rightContainers.fadeOut('fast');
                 leftContainer.removeClass('with-right-border');
                 leftContainer.animate({width: '65%'}, leftCSlideSpeed, complete=function() {
-                    restoreVerticalPosition();
+                    restoreVerticalPosition(function() {
+                        enableSidebarCtrlButton();
+                        ctrlIcon.attr('class', 'fa fa-3x fa-chevron-circle-left');
+                        ctrlSidebar.attr('title', showSidebarTitle);
+                    });
                 });
                 footer.animate({width: '65%'}, leftCSlideSpeed);
-                ctrlIcon.attr('class', 'fa fa-3x fa-chevron-circle-left');
-                ctrlSidebar.attr('title', showSidebarTitle);
             } else {
                 markVerticalPosition();
                 leftContainer.animate({width: '50%'}, leftCSlideSpeed, complete=function() {
                     leftContainer.addClass('with-right-border');
                     rightContainers.fadeIn();
-                    restoreVerticalPosition();
+                    restoreVerticalPosition(function() {
+                        enableSidebarCtrlButton();
+                        ctrlIcon.attr('class', 'fa fa-3x fa-chevron-circle-right');
+                        ctrlSidebar.attr('title', hideSidebarTitle);
+                        locateTocInViewport();
+                    });
                 });
                 footer.animate({width: '50%'}, leftCSlideSpeed);
-                ctrlIcon.attr('class', 'fa fa-3x fa-chevron-circle-right');
-                ctrlSidebar.attr('title', hideSidebarTitle);
-                locateTocInViewport();
             }
             // must reset cached objects of footnote refs and backrefs
             resetFootnoteRefs();
@@ -257,6 +267,16 @@ function hideCSE() {
     }
 }
 
+function disableSidebarCtrlButton() {
+    window.gSidebarCtrlButtonEnabled = false;
+    $('#niu2-toolbar-ctrlsidebar').attr('style', 'color: ' + window.gSidebarCtrlButtonColor);
+}
+
+function enableSidebarCtrlButton() {
+    window.gSidebarCtrlButtonEnabled = true;
+    $('#niu2-toolbar-ctrlsidebar').attr('style', '');
+}
+
 function markVerticalPosition() {
     window.gCurrElemInViewport = null;
     var currTocElem = $('#' + window.gCurrTocId);
@@ -300,7 +320,7 @@ function markVerticalPosition() {
     });
 }
 
-function restoreVerticalPosition() {
+function restoreVerticalPosition(complete) {
     if (window.gCurrElemInViewport == null) {
         return;
     }
@@ -314,7 +334,7 @@ function restoreVerticalPosition() {
     $('body, html').animate(
         { scrollTop: currElemScrollTop },
         window.gAutoScrollSpeed,
-        function() { window.gEnableTocListAutoScroll = true; }
+        function() { window.gEnableTocListAutoScroll = true; complete(); }
     );
 }
 
