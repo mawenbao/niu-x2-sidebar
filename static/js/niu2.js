@@ -322,6 +322,7 @@ function markVerticalPosition() {
 
 function restoreVerticalPosition(complete) {
     if (window.gCurrElemInViewport == null) {
+        complete();
         return;
     }
     var currElemTop = 0;
