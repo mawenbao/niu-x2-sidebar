@@ -16,6 +16,7 @@ window.gEnableTocStatusUpdate = true;
 window.gEnableTocListAutoScroll = true;
 window.gMouseInSidebarTocList = false;
 window.gToolbarHidden = true;
+window.gToolbarAnimationEnabled = true;
 window.gFixedHeaderHeight = 32;
 window.gFixedTocListOffsetTop = 111;
 window.gFootnotePopoverMaxWidth = 300;
@@ -25,6 +26,8 @@ window.gCurrHighlightedElem = null;
 window.gCurrHighlightedBackref = null;
 window.gCurrTocId = '';
 window.gSidebarCtrlButtonEnabled = true;
+window.gMousePositionX = 0;
+window.gMousePositionY = 0;
 
 $(document).ready(function() {
     initGoogleCSEAnimation();
@@ -889,9 +892,12 @@ function isPositionInRect(x, y, rect) {
     return false;
 }
 
-// hide footnote popover
+// mouse position related events
 function initMouseXYRecord() {
     $(document).mousemove(function(e) {
+        window.gMousePositionX = e.clientX;
+        window.gMousePositionY = e.clientY;
+
         // footnote popover
         if (window.gEnableMouseXYRecord && window.gPopoverXY && window.gRefLinkXY) {
             if (!isPositionInRect(e.clientX, e.clientY, window.gPopoverXY) &&
@@ -912,12 +918,27 @@ function initMouseXYRecord() {
         // toggle toolbar
         var mainErea = getMainContent().getBoundingClientRect();
         if (getToolbar() && e.clientY > mainErea.bottom - mainErea.height) {
+            if (!window.gToolbarAnimationEnabled) {
+                return;
+            }
+            var hideToolbarAnimationFunc = function() {
+                $(getToolbar()).animate({left: '-36px'}, 500, complete=function() {
+                    window.gToolbarAnimationEnabled = true;
+                    window.gToolbarHidden = true;
+                });
+            }
             if (window.gToolbarHidden && e.clientX < mainErea.left) {
-                $(getToolbar()).animate({left: '0px'}, 500);
-                window.gToolbarHidden = false;
+                window.gToolbarAnimationEnabled = false;
+                $(getToolbar()).animate({left: '0px'}, 500, complete=function() {
+                    window.gToolbarAnimationEnabled = true;
+                    window.gToolbarHidden = false;
+                    if (window.gMousePositionX > mainErea.left) {
+                        hideToolbarAnimationFunc();
+                    }
+                });
             } else if (!window.gToolbarHidden && e.clientX > mainErea.left) {
-                $(getToolbar()).animate({left: '-36px'}, 500);
-                window.gToolbarHidden = true;
+                window.gToolbarAnimationEnabled = false;
+                hideToolbarAnimationFunc();
             }
         }
     });
