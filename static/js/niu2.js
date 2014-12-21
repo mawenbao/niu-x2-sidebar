@@ -1,7 +1,10 @@
 /*
- * @author: mawenbao@hotmail.com
+ * @author: mwenbao@gmail.com
  * @license: see LICENSE.txt
- * Depends on jquery 1.10
+ * @depend: jquery 1.10+
+ * @issues: Chrome39 behaves weird when showing/hiding fixed sidebar toc list.
+ *          Search `@TODO check Chrome39+' for detailed comments on this problem.
+ *
  */
 
 // set theme path, got from http://stackoverflow.com/questions/8523200/javascript-get-current-filescript-path
@@ -116,11 +119,11 @@ function initToolbar() {
         // init sidebar controller
         window.gSidebarCtrlButtonColor = $('#niu2-toolbar-ctrlsidebar').css('color');
         $('#niu2-toolbar-ctrlsidebar').click(function(e) {
+            e.preventDefault();
             if (!window.gSidebarCtrlButtonEnabled) {
                 return;
             }
             disableSidebarCtrlButton();
-            e.preventDefault();
             if (!rightContainers.is(':hidden')) {
                 markVerticalPosition();
                 rightContainers.fadeOut('fast');
@@ -136,12 +139,22 @@ function initToolbar() {
             } else {
                 markVerticalPosition();
                 leftContainer.animate({width: '50%'}, leftCSlideSpeed, complete=function() {
+                    var sidebarElems = $('.niu2-right-container');
+                    var sidebarParent = sidebarElems.parent();
+                    // @TODO: check Chrome39+
+                    // We have to detach fixed sidebar before doing the fadein animation,
+                    // otherwise Chrome39 will behave weird(showing duplicate sidebar toc).
+                    sidebarElems.detach();
                     leftContainer.addClass('with-right-border');
-                    rightContainers.fadeIn();
+                    window.gEnableTocStatusUpdate = false;
+                    rightContainers.fadeIn('fast', complete=function() {
+                        sidebarElems.appendTo(sidebarParent);
+                    });
                     restoreVerticalPosition(function() {
                         enableSidebarCtrlButton();
                         ctrlIcon.attr('class', 'fa fa-3x fa-chevron-circle-right');
                         ctrlSidebar.attr('title', hideSidebarTitle);
+                        window.gEnableTocStatusUpdate = true;
                         locateTocInViewport();
                     });
                 });
@@ -240,13 +253,23 @@ function setSidebarTocSize() {
     getSidebarToc().attr('style', 'max-width:' + getSidebarToc().width() + 'px;');
 }
 
+function resetSidebarToc() {
+    var sidebarToc = $('#niu2-sidebar-toc');
+}
+
 function toggleSidebarTocFixed() {
     var sidebarToc = $('#niu2-sidebar-toc');
     var sidebarMeta = $('#niu2-sidebar-meta');
     var vtop = $(window).scrollTop();
     var vpos = sidebarMeta.offset().top + sidebarMeta.height() - 55;
     if (!sidebarToc.is(':hidden') && vtop > vpos && 'niu2-sidebar' == sidebarToc.attr('class')) {
+        var sidebarParent = sidebarToc.parent();
+        // @TODO: check Chrome39+
+        // We have to detach sidebar toc before setting its position to fixed,
+        // otherwise Chrome39 will behave weird(showing duplicate sidebar toc).
+        sidebarToc.detach();
         sidebarToc.attr('class', 'niu2-sidebar niu2-sidebar-toc-fixed');
+        sidebarToc.appendTo(sidebarParent);
     } else if (vtop <= vpos && 'niu2-sidebar' != sidebarToc.attr('class')) {
         sidebarToc.attr('class', 'niu2-sidebar');
     }
@@ -476,6 +499,13 @@ function initTocListIndex(list, baseIndex) {
     });
 }
 
+function unhighlightActiveToc() {
+    var activeToc = $('.' + window.gActiveTocClass).first();
+    if (activeToc.length != 0) {
+        activeToc.attr('class', '');
+    }
+}
+
 function updateTocLinkStatus(anchor) {
     if (isAllTocsClosed()) {
         closeAllTocs();
@@ -507,7 +537,10 @@ function autoscrollTocList() {
         return;
     }
 
-    var activeToc = $('.niu2-active-toc').first();
+    var activeToc = $('.' + window.gActiveTocClass).first();
+    if (activeToc.length == 0) {
+        return;
+    }
     var activeTocXY = activeToc[0].getBoundingClientRect();
     var tocListXY = getTocList()[0].getBoundingClientRect();
 
