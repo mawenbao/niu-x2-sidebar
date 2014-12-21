@@ -260,6 +260,9 @@ function resetSidebarToc() {
 function toggleSidebarTocFixed() {
     var sidebarToc = $('#niu2-sidebar-toc');
     var sidebarMeta = $('#niu2-sidebar-meta');
+    if (sidebarToc.length == 0 || sidebarMeta.length == 0) {
+        return;
+    }
     var vtop = $(window).scrollTop();
     var vpos = sidebarMeta.offset().top + sidebarMeta.height() - 55;
     if (!sidebarToc.is(':hidden') && vtop > vpos && 'niu2-sidebar' == sidebarToc.attr('class')) {
