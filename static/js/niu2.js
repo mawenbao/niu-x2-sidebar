@@ -149,6 +149,7 @@ function initToolbar() {
                     window.gEnableTocStatusUpdate = false;
                     rightContainers.fadeIn('fast', complete=function() {
                         sidebarElems.appendTo(sidebarParent);
+                        toggleSidebarTocFixed();
                     });
                     restoreVerticalPosition(function() {
                         enableSidebarCtrlButton();
