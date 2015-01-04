@@ -320,7 +320,7 @@ function markVerticalPosition() {
         followingElems = $('#niu2-main-content').children();
     } else if (window.gCurrTocId == 'content-comments') {
         // only support duoshuo comment service for now
-        var duoshuoMain = $('ds-reset');
+        var duoshuoMain = $('#ds-reset');
         if (!duoshuoMain) {
             return;
         }
