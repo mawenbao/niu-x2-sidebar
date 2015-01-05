@@ -23,7 +23,7 @@ window.gToolbarAnimationEnabled = true;
 window.gFixedHeaderHeight = 32;
 window.gFixedTocListOffsetTop = 111;
 window.gFootnotePopoverMaxWidth = 300;
-window.gAutoScrollSpeed = 400;
+window.gAutoScrollDuration = 400;
 window.gActiveTocClass = 'niu2-active-toc';
 window.gCurrHighlightedElem = null;
 window.gCurrHighlightedBackref = null;
@@ -111,11 +111,16 @@ function initToolbar() {
             $('#niu2-toolbar-viewsource').attr('href', 'https://bitbucket.org/' + bitbucketRepo + '/raw/master/content' + docPath);
         }
 
+        // init load-pic overly
+        $('<div id="niu2-loading-overly" style="display:none;"><i id="niu2-loading-icon" class="fa fa-circle-o-notch fa-4x fa-spin"></i></div>').appendTo('body');
+
         var leftContainer = $('#niu2-left-container');
         var footer = $('#body-footer');
         var ctrlIcon = $('#niu2-toolbar-ctrlsidebar i');
         var ctrlSidebar = $('#niu2-toolbar-ctrlsidebar');
-        var leftCSlideSpeed = '300';
+        var leftCSlideDuration = 300;
+        var loadingOverly = $('#niu2-loading-overly');
+
         // init sidebar controller
         window.gSidebarCtrlButtonColor = $('#niu2-toolbar-ctrlsidebar').css('color');
         $('#niu2-toolbar-ctrlsidebar').click(function(e) {
@@ -123,22 +128,24 @@ function initToolbar() {
             if (!window.gSidebarCtrlButtonEnabled) {
                 return;
             }
+            loadingOverly.show();
             disableSidebarCtrlButton();
             if (!rightContainers.is(':hidden')) {
                 markVerticalPosition();
                 rightContainers.fadeOut('fast');
                 leftContainer.removeClass('with-right-border');
-                leftContainer.animate({width: '65%'}, leftCSlideSpeed, complete=function() {
+                leftContainer.animate({width: '65%'}, leftCSlideDuration, complete=function() {
                     restoreVerticalPosition(function() {
                         enableSidebarCtrlButton();
                         ctrlIcon.attr('class', 'fa fa-3x fa-chevron-circle-left');
                         ctrlSidebar.attr('title', showSidebarTitle);
+                        loadingOverly.hide();
                     });
                 });
-                footer.animate({width: '65%'}, leftCSlideSpeed);
+                footer.animate({width: '65%'}, leftCSlideDuration);
             } else {
                 markVerticalPosition();
-                leftContainer.animate({width: '50%'}, leftCSlideSpeed, complete=function() {
+                leftContainer.animate({width: '50%'}, leftCSlideDuration, complete=function() {
                     var sidebarElems = $('.niu2-right-container');
                     var sidebarParent = sidebarElems.parent();
                     // @TODO: check Chrome39+
@@ -157,9 +164,10 @@ function initToolbar() {
                         ctrlSidebar.attr('title', hideSidebarTitle);
                         window.gEnableTocStatusUpdate = true;
                         locateTocInViewport();
+                        loadingOverly.hide();
                     });
                 });
-                footer.animate({width: '50%'}, leftCSlideSpeed);
+                footer.animate({width: '50%'}, leftCSlideDuration);
             }
             // must reset cached objects of footnote refs and backrefs
             resetFootnoteRefs();
@@ -321,7 +329,7 @@ function markVerticalPosition() {
     } else if (window.gCurrTocId == 'content-comments') {
         // only support duoshuo comment service for now
         var duoshuoMain = $('#ds-reset');
-        if (!duoshuoMain) {
+        if (duoshuoMain.length == 0) {
             return;
         }
         followingElems = duoshuoMain.children().first().nextUntil('.ds-comments').andSelf().add('.ds-comments');
@@ -364,7 +372,7 @@ function restoreVerticalPosition(complete) {
     window.gEnableTocListAutoScroll = false;
     $('body, html').animate(
         { scrollTop: currElemScrollTop },
-        window.gAutoScrollSpeed,
+        window.gAutoScrollDuration,
         function() { window.gEnableTocListAutoScroll = true; complete(); }
     );
 }
@@ -556,7 +564,7 @@ function autoscrollTocList() {
         window.gEnableTocListAutoScroll = false;
         getTocList().animate(
                 { scrollTop: getTocList().scrollTop() + scrollHeight },
-                window.gAutoScrollSpeed,
+                window.gAutoScrollDuration,
                 function() { window.gEnableTocListAutoScroll = true; }
         );
     }
@@ -600,7 +608,7 @@ function initHeaderScrollAnimation(targets) {
     initScrollAnimation(
         targets,
         function(target) { return target.offset().top; },
-        window.gAutoScrollSpeed,
+        window.gAutoScrollDuration,
         function() {
             updateFootnoteStatus();
             window.gEnableTocStatusUpdate = true;
@@ -825,7 +833,7 @@ function initFootnoteBackRefAnimation() {
                 return ftRefLinksMap.offsets[parseInt(source.text()) - 1].top - window.gFixedHeaderHeight;
             }
         },
-        window.gAutoScrollSpeed,
+        window.gAutoScrollDuration,
         function(source) {
             if ("" != source.text()) {
                 window.gCurrFootnoteHlPos = parseInt(source.text()) - 1;
@@ -844,7 +852,7 @@ function initFootnoteRefAnimation() {
     initScrollAnimation(
         getFootnoteRefs(),
         function(target) { return target.offset().top - 100 - window.gFixedHeaderHeight; },
-        window.gAutoScrollSpeed,
+        window.gAutoScrollDuration,
         function(source) {
             // find current sub-backref link
             var currFtSups = getFootnoteRefs().parent().filter('[id="' + source.parent().attr('id') + '"]');
@@ -981,7 +989,7 @@ function initMouseXYRecord() {
     });
 }
 
-function initScrollAnimation(targets, calcHeightFunc, speed, callback) {
+function initScrollAnimation(targets, calcHeightFunc, duration, callback) {
     targets.each(function(i, e) {
         $(e).click(function(ev) {
             ev.preventDefault();
@@ -996,7 +1004,7 @@ function initScrollAnimation(targets, calcHeightFunc, speed, callback) {
             source = $(this);
             $('body, html').animate(
                 { scrollTop: calcHeightFunc(target, source) },
-                speed, 
+                duration, 
                 function() { callback(source); }
             );
         });

@@ -635,6 +635,22 @@ h4:before, h5:before, h6:before {
     margin: -45px 0 0;
 }
 
+#niu2-loading-overly {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.87;
+    z-index: 9999;
+}
+
+#niu2-loading-icon {
+    position: relative;
+    top: 40%;
+    left: 45%;
+    color: #fff;
+}
+
 @media (max-width: 767px) {
 
 .dropdown-toc > .dropdown-menu > li > a {
