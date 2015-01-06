@@ -112,7 +112,7 @@ function initToolbar() {
         }
 
         // init load-pic overly
-        $('<div id="niu2-loading-overly" style="display:none;"><i id="niu2-loading-icon" class="fa fa-circle-o-notch fa-4x fa-spin"></i></div>').appendTo('body');
+        $('<div id="niu2-loading-overly" style="display:none;"><i id="niu2-loading-icon" class="fa fa-spinner fa-4x fa-spin"></i></div>').appendTo('body');
 
         var leftContainer = $('#niu2-left-container');
         var footer = $('#body-footer');
@@ -196,7 +196,7 @@ function initLazyLoad() {
             $(elem).attr('height',  imgHeightLimit + 'px');
             // show loading text
             $(elem).parent().addClass('image-cover-box');
-            var imgCover = $('<span class="image-cover">' + imgHoverText + '<i class="fa fa-spinner fa-spin"></i></span>').insertAfter($(elem));
+            var imgCover = $('<span class="image-cover">' + imgHoverText + '<i class="fa fa-circle-o-notch fa-spin"></i></span>').insertAfter($(elem));
             imgCover.css('top', ((imgHeightLimit - imgCover.height()) / 2 - 3) + 'px');
             imgCover.css('width', (imgWidthLimit > imgRealWidth ? imgRealWidth : imgWidthLimit) + 'px');
         });

@@ -640,13 +640,13 @@ h4:before, h5:before, h6:before {
     width: 100%;
     height: 100%;
     background: #000;
-    opacity: 0.87;
+    opacity: 0.9;
     z-index: 9999;
 }
 
 #niu2-loading-icon {
     position: relative;
-    top: 40%;
+    top: 43%;
     left: 45%;
     color: #fff;
 }
