@@ -88,6 +88,7 @@ function initHermitPlayer() {
 
 function initToolbar() {
     if (getToolbar()) {
+        window.gToolbarLeftPos = $(getToolbar()).css('left');
         var rightContainers = $('.niu2-right-container');
         var showSidebarTitle = $('#niu2-toolbar-showsidebar').data('title');
         var hideSidebarTitle = $('#niu2-toolbar-ctrlsidebar').attr('title');
@@ -138,7 +139,7 @@ function initToolbar() {
                 leftContainer.animate({width: '65%'}, leftCSlideDuration, complete=function() {
                     restoreVerticalPosition(function() {
                         enableSidebarCtrlButton();
-                        ctrlIcon.attr('class', 'icon-3x icon-chevron-circle-left');
+                        ctrlIcon.attr('class', 'icon-3x icon-show-sidebar');
                         ctrlSidebar.attr('title', showSidebarTitle);
                         loadingOverly.hide();
                     });
@@ -161,7 +162,7 @@ function initToolbar() {
                     });
                     restoreVerticalPosition(function() {
                         enableSidebarCtrlButton();
-                        ctrlIcon.attr('class', 'icon-3x icon-chevron-circle-right');
+                        ctrlIcon.attr('class', 'icon-3x icon-hide-sidebar');
                         ctrlSidebar.attr('title', hideSidebarTitle);
                         window.gEnableTocStatusUpdate = true;
                         locateTocInViewport();
@@ -970,7 +971,7 @@ function initMouseXYRecord() {
                 return;
             }
             var hideToolbarAnimationFunc = function() {
-                $(getToolbar()).animate({left: '-36px'}, 500, complete=function() {
+                $(getToolbar()).animate({left: window.gToolbarLeftPos}, 500, complete=function() {
                     window.gToolbarAnimationEnabled = true;
                     window.gToolbarHidden = true;
                 });
@@ -1045,11 +1046,11 @@ function initAllTocsCtrl() {
 function toggleAllTocs() {
     if (isAllTocsClosed()) {
         getSidebarToc().data('status', 'open');
-        getSidebarTocCtrl().attr('class', 'icon-minus');
+        getSidebarTocCtrl().attr('class', 'icon-close-tocs');
         openAllTocs();
     } else {
         getSidebarToc().data('status', 'closed');
-        getSidebarTocCtrl().attr('class', 'icon-plus');
+        getSidebarTocCtrl().attr('class', 'icon-open-tocs');
         closeAllTocs();
     }
     locateTocInViewport();
