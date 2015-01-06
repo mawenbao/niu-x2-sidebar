@@ -53,7 +53,8 @@
     <script type="text/javascript" src="{{ theme_loc }}/js/{{ niu2_js_file }}"></script>
     <script type="text/javascript" src="{{ bootstrap_loc }}/js/bootstrap.min.js"></script>
     {% if NIUX2_LAZY_LOAD %}
-    <div id="niu2-lazy-load-text" data-loading="{{ NIUX2_LAZY_LOAD_TEXT | default('Loading') }}"></div>
+    <div id="niu2-lazy-load" data-loading-txt="{{ NIUX2_LAZY_LOAD_TEXT | default('Loading') }}" data-loading-icon="{{ NIUX2_LAZY_LOAD_ICON | default('icon-spin icon-spinner') }}"></div>
+    <div id="niu2-toolbar-load" data-loading-icon="{{ NIUX2_TOOLBAR_LOAD_ICON | default('icon-spin icon-4x icon-spinner')}}"></div>
     {% endif %}
     {% block additional_js_file %}
     {% endblock additional_js_file %}

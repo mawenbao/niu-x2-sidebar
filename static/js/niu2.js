@@ -112,7 +112,8 @@ function initToolbar() {
         }
 
         // init loading overly
-        $('<div id="niu2-loading-overly" style="display:none;"><i id="niu2-loading-icon" class="icon-spinner2 icon-3x icon-spin"></i></div>').appendTo('body');
+        var tbLoadingOverlyIconClass = $('#niu2-toolbar-load').data('loading-icon');
+        $('<div id="niu2-loading-overly" style="display:none;"><i id="niu2-loading-icon" class="' + tbLoadingOverlyIconClass + '"></i></div>').appendTo('body');
 
         var leftContainer = $('#niu2-left-container');
         var footer = $('#body-footer');
@@ -179,7 +180,8 @@ function initToolbar() {
 
 function initLazyLoad() {
     var imageNodes = $('#niu2-main-content img.lazy');
-    if (0 != imageNodes.length && $('#niu2-lazy-load-text')[0]) {
+    var imgLazyLoadData = $('#niu2-lazy-load');
+    if (0 != imageNodes.length && imgLazyLoadData.length != 0) {
         // add lazyload js file
         appendJsFileToBody('/js/jquery.lazyload.min.js');
         // add colorbox js/css file
@@ -187,7 +189,8 @@ function initLazyLoad() {
         appendJsFileToBody('/colorbox/jquery.colorbox.min.js');
         // find all the images and prepare for lazyload.js
         var imgWidthLimit = getMainContent().getBoundingClientRect().width;
-        var imgHoverText = $('#niu2-lazy-load-text').data('loading');
+        var imgHoverText = imgLazyLoadData.data('loading-txt');
+        var imgHoverIconClass = imgLazyLoadData.data('loading-icon');
         imageNodes.each(function(i, elem) {
             var imgRealWidth = parseInt($(elem).data('width'));
             var imgRealHeight = parseInt($(elem).data('height'));
@@ -196,7 +199,7 @@ function initLazyLoad() {
             $(elem).attr('height',  imgHeightLimit + 'px');
             // show loading text
             $(elem).parent().addClass('image-cover-box');
-            var imgCover = $('<span class="image-cover">' + imgHoverText + '<i class="icon-spinner8 icon-spin"></i></span>').insertAfter($(elem));
+            var imgCover = $('<span class="image-cover">' + imgHoverText + '<i class="' + imgHoverIconClass + '"></i></span>').insertAfter($(elem));
             imgCover.css('top', ((imgHeightLimit - imgCover.height()) / 2 - 3) + 'px');
             imgCover.css('width', (imgWidthLimit > imgRealWidth ? imgRealWidth : imgWidthLimit) + 'px');
         });

@@ -96,6 +96,7 @@ Lazy load images(with the class name `lazy`) in the main content area with the l
 
 * `NIUX2_LAZY_LOAD`, default(False): enable lazy load function.
 * `NIUX2_LAZY_LOAD_TEXT`, default('Loading'): the hover text upon images when loading.
+* `NIUX2_LAZY_LOAD_ICON`, default('icon-spin icon-spinner'): class of the icon upon images when loading.
 
 ### hermit audio player
 This function requires the [niux2_hermit_player](https://github.com/mawenbao/niux2_hermit_player) plugin.
@@ -206,7 +207,7 @@ Currently, there is not a search result page in this theme, so I suggest that yo
 
 ### Misc settings
 
-*  `NIUX2_RECENT_UPDATE_NUM` int(default 10), number of your recent updated posts in the sidebar, require [pelican-update-date](https://github.com/mawenbao/pelican-update-date) plugin
+*  `NIUX2_TOOLBAR_LOAD_ICON` string(default "icon-spin icon-4x icon-spinner"), the class of the rotating icon which shows on top the whole page when we hide/show sidebar toc.
 *  `NIUX2_PAGINATOR_LENGTH` int(default 11), the length of your pagination bar
 *  `NIUX2_FAVICON_URL` string(default "/favicon.png"), your favicon url
 *  `NIUX2_FOOTER_LINKS` a `NIUX2_HEADER_SECTIONS` format list shown right after your copyright info in the footer section
@@ -220,4 +221,5 @@ Currently, there is not a search result page in this theme, so I suggest that yo
 *  `NIUX2_LAZY_LOAD` bool(default False), enable lazy loading images.
 *  `NIUX2_DEBUG` bool(default False), if set as True, use niu2.js instead of niu2.min.js
 *  `NIUX2_AUTHOR_LINK` string(default 'SITEURL'), the author link of ariticles
+*  `NIUX2_RECENT_UPDATE_NUM` int(default 10), number of your recent updated posts in the sidebar, require [pelican-update-date](https://github.com/mawenbao/pelican-update-date) plugin
 
