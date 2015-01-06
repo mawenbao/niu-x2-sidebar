@@ -1,4 +1,4 @@
-/*
+/*!
  * @author: mwenbao@gmail.com
  * @license: see LICENSE.txt
  * @depend: jquery 1.10+
@@ -112,7 +112,7 @@ function initToolbar() {
         }
 
         // init load-pic overly
-        $('<div id="niu2-loading-overly" style="display:none;"><i id="niu2-loading-icon" class="fa fa-spinner fa-4x fa-spin"></i></div>').appendTo('body');
+        $('<div id="niu2-loading-overly" style="display:none;"><i id="niu2-loading-icon" class="icon-spinner2 icon-3x icon-spin"></i></div>').appendTo('body');
 
         var leftContainer = $('#niu2-left-container');
         var footer = $('#body-footer');
@@ -137,7 +137,7 @@ function initToolbar() {
                 leftContainer.animate({width: '65%'}, leftCSlideDuration, complete=function() {
                     restoreVerticalPosition(function() {
                         enableSidebarCtrlButton();
-                        ctrlIcon.attr('class', 'fa fa-3x fa-chevron-circle-left');
+                        ctrlIcon.attr('class', 'icon-3x icon-chevron-circle-left');
                         ctrlSidebar.attr('title', showSidebarTitle);
                         loadingOverly.hide();
                     });
@@ -160,7 +160,7 @@ function initToolbar() {
                     });
                     restoreVerticalPosition(function() {
                         enableSidebarCtrlButton();
-                        ctrlIcon.attr('class', 'fa fa-3x fa-chevron-circle-right');
+                        ctrlIcon.attr('class', 'icon-3x icon-chevron-circle-right');
                         ctrlSidebar.attr('title', hideSidebarTitle);
                         window.gEnableTocStatusUpdate = true;
                         locateTocInViewport();
@@ -196,7 +196,7 @@ function initLazyLoad() {
             $(elem).attr('height',  imgHeightLimit + 'px');
             // show loading text
             $(elem).parent().addClass('image-cover-box');
-            var imgCover = $('<span class="image-cover">' + imgHoverText + '<i class="fa fa-circle-o-notch fa-spin"></i></span>').insertAfter($(elem));
+            var imgCover = $('<span class="image-cover">' + imgHoverText + '<i class="icon-spinner8 icon-spin"></i></span>').insertAfter($(elem));
             imgCover.css('top', ((imgHeightLimit - imgCover.height()) / 2 - 3) + 'px');
             imgCover.css('width', (imgWidthLimit > imgRealWidth ? imgRealWidth : imgWidthLimit) + 'px');
         });
@@ -806,9 +806,9 @@ function initFootnoteBackRefLinks() {
         if (1 == (ftRefLinksNum)) {
             backrefSpan += '<a class="footnote-backref" href="#' +
                 ftRefLinksMap.id + '" data-source="' + ftLiNodeId + 
-                '"><i class="fa fa-angle-up"></i></a>';
+                '"><i class="icon-angle-up"></i></a>';
         } else {
-            backrefSpan += '<i class="fa fa-angle-up"></i><span class="sub-backref-link">';
+            backrefSpan += '<i class="icon-angle-up"></i><span class="sub-backref-link">';
             for (var i = 0; i < ftRefLinksNum; i++) {
                 backrefSpan += '<a class="footnote-backref" href="#' + ftRefLinksMap.id +
                     '" data-source="' + ftLiNodeId + '">' + (i + 1) + '</a> ';
@@ -1042,11 +1042,11 @@ function initAllTocsCtrl() {
 function toggleAllTocs() {
     if (isAllTocsClosed()) {
         getSidebarToc().data('status', 'open');
-        getSidebarTocCtrl().attr('class', 'fa fa-minus');
+        getSidebarTocCtrl().attr('class', 'icon-minus');
         openAllTocs();
     } else {
         getSidebarToc().data('status', 'closed');
-        getSidebarTocCtrl().attr('class', 'fa fa-plus');
+        getSidebarTocCtrl().attr('class', 'icon-plus');
         closeAllTocs();
     }
     locateTocInViewport();

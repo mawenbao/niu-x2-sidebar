@@ -5,7 +5,7 @@
     {% set my_cat_icon = NIUX2_CATEGORY_MAP[category][1] %}
 {% else %}
     {% set my_cat = category %}
-    {% set my_cat_icon = "fa fa-folder-open" %}
+    {% set my_cat_icon = "icon-folder-open" %}
 {% endif %}
 
 {% block title %}{{ my_cat }} - {{ super() }}{% endblock %}
@@ -15,7 +15,7 @@
 {% block content_header %}
 
 <h1 class="niu2-index-title">
-<i class="fa {{ my_cat_icon }}"></i>{{ my_cat }}
+<i class="{{ my_cat_icon }}"></i>{{ my_cat }}
 </h1>
 
 {% endblock content_header %}

@@ -12,11 +12,11 @@
           {% set my_cat_icon = NIUX2_CATEGORY_MAP[category][1] %}
         {% else %}
           {% set my_cat = category %}
-          {% set my_cat_icon = "fa fa-folder-open" %}
+          {% set my_cat_icon = "icon-folder-open" %}
         {% endif %}
 
         <li><a href="{{ SITEURL }}/{{ category.url }}">
-            <i class="fa {{ my_cat_icon }}"></i>{{ my_cat }}
+            <i class="{{ my_cat_icon }}"></i>{{ my_cat }}
         </a>({{ n | count }})</li>
       {% endfor %}
       </ul>

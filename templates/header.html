@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="{{ SITEURL }}">
-            <i class="fa fa-home"></i>{{ SITENAME }}
+            <i class="icon-home"></i>{{ SITENAME }}
         </a>
     </div>
     <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
@@ -15,15 +15,15 @@
         {% if NIUX2_HEADER_SECTIONS %}
         {% for section in NIUX2_HEADER_SECTIONS %}
             <li><a href="{{ section[2] }}" title="{{ section[1] }}">
-                <i class="fa {{ section[3] }}"></i>{{ section[0] }}</a>
+                <i class="{{ section[3] }}"></i>{{ section[0] }}</a>
             </li>
         {% endfor %}
         {% else %}
         <li><a href="{{ SITEURL }}/{{ TAGS_SAVE_AS | default('tags.html') }}">
-                <i class="fa fa-tag"></i>{{ NIUX2_TAG_TRANSL | default("Tag") }}</a>
+                <i class="icon-tag"></i>{{ NIUX2_TAG_TRANSL | default("Tag") }}</a>
         </li>
         <li><a href="{{ SITEURL }}/{{ ARCHIVE_SAVE_AS | default('archives.html') }}">
-                <i class="fa fa-archive"></i>{{ NIUX2_ARCHIVE_TRANSL | default("Archive") }}
+                <i class="icon-archive"></i>{{ NIUX2_ARCHIVE_TRANSL | default("Archive") }}
             </a>
         </li>
         {% endif %}
@@ -31,15 +31,15 @@
         {% if NIUX2_CATEGORY_MAP %}
         <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-folder-open"></i>{{ NIUX2_CATEGORY_TRANSL | default("Category") }}<b class="caret"></b>
+                <i class="icon-folder-open"></i>{{ NIUX2_CATEGORY_TRANSL | default("Category") }}<b class="caret"></b>
            </a>
            <ul class="dropdown-menu">
                {% for cat, article_list in categories %}
                <li><a href="{{ SITEURL }}/{{ cat.url }}">
                    {% if NIUX2_CATEGORY_MAP[cat] %}
-                      <i class="fa {{ NIUX2_CATEGORY_MAP[cat][1] }}"></i>{{ NIUX2_CATEGORY_MAP[cat][0] }}
+                      <i class="{{ NIUX2_CATEGORY_MAP[cat][1] }}"></i>{{ NIUX2_CATEGORY_MAP[cat][0] }}
                    {% else %}
-                   <i class="fa fa-folder-close"></i>{{ cat }}
+                   <i class="icon-folder-close"></i>{{ cat }}
                    {% endif %}
                       ({{ article_list | count }})</a></li>
                {% endfor %}
@@ -51,12 +51,12 @@
         {% for dpsection, dplinks in NIUX2_HEADER_DROPDOWN_SECTIONS.items() %}
         <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-               <i class="fa {{ dpsection[1] }}"></i>{{ dpsection[0] }}<b class="caret"></b>
+               <i class="{{ dpsection[1] }}"></i>{{ dpsection[0] }}<b class="caret"></b>
            </a>
            <ul class="dropdown-menu">
            {% for link in dplinks %}
                <li><a href="{{ link[2] }}" title="{{ link[1] }}">
-                 <i class="fa {{ link[3] }}"></i>{{ link[0] }}</a>
+                 <i class="{{ link[3] }}"></i>{{ link[0] }}</a>
                </li>
            {% endfor %}
            </ul>
@@ -83,7 +83,7 @@
                 </form>
            </div>
            <div id="niu2-cse-ctrl-box" class="navbar-nav">
-            <i id="niu2-cse-search-image" class="fa fa-search navbar-nav"></i><span id="niu2-cse-search-text">{{ NIUX2_SEARCH_TRANSL | default("Search") }}</span>
+            <i id="niu2-cse-search-image" class="icon-search navbar-nav"></i><span id="niu2-cse-search-text">{{ NIUX2_SEARCH_TRANSL | default("Search") }}</span>
            </div>
        </div>
        </li>

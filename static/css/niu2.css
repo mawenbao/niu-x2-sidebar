@@ -1,4 +1,4 @@
-/*
+/*!
  * built with boostrap3 
  * @navbar-height: 30px
  * @nav-link-padding: 7px
@@ -18,6 +18,8 @@ code {
 
 i {
     margin-right: 4px;
+    display: inline-block;
+    vertical-align: -4%;
 }
 
 h2:first-child {
@@ -650,6 +652,40 @@ h4:before, h5:before, h6:before {
     left: 45%;
     color: #fff;
 }
+
+/* helper classes for icomoon fonts */
+@-webkit-keyframes anim-rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes anim-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.icon-spin {
+    -webkit-animation: anim-rotate 2s infinite linear;
+    animation: anim-rotate 2s infinite linear;
+}
+
+.icon-lg {
+    font-size: 1.33333333em;
+    line-height: .75em;
+    vertical-align: -15%;
+}
+.icon-2x { font-size: 2em; }
+.icon-3x { font-size: 3em; }
+.icon-4x { font-size: 4em; }
+.icon-5x { font-size: 5em; }
 
 @media (max-width: 767px) {
 

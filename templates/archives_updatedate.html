@@ -2,7 +2,7 @@
 {% block title %}{{ NIUX2_ARCHIVE_UPDATEDATE_TRANSL | default("Archives (by updatedate)") }} - {{ super() }} {% endblock %}
 {% block content %}
 <div class="col-md-8 col-md-offset-2">
-    <h1><i class="fa fa-archive"></i>{{ NIUX2_ARCHIVE_UPDATEDATE_TRANSL | default("Archives (by updatedate)") }}</h1>
+    <h1><i class="icon-archive"></i>{{ NIUX2_ARCHIVE_UPDATEDATE_TRANSL | default("Archives (by updatedate)") }}</h1>
 	<div id="niu2-archives">
 	{% set allLists = [] %}
 	{% for article in articles_updatedate %}

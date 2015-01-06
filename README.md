@@ -1,6 +1,6 @@
 # Niu-X2-Sidebar
 
-Niu-X2-Sidebar is a responsive theme for pelican, built with bootstrap3 and font-awesome.
+Niu-X2-Sidebar is a responsive theme for pelican, built with bootstrap3.
 
 As I am pretty new to bootstrap and jinja2, the codes look messy and may be buggy. If you find any bugs, please let me know.
 
@@ -15,7 +15,6 @@ BSD 3-Clause License. Please see LICENSE.txt for more details.
 You can check my blog [blog.atime.me](http://blog.atime.me) for a live demo.
 
 ## Features
-*  Bootstrap3.0.0, font-awesome4.0 and jQuery1.10 included.
 *  <del>Responsive. </del>
 *  Disqus, duoshuo, google analytics and google custom search support.
 *  Pagination bar with customizable length. 
@@ -28,7 +27,7 @@ You can check my blog [blog.atime.me](http://blog.atime.me) for a live demo.
 *  Pygments theme support.
 *  Categories shown in a dropdown list.
 *  Category aliases, which should be useful when you set `USE_FOLDER_AS_CATEGORY` to `True`.
-*  Custom dropdown menu, footer links and footer icons through pelican configuration with font-awesome icons.
+*  Custom dropdown menu, footer links and footer icons through pelican configuration with custom icons.
 *  Translations through pelican configuration.
 *  Lazy load images with the jquery.lazy.load plugin. (You have to manually set `NIUX2_LAZY_LOAD` as True)
 *  A toolbar.
@@ -68,7 +67,7 @@ Currently the following pelican configuration variables are supported:
 Note that:
 
 *  All the following theme configuration variables are optional.
-*  All the icons come from font awesome. You can find the icon class name [here](http://fortawesome.github.io/Font-Awesome/icons/).
+*  All the icons are selected from [iconmoon](https://icomoon.io)(most of them are from font-awesome). You can select your own icons from [here](https://icomoon.io/app/).
 
 ### Enable/Disable comments
 
@@ -215,7 +214,7 @@ Currently, there is not a search result page in this theme, so I suggest that yo
 *  `NIUX2_DUOSHUO_SHORTNAME` string(default None), your duoshuo shortname. Note that if `DISQUS_SITENAME` is set, duoshuo will not be loaded.
 *  `NIUX2_DUOSHUO_THREAD_KEY` string(default ""), type of your duoshuo thread key. If you want to use article's slug for its thread key, change it to `slug', or it will use part of the article's url as its thread key by default.
 *  `NIUX2_LIB_THEME` string(default SITEURL+'/theme'), url of niu-x2-sidebar theme root
-*  `NIUX2_LIB_FONTAWESOME` string(default SITEURL+'/theme/font-awesome'), url of font-awesome
+*  `NIUX2_LIB_FONT_ICONS` string(default SITEURL+'/theme/font-icons'), url of your custom font icons.
 *  `NIUX2_LIB_BOOTSTRAP` string(default SITEURL+'/theme'), url of bootstrap library
 *  `NIUX2_LIB_JQUERY` string(default SITEURL+'/theme/js/jquery-1.10.2.min.js'), url of jquery
 *  `NIUX2_LAZY_LOAD` bool(default False), enable lazy loading images.
