@@ -111,7 +111,7 @@ function initToolbar() {
             $('#niu2-toolbar-viewsource').attr('href', 'https://bitbucket.org/' + bitbucketRepo + '/raw/master/content' + docPath);
         }
 
-        // init load-pic overly
+        // init loading overly
         $('<div id="niu2-loading-overly" style="display:none;"><i id="niu2-loading-icon" class="icon-spinner2 icon-3x icon-spin"></i></div>').appendTo('body');
 
         var leftContainer = $('#niu2-left-container');
