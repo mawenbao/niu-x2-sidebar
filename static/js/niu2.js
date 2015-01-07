@@ -55,7 +55,7 @@ function onContentLoaded() {
     initTocListIndex(getTocList());
     getTocList().appendTo(getSidebarToc());
 
-    setSidebarTocSize();
+    setSidebarTocWidth();
     setTocOverflowedTitle();
 
     initTocLinkScrollAnimation();
@@ -262,8 +262,9 @@ function getMainContentHeaders() {
     return window.gMainContentHeaders;
 }
 
-function setSidebarTocSize() {
-    getSidebarToc().attr('style', 'max-width:' + getSidebarToc().width() + 'px;');
+function setSidebarTocWidth() {
+    var tocMaxWidth = getSidebarToc().width();
+    getSidebarToc().attr('style', 'max-width:' + tocMaxWidth + 'px');
 }
 
 function resetSidebarToc() {
@@ -489,6 +490,7 @@ function getSidebarToc() {
 function getTocList() {
     if (!window.gTocList) {
         window.gTocList = $('#niu2-sidebar-toc-list');
+        window.gTocListType = window.gTocList[0].tagName.toLowerCase();
     }
     return window.gTocList;
 }
@@ -577,9 +579,10 @@ function autoscrollTocList() {
 function openActiveTocList(activeLi) {
     // show next level tocs
     var activeChilds = activeLi.children();
-    if (activeChilds.length > 2 && $(activeChilds[2]).is('ol')) {
-        showToc($(activeChilds[2]));  // show ol
-        showToc($(activeChilds[2]).children()); // show ol li
+    var currActiveChild = $(activeChilds[2]);
+    if (activeChilds.length > 2 && (currActiveChild.is('ol') || currActiveChild.is('ul'))) {
+        showToc(currActiveChild);  // show ol/ul
+        showToc(currActiveChild.children()); // show ol/ul li
     }
 
     // show active toc and his sibling tocs
@@ -599,13 +602,13 @@ function openActiveTocList(activeLi) {
 }
 
 function closeAllTocs() {
-    hideToc($('#niu2-sidebar-toc-list ol li'));
-    hideToc($('#niu2-sidebar-toc-list li ol'));
+    hideToc($('#niu2-sidebar-toc-list ' + window.gTocListType + ' li'));
+    hideToc($('#niu2-sidebar-toc-list li ' + window.gTocListType));
 }
 
 function openAllTocs() {
-    showToc($('#niu2-sidebar-toc-list ol li'));
-    showToc($('#niu2-sidebar-toc-list li ol'));
+    showToc($('#niu2-sidebar-toc-list ' + window.gTocListType + ' li'));
+    showToc($('#niu2-sidebar-toc-list li ' + window.gTocListType));
 }
 
 function initHeaderScrollAnimation(targets) {
@@ -1020,7 +1023,7 @@ function showToc(tocs) {
         var toc = $(elem);
         if (toc.is('li')) {
             toc.attr('style', 'display:list-item;');
-        } else if (toc.is('ol')) {
+        } else if (toc.is('ol') || toc.is('ul')) {
             toc.attr('style', 'display:block;');
         }
     });

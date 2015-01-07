@@ -36,7 +36,8 @@
         <div class="niu2-sidebar-label">
             <i id="niu2-sidebar-toc-ctrl" class="icon-open-tocs"></i>{{ NIUX2_HEADER_TOC_TRANSL | default("TOC") }}
         </div>
-        <ol id="niu2-sidebar-toc-list">
+        {% set toc_list_type = MY_TOC_LIST_TYPE if MY_TOC_LIST_TYPE else 'ul' %}
+        <{{ toc_list_type }} id="niu2-sidebar-toc-list">
             <li><a href="#content-heading">{{ article.title }}</a></li>
             {{ article.html_toc }}
             {% if (article.metadata['comment'] is not defined) or (article.metadata['comment'] | trim | upper == 'ON') %}
@@ -44,7 +45,7 @@
             <li><a href="#content-comments">{{ NIUX2_COMMENTS_TRANSL | default("Comments") }}</a></li>
             {% endif %}
             {% endif %}
-        </ol>
+        </{{ toc_list_type }}>
         {% endif %}
     </div>
 </div>
