@@ -15,7 +15,7 @@ BSD 3-Clause License. Please see LICENSE.txt for more details.
 You can check my blog [blog.atime.me](http://blog.atime.me) for a live demo.
 
 ## Features
-*  <del>Responsive. </del>
+*  Responsive.
 *  Disqus, duoshuo, google analytics and google custom search support.
 *  Pagination bar with customizable length. 
 *  Tagcloud implemented with [tagcloud.js](https://code.google.com/p/tagcloud) which supports incremental search.

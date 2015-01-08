@@ -142,6 +142,8 @@ function initToolbar() {
                         ctrlIcon.attr('class', 'icon-3x icon-show-sidebar');
                         ctrlSidebar.attr('title', showSidebarTitle);
                         loadingOverly.hide();
+                        // must reset cached objects of footnote refs and backrefs
+                        resetFootnoteCache();
                     });
                 });
                 footer.animate({width: '65%'}, leftCSlideDuration);
@@ -167,14 +169,12 @@ function initToolbar() {
                         window.gEnableTocStatusUpdate = true;
                         locateTocInViewport();
                         loadingOverly.hide();
+                        // must reset cached objects of footnote refs and backrefs
+                        resetFootnoteCache();
                     });
                 });
                 footer.animate({width: '50%'}, leftCSlideDuration);
             }
-            // must reset cached objects of footnote refs and backrefs
-            resetFootnoteRefs();
-            resetFootnoteBackRefs();
-            resetFootnoteRefMap();
         });
     }
 }
@@ -744,6 +744,12 @@ function unhighlightFootnote() {
         unhighlightSubBackref(window.gHlFootnoteSubBackref);
         return;
     }
+}
+
+function resetFootnoteCache() {
+    resetFootnoteRefs();
+    resetFootnoteBackRefs();
+    resetFootnoteRefMap();
 }
 
 function resetFootnoteRefs() {
