@@ -136,7 +136,7 @@ function initToolbar() {
                 markVerticalPosition();
                 rightContainers.fadeOut('fast');
                 leftContainer.removeClass('with-right-border');
-                leftContainer.animate({width: '65%'}, leftCSlideDuration, complete=function() {
+                leftContainer.animate({width: '67%'}, leftCSlideDuration, complete=function() {
                     restoreVerticalPosition(function() {
                         enableSidebarCtrlButton();
                         ctrlIcon.attr('class', 'icon-3x icon-show-sidebar');
@@ -146,7 +146,7 @@ function initToolbar() {
                         resetFootnoteCache();
                     });
                 });
-                footer.animate({width: '65%'}, leftCSlideDuration);
+                footer.animate({width: '67%'}, leftCSlideDuration);
             } else {
                 markVerticalPosition();
                 leftContainer.animate({width: '50%'}, leftCSlideDuration, complete=function() {

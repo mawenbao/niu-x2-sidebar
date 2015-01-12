@@ -1,36 +1,34 @@
-<div class="niu2-footer">
-    <hr/>
-	<p>
-		Powered by <a href="https://github.com/getpelican/pelican">Pelican</a>, 
-        <a href="https://github.com/mawenbao/niu-x2-sidebar">theme</a> built with <a href="http://getbootstrap.com">Bootstrap3</a>
-		by <a href="http://blog.atime.me">Ma Wenbao</a>, icons by 
-		<a href="http://fortawesome.github.io/Font-Awesome">Font Awesome</a>.
-	</p>
-	<p>
-		©
-        {% if all_articles is defined %}
-            {% set articles = all_articles %}
+<hr/>
+<p>
+    Powered by <a href="https://github.com/getpelican/pelican">Pelican</a>, 
+    <a href="https://github.com/mawenbao/niu-x2-sidebar">theme</a> built with <a href="http://getbootstrap.com">Bootstrap3</a>
+    by <a href="http://blog.atime.me">Ma Wenbao</a>, icons by 
+    <a href="http://fortawesome.github.io/Font-Awesome">Font Awesome</a>.
+</p>
+<p>
+    ©
+    {% if all_articles is defined %}
+        {% set articles = all_articles %}
+    {% endif %}
+    {% if articles[0] %}
+        {% if articles[0].date.year == articles[-1].date.year %}
+            {{ articles[0].date.year }}
+        {% else %}
+            {{ articles[-1].date.year }}-{{ articles[0].date.year }}
         {% endif %}
-		{% if articles[0] %}
-			{% if articles[0].date.year == articles[-1].date.year %}
-				{{ articles[0].date.year }}
-			{% else %}
-				{{ articles[-1].date.year }}-{{ articles[0].date.year }}
-			{% endif %}
-		{% else %}
-		     2013
-		{% endif %}
-		<a class="niu2-footer-link" href="{{ SITEURL }}">{{ AUTHOR | default("") }}</a>
-		{% for link in NIUX2_FOOTER_LINKS %}
-        / {% if link[3] %} <i class="{{ link[3] }}"></i> {% endif %}
-			<a class="niu2-footer-link" href="{{ link[2] }}" title="{{ link[1] }}">{{ link[0] }}</a>
-		{% endfor %}
-    </p>
-    <p class="niu2-icons">
-	    {% for icon in NIUX2_FOOTER_ICONS %}
-	        <a class="niu2-footer-icon" href="{{ icon[2] }}" title="{{ icon[1] }}">
-	            <i class="{{ icon[0] }} icon-lg"></i>
-	        </a>
-	    {% endfor %}
-	</p>
-</div>
+    {% else %}
+         2013
+    {% endif %}
+    <a class="niu2-footer-link" href="{{ SITEURL }}">{{ AUTHOR | default("") }}</a>
+    {% for link in NIUX2_FOOTER_LINKS %}
+    / {% if link[3] %} <i class="{{ link[3] }}"></i> {% endif %}
+        <a class="niu2-footer-link" href="{{ link[2] }}" title="{{ link[1] }}">{{ link[0] }}</a>
+    {% endfor %}
+</p>
+<p class="niu2-icons">
+    {% for icon in NIUX2_FOOTER_ICONS %}
+        <a class="niu2-footer-icon" href="{{ icon[2] }}" title="{{ icon[1] }}">
+            <i class="{{ icon[0] }} icon-lg"></i>
+        </a>
+    {% endfor %}
+</p>

@@ -231,7 +231,7 @@ img {
 }
 
 .niu2-right-container {
-    margin-left: 5px;
+    padding-left: 16px;
 }
 
 a.niu2-active-toc, a.niu2-active-toc:hover {
@@ -552,6 +552,11 @@ a.niu2-toggle-ctrl:hover {
 #niu2-archives {
     font-size: 15px;
     line-height: 1.7;
+}
+
+#niu2-archives .panel {
+    box-shadow: none;
+    margin-bottom: 10px;
 }
 
 #niu2-archives ul {
