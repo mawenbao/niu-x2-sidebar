@@ -414,8 +414,9 @@ img {
 
 #niu2-cse-search-input {
 	width: 150px;
-    height: 20px;
+    height: 21px;
     padding: 1px 3px;
+    margin-top: 1px;
 }
 
 #niu2-cse-ctrl-box {
