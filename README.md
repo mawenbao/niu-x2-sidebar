@@ -67,7 +67,7 @@ Currently the following pelican configuration variables are supported:
 Note that:
 
 *  All the following theme configuration variables are optional.
-*  All the icons are selected from [iconmoon](https://icomoon.io)(most of them are from font-awesome). You can select your own icons from [here](https://icomoon.io/app/).
+*  All the icons are selected from [iconmoon](https://icomoon.io)(most of them are from font-awesome). You can select your own icons from [here](https://icomoon.io/app/) and replace the default icons at `static/font-icons`.
 
 ### Enable/Disable comments
 
