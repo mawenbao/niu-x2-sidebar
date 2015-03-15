@@ -216,6 +216,7 @@ Currently, there is not a search result page in this theme, so I suggest that yo
 *  `NIUX2_DUOSHUO_THREAD_KEY` string(default ""), type of your duoshuo thread key. If you want to use article's slug for its thread key, change it to `slug', or it will use part of the article's url as its thread key by default.
 *  `NIUX2_LIB_THEME` string(default SITEURL+'/theme'), url of niu-x2-sidebar theme root
 *  `NIUX2_LIB_FONT_ICONS` string(default SITEURL+'/theme/font-icons'), url of your custom font icons.
+*  `NIUX2_LIB_FONTAWESOME` string(default '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/'), url of font awesome icons.
 *  `NIUX2_LIB_BOOTSTRAP` string(default SITEURL+'/theme'), url of bootstrap library
 *  `NIUX2_LIB_JQUERY` string(default SITEURL+'/theme/js/jquery-1.10.2.min.js'), url of jquery
 *  `NIUX2_LAZY_LOAD` bool(default False), enable lazy loading images.
