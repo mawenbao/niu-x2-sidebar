@@ -213,7 +213,7 @@ Currently, there is not a search result page in this theme, so I suggest that yo
 *  `NIUX2_FOOTER_LINKS` a `NIUX2_HEADER_SECTIONS` format list shown right after your copyright info in the footer section
 *  `NIUX2_DISPLAY_TITLE` boolean(default True), whether to display the title of article and page
 *  `NIUX2_DUOSHUO_SHORTNAME` string(default None), your duoshuo shortname. Note that if `DISQUS_SITENAME` is set, duoshuo will not be loaded.
-*  `NIUX2_DUOSHUO_THREAD_KEY` string(default ""), type of your duoshuo thread key. If you want to use article's slug for its thread key, change it to `slug', or it will use part of the article's url as its thread key by default.
+*  `NIUX2_DUOSHUO_THREAD_KEY` string(default ""), type of your duoshuo thread key. If you want to use article's slug for its thread key, change it to 'slug' or 'date' for using article's date. Otherwise, it will use part of the article's url as its thread key by default.
 *  `NIUX2_LIB_THEME` string(default SITEURL+'/theme'), url of niu-x2-sidebar theme root
 *  `NIUX2_LIB_FONT_ICONS` string(default SITEURL+'/theme/font-icons'), url of your custom font icons.
 *  `NIUX2_LIB_FONTAWESOME` string(default '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/'), url of font awesome icons.
