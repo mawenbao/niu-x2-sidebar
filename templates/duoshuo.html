@@ -2,8 +2,10 @@
 {% set thread_key = '/' ~ content.url %}
 {% if content.settings['NIUX2_DUOSHUO_THREAD_KEY'] == 'slug' %}
     {% set thread_key = content.slug %}
+{% elif content.settings['NIUX2_DUOSHUO_THREAD_KEY'] == 'date' %}
+    {% set thread_key = content.date.strftime('%Y-%m-%d %H:%M:%S') %}
 {% endif %}
-<div class="ds-thread" data-thread-key="{{ thread_key }}" data-title="{{ content.title }}" data-url="{{ content._context['SITEURL'] }}/{{ content.url }}"></div>
+<div class="ds-thread" data-thread-key="{{ thread_key }}" data-title="{{ content.title|e }}" data-url="{{ content._context['SITEURL'] }}/{{ content.url }}"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

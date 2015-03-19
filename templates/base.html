@@ -4,6 +4,7 @@
     {% set theme_loc = NIUX2_LIB_THEME if NIUX2_LIB_THEME else SITEURL + '/theme' %}
     {% set bootstrap_loc = NIUX2_LIB_BOOTSTRAP if NIUX2_LIB_BOOTSTRAP else SITEURL + '/theme' %}
     {% set icons_loc = NIUX2_LIB_FONT_ICONS if NIUX2_LIB_FONT_ICONS else SITEURL + '/theme/font-icons' %}
+    {% set font_awesome_loc = NIUX2_LIB_FONTAWESOME if NIUX2_LIB_FONTAWESOME else '' %}
     {% block head %}
     {% block head_init %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -12,6 +13,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ NIUX2_FAVICON_URL | default('/favicon.png') }}">
     <link rel="stylesheet" href="{{ bootstrap_loc }}/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="{{ icons_loc }}/style.min.css" type="text/css" />
+    {% if NIUX2_LIB_FONTAWESOME %}
+    <link rel="stylesheet" href="{{ font_awesome_loc }}/css/font-awesome.min.css">
+    {% endif %}
     <link rel="stylesheet" href="{{ theme_loc }}/css/niu2.min.css" type="text/css" />
     {% endblock head_init %}
     
