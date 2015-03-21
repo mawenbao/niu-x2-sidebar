@@ -13,6 +13,8 @@ BSD 3-Clause License. Please see LICENSE.txt for more details.
 ![Demo image of niu-x2 theme](https://raw.github.com/mawenbao/niu-x2-sidebar/master/screenshot.png "niu-x2-sidebar demo image")
 
 You can check my blog [blog.atime.me](http://blog.atime.me) for a live demo.
+Other live demo:
+1. [J-Cn.me](http://J-Cn.me)
 
 ## Features
 *  Responsive.
@@ -68,6 +70,10 @@ Note that:
 
 *  All the following theme configuration variables are optional.
 *  All the icons are selected from [iconmoon](https://icomoon.io)(most of them are from font-awesome). You can select your own icons from [here](https://icomoon.io/app/) and replace the default icons at `static/font-icons`.
+
+### Custom home name
+
+* `NIUX2_HOME_NAME`, defalut SITENAME.  
 
 ### Enable/Disable comments
 
