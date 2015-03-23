@@ -20,6 +20,7 @@
     <div id="niu2-main-content">
         {{ article.content }}
     </div>
+    {% include "article_nav.html" %}
     {% from "comments_wrapper.html" import niu2_comments %}
     {{ niu2_comments(article) }}
 </div>
