@@ -1,0 +1,18 @@
+{% if article.prev_article_in_category %}
+<hr/>
+{% if article.prev_article_in_category %}
+<div style="float:left;">
+	上一篇: <a href="{{ SITEURL }}/{{ article.prev_article_in_category.url}}" align='left'>
+	 {{ article.prev_article_in_category.title }}
+	</a>
+</div>
+{% endif %}
+{% if article.next_article_in_category %}
+<div style="float:right;">
+	下一篇: <a href="{{ SITEURL }}/{{ article.next_article_in_category.url}}" align='right'>
+	 {{ article.next_article_in_category.title }}
+	</a>
+</div>
+{% endif %}
+</p>
+{% endif %}

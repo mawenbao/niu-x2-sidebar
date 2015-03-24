@@ -95,6 +95,10 @@ You should add the following setting to your pelican configuration.
         "archives_updatedate.html": "archives_updatedate.html",
     }
 
+### Article Navigation
+[Neighbors](https://github.com/getpelican/pelican-plugins/tree/f7174a25b47675ed8429f432ef3a682c55c2fcf1/neighbors) is needed.  
+Using *_article_in_category by default.
+
 ### Lazy load images
 This function requires the [niux2_lazyload_helper](https://github.com/mawenbao/niux2_lazyload_helper) plugin.
 
