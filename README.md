@@ -13,7 +13,9 @@ BSD 3-Clause License. Please see LICENSE.txt for more details.
 ![Demo image of niu-x2 theme](https://raw.github.com/mawenbao/niu-x2-sidebar/master/screenshot.png "niu-x2-sidebar demo image")
 
 You can check my blog [blog.atime.me](http://blog.atime.me) for a live demo.
-Other live demo:
+
+Other demos:
+
 1. [J-Cn.me](http://J-Cn.me)
 
 ## Features

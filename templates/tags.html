@@ -26,7 +26,7 @@ tc.setup('niu2-tagcloud');
 <div class="col-md-8 col-md-offset-2">
     <h1><i class="icon-tags"></i>{{ NIUX2_TAG_TRANSL | default("Tag") }}</h1>
     <input id="niu2-tagcloud-filter-input" type="text" placeholder="{{ NIUX2_TAG_FILTER_TRANSL | default("filter tags") }}"
-           class="form-control pull-left" onkeyup="tag_filter()">
+           class="form-control pull-left" onkeyup="tag_filter()" autofocus>
     <button class="btn btn-success niu2-button" 
             onclick="$('#niu2-tagcloud-filter-input').val('');tag_filter()">{{ NIUX2_TAG_CLEAR_TRANSL | default("clear") }}</button>
     <div id="niu2-tagcloud">
