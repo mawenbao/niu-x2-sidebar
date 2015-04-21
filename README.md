@@ -184,6 +184,24 @@ Currently, there is not a search result page in this theme, so I suggest that yo
             ],
     ]
 
+### Apple touch icons
+Example configuraton:
+
+    # sizes => href
+    NIUX2_APPLE_ICON_MAP = { 
+        '76x76': '/apple-touch-icon-76x76.png',
+        '120x120': '/apple-touch-icon-120x120.png',
+        '152x152': '/apple-touch-icon-152x152.png',
+    }
+
+    EXTRA_PATH_METADATA = {
+        'extra/apple-touch-icon-76x76.png': { 'path': 'apple-touch-icon-76x76.png' },
+        'extra/apple-touch-icon-120x120.png': { 'path': 'apple-touch-icon-120x120.png' },
+        'extra/apple-touch-icon-152x152.png': { 'path': 'apple-touch-icon-152x152.png' },
+    }
+
+And then drop your apple touch icons into the `content/extra` directory.
+
 ### Footer icons
 
 `NIUX2_FOOTER_ICONS` is a list of icon links shown in the footer section. Each element follows the format `(icon class, link title, link href)`, e.g.:
