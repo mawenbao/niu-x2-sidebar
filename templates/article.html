@@ -2,29 +2,28 @@
 
 {% block title %}{{ article.title }} - {{ super() }}{% endblock %}
 {% block head_init -%}
-    {{ super() }}
-    <link rel="canonical" href="{{ SITEURL }}/{{ article.url }}" />
-{% endblock %}
+    {{ super() }}        <link rel="canonical" href="{{ SITEURL }}/{{ article.url }}" />
+{%- endblock %}
 
-{%- block js_on_body_ready -%}
-    onContentLoaded();
-{%- endblock js_on_body_ready -%}
+{% block js_on_body_ready %}
+            onContentLoaded();
+{% endblock js_on_body_ready %}
 
 {% block content %}
-<div class="col-md-8 col-md-offset-2">
-    {% if (NIUX2_DISPLAY_TITLE is not defined) or NIUX2_DISPLAY_TITLE %}
-    <h1 id="content-heading">{{ article.title }}</h1>
-    {% endif %}
-</div>
-<div id="niu2-left-container" class="col-md-6 col-md-offset-2 with-right-border">
-    <div id="niu2-main-content">
-        {{ article.content }}
-    </div>
-    {% include "article_nav.html" %}
-    {% from "comments_wrapper.html" import niu2_comments %}
-    {{ niu2_comments(article) }}
-</div>
-{% include "article_sidebar.html" %}
-{% include "toolbar.html" %}
+            <div class="col-md-8 col-md-offset-2">
+                {% if (NIUX2_DISPLAY_TITLE is not defined) or NIUX2_DISPLAY_TITLE %}
+                <h1 id="content-heading">{{ article.title }}</h1>
+                {% endif %}
+            </div>
+            <div id="niu2-left-container" class="col-md-6 col-md-offset-2 with-right-border">
+                <div id="niu2-main-content">
+                    {{ article.content }}
+                </div>
+                {% include "article_nav.html" %}
+                {% from "comments_wrapper.html" import niu2_comments %}
+                {{ niu2_comments(article) }}
+            </div>
+            {% include "article_sidebar.html" %}
+            {% include "toolbar.html" %}
 {% endblock %}
 
