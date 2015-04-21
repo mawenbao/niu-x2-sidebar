@@ -3,7 +3,7 @@
 {% block title %}{{ article.title }} - {{ super() }}{% endblock %}
 {% block head_init -%}
     {{ super() }}        <link rel="canonical" href="{{ SITEURL }}/{{ article.url }}" />
-{%- endblock %}
+{% endblock %}
 
 {% block js_on_body_ready %}
             onContentLoaded();
