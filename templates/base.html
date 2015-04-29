@@ -11,11 +11,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
         <link rel="shortcut icon" type="image/x-icon" href="{{ NIUX2_FAVICON_URL | default('/favicon.png') }}">
-        {% if NIUX2_APPLE_ICON_MAP %}
-            {% for apl_ico_sizes in NIUX2_APPLE_ICON_MAP %}
-        <link rel="apple-touch-icon" sizes="{{ apl_ico_sizes }}" href="{{ NIUX2_APPLE_ICON_MAP[apl_ico_sizes] }}">
-            {% endfor %}
-        {% endif %}
+        {% for apl_ico_sizes in NIUX2_APPLE_ICON_MAP %}
+        <link rel="apple-touch-icon" {%- if apl_ico_sizes %} sizes="{{ apl_ico_sizes }}" {%- endif %} href="{{ NIUX2_APPLE_ICON_MAP[apl_ico_sizes] }}">
+        {% endfor %}
+        {% for apl_ico_sizes in NIUX2_APPLE_PRECOMPOSED_ICON_MAP %}
+        <link rel="apple-touch-icon-precomposed" {%- if apl_ico_sizes %} sizes="{{ apl_ico_sizes }}" {%- endif %} href="{{ NIUX2_APPLE_PRECOMPOSED_ICON_MAP[apl_ico_sizes] }}">
+        {% endfor %}
         <link rel="stylesheet" href="{{ bootstrap_loc }}/css/bootstrap.min.css" type="text/css" />
         <link rel="stylesheet" href="{{ icons_loc }}/style.min.css" type="text/css" />
         {% if NIUX2_LIB_FONTAWESOME %}

@@ -189,9 +189,16 @@ Example configuraton:
 
     # sizes => href
     NIUX2_APPLE_ICON_MAP = { 
+        '': '/apple-touch-icon-57x57.png'
         '76x76': '/apple-touch-icon-76x76.png',
         '120x120': '/apple-touch-icon-120x120.png',
         '152x152': '/apple-touch-icon-152x152.png',
+    }
+    NIUX2_APPLE_PRECOMPOSED_ICON_MAP = {
+        '': '/apple-touch-icon-precomposed-57x57.png'
+        '76x76': '/apple-touch-icon-precomposed-76x76.png',
+        '120x120': '/apple-touch-icon-precomposed-120x120.png',
+        '152x152': '/apple-touch-icon-precomposed-152x152.png',
     }
 
     EXTRA_PATH_METADATA = {
