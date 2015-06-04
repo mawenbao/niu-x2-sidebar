@@ -33,6 +33,17 @@
             <script src="{{ theme_loc }}/js/respond.min.js"></script>
         <![endif]-->
         {% endblock head %}
+        {% if NIUX2_BAIDU_TJ %}
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//hm.baidu.com/hm.js?{{ NIUX2_BAIDU_TJ }}";
+                var s = document.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+        {% endif %}
     </head>
     <body> 
         <div id="body-header">

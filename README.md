@@ -244,6 +244,7 @@ And then drop your apple touch icons into the `content/extra` directory.
 
 ### Misc settings
 
+*  `NIUX2_BAIDU_TJ` string(default ""), baidu tongji id.
 *  `NIUX2_TOOLBAR_LOAD_ICON` string(default "icon-spin icon-4x icon-spinner"), the class of the rotating icon which shows on top the whole page when we hide/show sidebar toc.
 *  `NIUX2_PAGINATOR_LENGTH` int(default 11), the length of your pagination bar
 *  `NIUX2_FAVICON_URL` string(default "/favicon.png"), your favicon url

@@ -6,7 +6,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="{{ SITEURL }}">
+                        <a class="navbar-brand" href="{{ SITEURL | default('/') }}">
                             <i class="icon-home"></i>{{ NIUX2_HOME_NAME if NIUX2_HOME_NAME else SITENAME}}
                         </a>
                     </div>
