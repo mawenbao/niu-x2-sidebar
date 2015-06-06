@@ -159,41 +159,42 @@
                 a = e.length - 1;
             J.fn.each(e, function (k) {
                 var i = this;
-                var h = i.getAttribute("xiami");
-                var g = i.getAttribute("netease");
+                var songAjaxReqs = [];
                 var result = {
                     collect_id: 12345,
                     songs: []
                 };
                 // parse additional songs first
-                jQuery(".hermit-add-song").each(function(i, e) {
+                jQuery(".hermit-add-song").each(function(ind, song) {
                     result.songs.push({
-                        name: jQuery(e).data("title"),
-                        url: jQuery(e).data("url"),
-                        artists: jQuery(e).data("author"),
+                        name: jQuery(song).data("title"),
+                        url: jQuery(song).data("url"),
+                        artists: jQuery(song).data("author"),
                     });
                 });
-                var musicParams = h ? h : g
-                var provider = h ? "xiami" : "netease"
-                var j = musicParams.split(":");
-                J.fn.ajaxp({
-                        url: "http://app.atime.me/music-api-server/",
-                        param: {
-                            p: provider,
-                            t: j[0],
-                            i: j[1]
-                        },
-                        after: function (e) {
-                            for (var xiamik in e.songs) {
-                                result.songs.push(e.songs[xiamik]);
-                            }
-                            J.fn.createPlayListUI.call(i, result, k);
-                            k == a && J.fn.autoPlay()
-                        }
+                // request for xiami and netease songs
+                jQuery(["xiami", "netease"]).each(function(ind, name) {
+                    stval = i.getAttribute(name);
+                    if (stval) {
+                        stid = stval.split(":");
+                        songAjaxReqs.push(jQuery.ajax({
+                            url: "http://app.atime.me/music-api-server/",
+                            data: { p: name, t: stid[0], i: stid[1] },
+                            success: function(retstr) {
+                                var retObj = jQuery.parseJSON(retstr);
+                                for (var song in retObj.songs) {
+                                    result.songs.push(retObj.songs[song]);
+                                }
+                            }}));
+                    }
                 });
-                if (! h && !g) {
+                jQuery.when.apply(undefined, songAjaxReqs).then(function () {
                     J.fn.createPlayListUI.call(i, result, k);
-                    k == a && J.fn.autoPlay()
+                    k == a && J.fn.autoPlay();
+                });
+                if (songAjaxReqs.length == 0) {
+                    J.fn.createPlayListUI.call(i, result, k);
+                    k == a && J.fn.autoPlay();
                 }
             });
         },
