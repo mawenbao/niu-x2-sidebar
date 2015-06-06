@@ -293,12 +293,12 @@
                 o = J.fn.getByClassName("hermit-listbutton", r, "div")[0],
                 p = J.fn.getByClassName("hermit-list", r, "div")[0],
                 j = J.fn.getByClassName("hermit-song", p, "div"),
-                a = (parseInt(J.fn._getStyle(j[0], "height")) + 1) * j.length,
+                //a = (parseInt(J.fn._getStyle(j[0], "height")) + 1) * j.length,
                 m = J.fn.getByClassName("hermit-prosess", r, "div")[0],
-                g = J.fn.getByClassName("hermit-prosess-after", m, "div")[0],
-                a = 360 >= a ? a : 360,
-                a = a + "px";
-            p.style.height = a;
+                g = J.fn.getByClassName("hermit-prosess-after", m, "div")[0];
+                //a = 360 >= a ? a : 360,
+                //a = a + "px";
+            //p.style.height = a;
             J.fn.each(j, function () {
                 var e = J.fn.index(r, J.fn.getByClassName("hermit"));
                 J.fn.bind(C, this, function () {
