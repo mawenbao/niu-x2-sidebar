@@ -11,6 +11,7 @@
                 {% endif %}
             </div>
 
+            {% if page.metadata['toc'] is not defined or page.metadata['toc'] != 'closed' %}
             <div id="niu2-sidebar-toc" class="niu2-sidebar" data-status="closed">
                 {% if page %}
                 <div class="niu2-sidebar-label">
@@ -27,4 +28,5 @@
                 </ol>
                 {% endif %}
             </div>
+            {% endif %}
 

@@ -25,5 +25,6 @@
             </div>
             {% include "article_sidebar.html" %}
             {% include "toolbar.html" %}
+            <div id="niu2-toc" data-style="{{ article.metadata['toc'] | default('static') }}"></div>
 {% endblock %}
 

@@ -29,6 +29,7 @@
                     {% endif %}
                 </div>
 
+                {% if article.metadata['toc'] is not defined or article.metadata['toc'] != 'closed' %}
                 <div id="niu2-sidebar-toc" class="niu2-sidebar" data-status="closed">
                     {% if article %}
                     <div class="niu2-sidebar-label">
@@ -46,5 +47,6 @@
                     </{{ toc_list_type }}>
                     {% endif %}
                 </div>
+                {% endif %}
             </div>
 
