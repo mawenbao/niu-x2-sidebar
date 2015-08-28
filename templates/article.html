@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 
+{% block seo_meta %}
+        {% if article.tags %}
+        <meta name="keywords" content="{{ article.tags | join(', ') }}">
+        {% endif %}
+        {% if article.metadata['desc'] is defined %}
+        <meta name="description" content="{{ article.metadata['desc'] }}">
+        {% elif article.summary is defined %}
+        <meta name="description" content="{{ article.summary | striptags }}">
+        {% endif %}
+{% endblock seo_meta %}
+
 {% block title %}{{ article.title }} - {{ super() }}{% endblock %}
 {% block head_init -%}
     {{ super() }}        <link rel="canonical" href="{{ SITEURL }}/{{ article.url }}" />

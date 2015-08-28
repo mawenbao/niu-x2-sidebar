@@ -7,8 +7,10 @@
         {% set font_awesome_loc = NIUX2_LIB_FONTAWESOME if NIUX2_LIB_FONTAWESOME else '' %}
         {% block head %}
         {% block head_init %}
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block seo_meta %}
+        {% endblock seo_meta %}
         <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
         <link rel="shortcut icon" type="image/x-icon" href="{{ NIUX2_FAVICON_URL | default('/favicon.png') }}">
         {% for apl_ico_sizes in NIUX2_APPLE_ICON_MAP %}

@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 
+{% block seo_meta %}
+        {% if page.tags %}
+        <meta name="keywords" content="{{ page.tags | join(', ') }}">
+        {% endif %}
+        {% if page.metadata['desc'] is defined %}
+        <meta name="description" content="{{ page.metadata['desc'] }}">
+        {% endif %}
+{% endblock seo_meta %}
+
 {% block title %}{{ page.title }} - {{ super() }}{% endblock %}
 {% block head_init -%}
     {{ super() }}        <link rel="canonical" href="{{ SITEURL }}/{{ page.url }}" />

@@ -66,6 +66,9 @@ Currently the following pelican configuration variables are supported:
 *  `DISQUS_SITENAME` is your disqus site ID.
 *  `GOOGLE_ANALYTICS` is your Google analytics ID.
 
+## SEO
+Currently this theme supports keywords meta tag and description meta tag. The content of keywords meta tag is set as the value of `Tags` metadata. And the content of description meta tag is set as the value of `Desc` metadata.
+
 ## Theme settings
 
 Note that:
