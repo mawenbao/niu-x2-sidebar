@@ -5,6 +5,8 @@
             {% include "disqus.html" %}
         {% elif content.settings['NIUX2_DUOSHUO_SHORTNAME'] %}
             {% include "duoshuo.html" %}
+        {% elif content.settings['NIUX2_CHANGYAN_APPID'] %}
+            {% include "changyan.html" %}
         {% endif %}
                 </div>
     {% endif %}

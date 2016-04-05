@@ -1,0 +1,11 @@
+                    <!-- 畅言 -->
+                    {% set thread_key = content.slug %}
+                    <div id="SOHUCS" sid="{{ thread_key }}"></div>
+                    <script charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/changyan.js" ></script>
+                    <script type="text/javascript">
+                        window.changyan.api.config({
+                            appid: '{{ content.settings['NIUX2_CHANGYAN_APPID'] }}',
+                            conf: 'prod_bc8bde45b418b5a981f441f2ed12071a'
+                        });
+                    </script>
+
