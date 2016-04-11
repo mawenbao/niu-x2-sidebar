@@ -16,7 +16,6 @@ You can check my blog [blog.atime.me](http://blog.atime.me) for a live demo.
 
 Other demos:
 
-1. [J-Cn.me](http://J-Cn.me)
 
 ## Features
 *  Responsive.
