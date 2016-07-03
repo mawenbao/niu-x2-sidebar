@@ -178,7 +178,7 @@
                     if (stval) {
                         stid = stval.split(":");
                         songAjaxReqs.push(jQuery.ajax({
-                            url: "http://app.atime.me/music-api-server/",
+                            url: "https://app.atime.me/music-api-server/",
                             data: { p: name, t: stid[0], i: stid[1] },
                             success: function(retstr) {
                                 var retObj = jQuery.parseJSON(retstr);
