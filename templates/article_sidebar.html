@@ -1,4 +1,4 @@
-            <div class="niu2-right-container col-md-2">
+            <div class="niu2-right-container col-md-2 with-left-border">
                 <div id="niu2-sidebar-meta" class="niu2-sidebar">
                     {% if NIUX2_AUTHOR_LINK %}
                     <div class="niu2-sidebar-label"><i class="icon-user" style="font-size: 1.05em;"></i>{{ NIUX2_AUTHOR_TRANSL | default("Author") }}:</div>
@@ -30,7 +30,7 @@
                 </div>
 
                 {% if article.metadata['toc'] is not defined or article.metadata['toc'] != 'closed' %}
-                <div id="niu2-sidebar-toc" class="niu2-sidebar" data-status="closed">
+                <div id="niu2-sidebar-toc" class="niu2-sidebar with-left-border" data-status="closed">
                     {% if article %}
                     <div class="niu2-sidebar-label">
                         <i id="niu2-sidebar-toc-ctrl" class="icon-open-tocs"></i>{{ NIUX2_HEADER_TOC_TRANSL | default("TOC") }}

@@ -230,6 +230,10 @@ img {
     border-right: 1px solid #ccc;
 }
 
+.with-left-border {
+    border-left: 1px solid #ccc;
+}
+
 .niu2-right-container {
     padding-left: 16px;
 }
@@ -294,6 +298,8 @@ a.niu2-active-toc:before {
 
 #niu2-sidebar-toc {
     margin-top: 10px !important;
+    margin-left: -17px;
+    padding-left: 17px;
     min-width: 210px !important;
 }
 
