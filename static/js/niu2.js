@@ -139,7 +139,6 @@ function initToolbar() {
             if (!rightContainers.is(':hidden')) {
                 markVerticalPosition();
                 rightContainers.fadeOut('fast');
-                leftContainer.removeClass('with-right-border');
                 leftContainer.animate({width: '67%'}, leftCSlideDuration, complete=function() {
                     restoreVerticalPosition(function() {
                         enableSidebarCtrlButton();
@@ -160,7 +159,6 @@ function initToolbar() {
                     // We have to detach fixed sidebar before doing the fadein animation,
                     // otherwise Chrome39 will behave weird(showing duplicate sidebar toc).
                     sidebarElems.detach();
-                    leftContainer.addClass('with-right-border');
                     window.gEnableTocStatusUpdate = false;
                     rightContainers.fadeIn('fast', complete=function() {
                         sidebarElems.appendTo(sidebarParent);
