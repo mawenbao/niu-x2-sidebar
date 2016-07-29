@@ -12,6 +12,8 @@ BSD 3-Clause License. Please see LICENSE.txt for more details.
 
 ![Demo image of niu-x2 theme](https://raw.github.com/mawenbao/niu-x2-sidebar/master/screenshot.png "niu-x2-sidebar demo image")
 
+[Live Demo](http://niu-x2-sidebar.mawenbao.com).
+
 ## Features
 *  Bootstrap3.0.0, font-awesome4.0 and jQuery1.10 included.
 *  <del>Responsive. </del>
