@@ -5,8 +5,9 @@
     <h1><i class="icon-archive"></i>{{ NIUX2_ARCHIVE_UPDATEDATE_TRANSL | default("Archives (by updatedate)") }}</h1>
 	<div id="niu2-archives">
 	{% set allLists = [] %}
+    {% set monthList = [] %}
 	{% for article in articles_updatedate %}
-           {% if loop.first or article.updatedate.strftime('%Y %m') != articles_updatedate[loop.index0-1].updatedate.strftime('%Y %m') %}
+           {% if article.updatedate.strftime('%Y %m') != articles_updatedate[loop.index0-1].updatedate.strftime('%Y %m') %}
                {% set monthList = [] %}
            {% endif %}
            {% do monthList.append(article) %}
